@@ -1,8 +1,8 @@
-//@author Francois Farlan
-
-
 package fr.eni.encheres.bo;
 
+/**
+ * @author sheilaJava
+ */
 
 import java.time.LocalDate;
 
