@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticlesVendu {
+public class Articles {
 
     private Integer noArticle;
     private String nomArticle;
@@ -24,10 +24,10 @@ public class ArticlesVendu {
     private List<Utilisateur> utilisateurs = new ArrayList<>();
 
     //Constructeur vide
-    public ArticlesVendu() {
+    public Articles() {
     }
 
-    public ArticlesVendu(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, boolean etatVente, Categorie categorieArticle) {
+    public Articles(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, boolean etatVente, Categorie categorieArticle) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -40,8 +40,8 @@ public class ArticlesVendu {
     }
 
     //Constructeur sans ID.
-    public ArticlesVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-                         float miseAPrix, float prixVente, boolean etatVente, Categorie categorieArticle) {
+    public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+                    float miseAPrix, float prixVente, boolean etatVente, Categorie categorieArticle) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -53,7 +53,7 @@ public class ArticlesVendu {
     }
 
     //Constrcteur sans catégorie de Catégorie.
-    public ArticlesVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, boolean etatVente) {
+    public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, boolean etatVente) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
