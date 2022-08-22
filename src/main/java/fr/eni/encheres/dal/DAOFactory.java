@@ -1,4 +1,11 @@
 package fr.eni.encheres.dal;
 
-public class DAOFactory {
+public abstract class DAOFactory {
+
+    public static UtilisateurDAO getRepasDAO() {
+        return new UtilisateurDAOJdbcImpl();
+    }
+    public static ArticleDAO getRepasDAO() {
+        return new ArticleDAOJdbcImpl();
+    }
 }
