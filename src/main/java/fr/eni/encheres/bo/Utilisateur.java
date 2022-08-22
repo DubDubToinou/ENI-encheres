@@ -126,11 +126,10 @@ public class Utilisateur {
     public String getAdresse() {
         StringBuilder bld = new StringBuilder();
         bld.append(this.rue + " ");
-        bld.append(this.codePostal+ " ");
+        bld.append(this.codePostal + " ");
         bld.append(this.ville);
         return bld.toString();
     }
-
 
     //password
     public String getMotDePasse() {
@@ -141,7 +140,6 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
-
     //credit
     public int getCredit() {
         return this.credit;
@@ -150,7 +148,6 @@ public class Utilisateur {
     public void setCredit(int credit) {
         this.credit = credit;
     }
-
 
     //administrateur
     public boolean isAdministrateur() {
