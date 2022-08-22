@@ -55,6 +55,7 @@ public class Retrait {
         return article;
     }
 
+
     public void setArticle(Articles article) {
         this.article = article;
     }
