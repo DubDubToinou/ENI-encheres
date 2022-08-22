@@ -1,3 +1,6 @@
+//@author Francois Farlan
+
+
 package fr.eni.encheres.bo;
 
 import java.util.ArrayList;
@@ -17,7 +20,8 @@ public class Utilisateur {
     private int credit = 0;
     private int administrateur = 0;
     private List<Articles> listeArticlesVendus = new ArrayList<>();
-    private List<Enchere> enchere = new ArrayList<>();
+    private List<Articles> listeArticlesAchetes = new ArrayList<>();
+    private List<Enchere> encheres = new ArrayList<>();
 
 
 
@@ -41,7 +45,7 @@ public class Utilisateur {
     //Constructeur avec enchere
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, List<Enchere> enchere) {
         this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
-        this.enchere = enchere;
+        this.encheres = enchere;
     }
 
     //Getters & Setters
@@ -171,23 +175,45 @@ public class Utilisateur {
         this.administrateur = administrateur;
     }
 
+
+    //articles achetés
+    public List<Articles> getListeArticlesAchetes() {
+        return this.listeArticlesAchetes;
+    }
+
+    public void setListeArticlesAchetes(List<Articles> listeArticlesAchetes) {
+        this.listeArticlesAchetes = listeArticlesAchetes;
+    }
+
+    public void addArticleAchete(Articles article) {
+        this.listeArticlesAchetes.add(article);
+    }
+
     //articles vendus
-    public List<ArticleVendu> getListeArticlesVendus() {
+    public List<Articles> getListeArticlesVendus() {
         return listeArticlesVendus;
     }
 
-    public void setListeArticlesVendus(List<ArticleVendu> listeArticlesVendus) {
+    public void setListeArticlesVendus(List<Articles> listeArticlesVendus) {
         this.listeArticlesVendus = listeArticlesVendus;
+    }
+
+    public void addArticleVendu(Articles article) {
+        this.listeArticlesVendus.add(article);
     }
 
 
     //enchere
-    public List<Enchere> getEnchere() {
-        return this.enchere;
+    public List<Enchere> getEncheres() {
+        return this.encheres;
     }
 
-    public void setEnchere(List<Enchere> enchere) {
-        this.enchere = enchere;
+    public void setEncheres(List<Enchere> encheres) {
+        this.encheres = encheres;
+    }
+
+    public void addEnchere(Enchere enchere) {
+        this.encheres.add(enchere);
     }
 
     @Override
@@ -205,7 +231,7 @@ public class Utilisateur {
                 ", motDePasse='" + motDePasse + '\'' +
                 ", credit=" + credit +
                 ", administrateur=" + administrateur +
-                ", enchere=" + enchere +
+                ", encheres=" + encheres +
                 '}';
     }
 }

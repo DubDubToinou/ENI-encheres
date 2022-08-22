@@ -1,3 +1,6 @@
+//@author Francois Farlan
+
+
 package fr.eni.encheres.bo;
 
 
@@ -5,7 +8,7 @@ import java.time.LocalDate;
 
 public class Enchere {
     private Utilisateur utilisateur;
-    private ArticleVendu articleVendu;
+    private Articles articleVendu;
     private LocalDate dateEnchere;
     private Integer montant_enchere;
 
@@ -14,7 +17,7 @@ public class Enchere {
     }
 
     //Constructeur
-    public Enchere(Utilisateur utilisateur, ArticleVendu articleVendu, LocalDate dateEnchere, Integer montant_enchere) {
+    public Enchere(Utilisateur utilisateur, Articles articleVendu, LocalDate dateEnchere, Integer montant_enchere) {
         this.utilisateur = utilisateur;
         this.articleVendu = articleVendu;
         this.dateEnchere = dateEnchere;
@@ -34,11 +37,11 @@ public class Enchere {
 
 
     //Article Vendu
-    public ArticleVendu getArticleVendu() {
+    public Articles getArticleVendu() {
         return articleVendu;
     }
 
-    public void setArticleVendu(ArticleVendu articleVendu) {
+    public void setArticleVendu(Articles articleVendu) {
         this.articleVendu = articleVendu;
     }
 
