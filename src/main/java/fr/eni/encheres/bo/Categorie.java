@@ -1,11 +1,16 @@
+/**
+ * @author sheilaJava
+ */
+
 package fr.eni.encheres.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Categorie {
     private int noCategorie;
     private String libelle;
-    private List<ArticleVendu> articles;
+    private List<Articles> articles = new ArrayList<>();
 
     //Constructeurs
 
@@ -37,7 +42,17 @@ public class Categorie {
         this.libelle = libelle;
     }
 
-    public void addArticle(ArticleVendu article)
+    //articles
+    public List<Articles> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Articles> articles) {
+        this.articles = articles;
+    }
+
+    //Fonction d'ajout d'un article
+    public void addArticle(Articles article)
     {
         this.articles.add(article);
     }
