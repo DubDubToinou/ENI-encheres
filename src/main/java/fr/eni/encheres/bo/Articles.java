@@ -15,8 +15,8 @@ public class Articles {
     private String description;
     private LocalDate dateDebutEncheres;
     private LocalDate dateFinEncheres;
-    private float miseAPrix;
-    private float prixVente;
+    private int miseAPrix;
+    private int prixVente;
     private boolean etatVente = false;
     private Categorie categorieArticle;
     private Retrait lieuRetrait;
@@ -27,7 +27,7 @@ public class Articles {
     public Articles() {
     }
 
-    public Articles(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, boolean etatVente, Categorie categorieArticle) {
+    public Articles(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente, Categorie categorieArticle) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -41,7 +41,7 @@ public class Articles {
 
     //Constructeur sans ID.
     public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-                    float miseAPrix, float prixVente, boolean etatVente, Categorie categorieArticle) {
+                    int miseAPrix, int prixVente, boolean etatVente, Categorie categorieArticle) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -53,7 +53,7 @@ public class Articles {
     }
 
     //Constructeur sans catégorie de Catégorie.
-    public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, boolean etatVente) {
+    public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -109,20 +109,20 @@ public class Articles {
     }
 
     //Getter et Setter Mise A Prix
-    public float getMiseAPrix() {
+    public int getMiseAPrix() {
         return miseAPrix;
     }
 
-    public void setMiseAPrix(float miseAPrix) {
+    public void setMiseAPrix(int miseAPrix) {
         this.miseAPrix = miseAPrix;
     }
 
     //Getter et Setter Prix de Vente
-    public float getPrixVente() {
+    public int getPrixVente() {
         return prixVente;
     }
 
-    public void setPrixVente(float prixVente) {
+    public void setPrixVente(int prixVente) {
         this.prixVente = prixVente;
     }
 
