@@ -52,7 +52,7 @@ public class Articles {
         this.categorieArticle = categorieArticle;
     }
 
-    //Constrcteur sans catégorie de Catégorie.
+    //Constructeur sans catégorie de Catégorie.
     public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, float miseAPrix, float prixVente, boolean etatVente) {
         this.nomArticle = nomArticle;
         this.description = description;
