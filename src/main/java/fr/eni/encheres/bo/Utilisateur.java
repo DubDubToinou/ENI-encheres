@@ -1,25 +1,32 @@
 package fr.eni.encheres.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utilisateur {
-    private int NoUtilisateur;
+    private Integer NoUtilisateur;
     private String pseudo;
     private String nom;
     private String prenom;
     private String email;
-    private int telephone;
+    private String telephone;
     private String rue;
-    private int codePostal;
+    private String codePostal;
     private String ville;
     private String motDePasse;
     private int credit = 0;
-    private boolean administrateur = false;
+    private int administrateur = 0;
+    private List<ArticleVendu> listeArticlesVendus = new ArrayList<>();
+    private List<Enchere> enchere = new ArrayList<>();
+
+
 
     //Constructeur vide
     public Utilisateur() {
     }
 
     //Constructeur
-    public Utilisateur(String pseudo, String nom, String prenom, String email, int telephone, String rue, int codePostal, String ville, String motDePasse) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse) {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -31,14 +38,20 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
+    //Constructeur avec enchere
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, List<Enchere> enchere) {
+        this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
+        this.enchere = enchere;
+    }
+
     //Getters & Setters
 
     //noUtilisateur
-    public int getNoUtilisateur() {
+    public Integer getNoUtilisateur() {
         return this.NoUtilisateur;
     }
 
-    public void setNoUtilisateur(int noUtilisateur) {
+    public void setNoUtilisateur(Integer noUtilisateur) {
         this.NoUtilisateur = noUtilisateur;
     }
 
@@ -84,11 +97,11 @@ public class Utilisateur {
 
 
     //telephone
-    public int getTelephone() {
+    public String getTelephone() {
         return this.telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
@@ -104,11 +117,11 @@ public class Utilisateur {
 
 
     //cp
-    public int getCodePostal() {
+    public String getCodePostal() {
         return this.codePostal;
     }
 
-    public void setCodePostal(int codePostal) {
+    public void setCodePostal(String codePostal) {
         this.codePostal = codePostal;
     }
 
@@ -153,13 +166,49 @@ public class Utilisateur {
 
 
     //administrateur
-    public boolean isAdministrateur() {
+    public int getAdministrateur() {
         return this.administrateur;
     }
 
-    public void setAdministrateur(boolean administrateur) {
+    public void setAdministrateur(int administrateur) {
         this.administrateur = administrateur;
     }
 
+    //articles vendus
+    public List<ArticleVendu> getListeArticlesVendus() {
+        return listeArticlesVendus;
+    }
 
+    public void setListeArticlesVendus(List<ArticleVendu> listeArticlesVendus) {
+        this.listeArticlesVendus = listeArticlesVendus;
+    }
+
+
+    //enchere
+    public List<Enchere> getEnchere() {
+        return this.enchere;
+    }
+
+    public void setEnchere(List<Enchere> enchere) {
+        this.enchere = enchere;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "NoUtilisateur=" + NoUtilisateur +
+                ", pseudo='" + pseudo + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", rue='" + rue + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                ", ville='" + ville + '\'' +
+                ", motDePasse='" + motDePasse + '\'' +
+                ", credit=" + credit +
+                ", administrateur=" + administrateur +
+                ", enchere=" + enchere +
+                '}';
+    }
 }
