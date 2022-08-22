@@ -1,4 +1,4 @@
-package fr.eni.tpjee.mesapplications.repas.dal.jdbc;
+package fr.eni.encheres.dal.jdbc;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

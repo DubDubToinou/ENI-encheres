@@ -1,4 +1,4 @@
 package fr.eni.encheres.dal;
 
-public class DAO {
+public class DAOFactory {
 }
