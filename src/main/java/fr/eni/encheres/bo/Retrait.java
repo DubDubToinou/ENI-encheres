@@ -49,4 +49,13 @@ public class Retrait {
     public void setVille(String ville) {
         this.ville = ville;
     }
+
+    //article
+    public Articles getArticle() {
+        return article;
+    }
+
+    public void setArticle(Articles article) {
+        this.article = article;
+    }
 }
