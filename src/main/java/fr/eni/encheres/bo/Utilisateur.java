@@ -16,7 +16,7 @@ public class Utilisateur {
     private String motDePasse;
     private int credit = 0;
     private int administrateur = 0;
-    private List<ArticleVendu> listeArticlesVendus = new ArrayList<>();
+    private List<Articles> listeArticlesVendus = new ArrayList<>();
     private List<Enchere> enchere = new ArrayList<>();
 
 
