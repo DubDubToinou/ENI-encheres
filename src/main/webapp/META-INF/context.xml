@@ -5,7 +5,7 @@
             name="jdbc/pool_cnx"
             driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
             type="javax.sql.DataSource"
-            url="jdbc:sqlserver://localhost:1433;databaseName=ENI_ENCHERES;trustServerCertificate=True"
+            url="jdbc:sqlserver://localhost;databaseName=ENI_ENCHERES;trustServerCertificate=True"
             username="utilisateurBDD"
             password="Pa$$w0rd"
 
