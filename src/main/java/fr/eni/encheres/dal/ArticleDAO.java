@@ -1,4 +1,7 @@
 package fr.eni.encheres.dal;
 
-public class ArticleDAO {
+import fr.eni.encheres.bo.Articles;
+
+public interface ArticleDAO extends DAO<Articles> {
+
 }
