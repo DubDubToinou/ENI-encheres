@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Context>
+    <Resource
+            name="jdbc/pool_cnx"
+            driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            type="javax.sql.DataSource"
+            url="jdbc:sqlserver://localhost:1433;databaseName=ENI_ENCHERES;trustServerCertificate=True"
+            username="utilisateurBDD"
+            password="Pa$$w0rd"
+    />
+</Context>
