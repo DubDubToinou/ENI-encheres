@@ -1,7 +1,8 @@
-//@author Francois Farlan
-
-
 package fr.eni.encheres.bo;
+
+/**
+ * @author FrancoisFarlan
+ */
 
 import java.util.ArrayList;
 import java.util.List;
