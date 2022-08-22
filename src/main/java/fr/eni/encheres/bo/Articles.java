@@ -21,7 +21,7 @@ public class Articles {
     private Categorie categorieArticle;
     private Retrait lieuRetrait;
     private List<Enchere> encheres = new ArrayList<>();
-    private List<Utilisateur> utilisateurs = new ArrayList<>();
+    private Utilisateur utilisateur;
 
     //Constructeur vide
     public Articles() {
@@ -162,13 +162,14 @@ public class Articles {
         this.encheres = encheres;
     }
 
-    //Getter et Setter Liste Utilisateurs
-    public List<Utilisateur> getUtilisateurs() {
-        return utilisateurs;
+
+    //Getter et Setter Utilisateurs.
+    public Utilisateur getUtilisateurs() {
+        return utilisateur;
     }
 
-    public void setUtilisateurs(List<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
+    public void setUtilisateurs(Utilisateur utilisateurs) {
+        this.utilisateur = utilisateurs;
     }
 
     //Methode Ajouter une enchères a l'article
@@ -177,11 +178,6 @@ public class Articles {
         this.encheres.add(enchere);
     }
 
-    //Methode Ajouter un utilisateur à l'article.
-    public void addUtilisateur(Utilisateur utilisateur)
-    {
-        this.utilisateurs.add(utilisateur);
-    }
 
     //ToString
     @Override
