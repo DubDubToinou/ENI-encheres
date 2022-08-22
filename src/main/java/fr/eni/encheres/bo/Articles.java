@@ -63,6 +63,16 @@ public class Articles {
         this.etatVente = etatVente;
     }
 
+    public Articles(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente) {
+        this.noArticle = noArticle;
+        this.nomArticle = nomArticle;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.miseAPrix = miseAPrix;
+        this.prixVente = prixVente;
+    }
+
     //Getter et Setter noArticle
     public Integer getNoArticle() {
         return noArticle;

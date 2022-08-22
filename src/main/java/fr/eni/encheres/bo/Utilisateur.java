@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utilisateur {
-    private Integer NoUtilisateur;
+    private Integer noUtilisateur;
     private String pseudo;
     private String nom;
     private String prenom;
@@ -25,13 +25,12 @@ public class Utilisateur {
     private List<Enchere> encheres = new ArrayList<>();
 
 
-
     //Constructeur vide
     public Utilisateur() {
     }
 
     //Constructeur
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit) {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -41,23 +40,33 @@ public class Utilisateur {
         this.codePostal = codePostal;
         this.ville = ville;
         this.motDePasse = motDePasse;
+        this.credit = credit;
     }
 
     //Constructeur avec enchere
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, List<Enchere> enchere) {
-        this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, List<Enchere> enchere) {
+        this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit);
         this.encheres = enchere;
+    }
+
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, List<Articles> listeArticlesVendus) {
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.telephone = telephone;
+        this.listeArticlesVendus = listeArticlesVendus;
     }
 
     //Getters & Setters
 
     //noUtilisateur
     public Integer getNoUtilisateur() {
-        return this.NoUtilisateur;
+        return this.noUtilisateur;
     }
 
     public void setNoUtilisateur(Integer noUtilisateur) {
-        this.NoUtilisateur = noUtilisateur;
+        this.noUtilisateur = noUtilisateur;
     }
 
 
@@ -220,7 +229,7 @@ public class Utilisateur {
     @Override
     public String toString() {
         return "Utilisateur{" +
-                "NoUtilisateur=" + NoUtilisateur +
+                "NoUtilisateur=" + noUtilisateur +
                 ", pseudo='" + pseudo + '\'' +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
