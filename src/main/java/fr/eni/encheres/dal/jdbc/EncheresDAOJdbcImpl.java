@@ -69,7 +69,13 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
     }
 
     public List<Enchere> selectEncheresGagneByNoUtilisateurs(){
-        return null;
+        List<Enchere> listeEncheresGagnes = new ArrayList<>();
+        String sqlSelectEncheresGagnes = "SELECT";
+
+        //TODO : Continuer ici
+
+
+        return listeEncheresGagnes;
     }
 
 
