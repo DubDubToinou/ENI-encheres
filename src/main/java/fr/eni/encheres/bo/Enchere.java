@@ -24,7 +24,7 @@ public class Enchere {
         this.montant_enchere = montant_enchere;
     }
 
-    //Constructeur avec Dateenchere et Montant Enchere.
+    //Constructeur avec Datenchere et Montant Enchere.
     public Enchere(LocalDate dateEnchere, Integer montant_enchere) {
         this.dateEnchere = dateEnchere;
         this.montant_enchere = montant_enchere;

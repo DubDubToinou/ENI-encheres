@@ -4,6 +4,7 @@ package fr.eni.encheres.dal.jdbc;
  * @Author Antoine
  */
 
+import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.EncheresDAO;
@@ -19,6 +20,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             ("SELECT * " +
             "FROM ARTICLES a " +
             "INNER JOIN ENCHERES e on a.no_article = e.no_article " +
+            "INNER JOIN Utilisateurs u on a.no_utilisateur = u.no_utilisateur" +
             "WHERE e.no_utilisateur = ? AND a.date_fin_encheres < GETDATE() AND e.montant_enchere = (SELECT MAX(montant_enchere) " +
             "FROM ENCHERES e2 " +
             "WHERE e2.no_article = a.no_article)");
@@ -86,24 +88,30 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 
             PreparedStatement pstmt = con.prepareStatement(sqlSelectEncheresGagnes);
             pstmt.setInt(1, utilisateur.getNoUtilisateur());
-            ResultSet rs = pstmt.executeQuery()
 
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
+                Enchere enchere = new Enchere(rs.getDate("date_enchere").toLocalDate(), rs.getInt("montant_enchere"));
 
+                Utilisateur utilisateurVendeur = new Utilisateur(rs.getString("pseudo"));
+
+                Articles articleEncheres = new Articles();
+                articleEncheres.setNomArticle(rs.getString("nom_article"));
+                articleEncheres.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+                articleEncheres.setUtilisateurs(utilisateurVendeur);
+
+                enchere.setArticleVendu(articleEncheres);
+
+                listeEncheresGagnes.add(enchere);
             }
 
-
-
-
+            pstmt.close();
+            rs.close();
 
         }catch (SQLException ex){
             ex.printStackTrace();
         }
-
-
-
-
 
         return listeEncheresGagnes;
     }
