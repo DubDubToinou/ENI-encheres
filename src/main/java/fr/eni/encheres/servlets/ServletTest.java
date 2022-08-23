@@ -30,8 +30,8 @@ public class ServletTest extends HttpServlet {
         Utilisateur sheila = new Utilisateur("sp", "rahmani", "sheila", "sheila@gmail.com", "0671021304",
                 "1 bis rue de la paix", "29000", "brest", "Password2");
 
-        Categorie informatique = new Categorie(1, "informatique");
-        Categorie divers = new Categorie(2, "divers");
+        Categorie informatique = new Categorie("informatique");
+        Categorie divers = new Categorie("divers");
 
         Articles clavier = new Articles("clavier ordinateur", "un clavier d'ordinateur de la marque XXX", LocalDate.of(2022,7,12), LocalDate.of(2022,10,12), 5, 15, true, informatique );
         Articles lampe = new Articles("lampe de chevet", "une lampe de chevet en bois", LocalDate.of(2022,7,12), LocalDate.of(2022,10,12), 6, 10, true, divers );
