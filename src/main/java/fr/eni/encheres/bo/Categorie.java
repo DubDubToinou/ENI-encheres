@@ -17,6 +17,10 @@ public class Categorie {
     public Categorie() {
     }
 
+    public Categorie(String libelle) {
+        this.libelle = libelle;
+    }
+
     public Categorie(int noCategorie, String libelle) {
         this.noCategorie = noCategorie;
         this.libelle = libelle;
