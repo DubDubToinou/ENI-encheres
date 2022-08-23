@@ -26,6 +26,13 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             "WHERE e2.no_article = a.no_article)");
     String sqlSelectArticle = ("SELECT date_enchere, montant_enchere FROM Encheres WHERE no_article = ?");
 
+    String sqlInsertEnchere =  ("INSERT INTO Encheres (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES = (?, ?, ?, ?)");
+
+    String sqlSelectEncheresEnCours =  ("SELECT *"+
+            "FROM Articles a"+
+            "INNER JOIN Encheres e ON a.no_article = e.no_article"+
+            "INNER JOIN Utilisateurs u ON e.no_utilisateur = u.no_utilisateur"+
+            "WHERE e.no_utilisateur = 2");
 
     public List<Enchere> selectByNumArticle(int idArticle) throws SQLException {
 
@@ -54,8 +61,6 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 
     public void insert(Enchere elementEnchere){
 
-        String  sqlInsertEnchere = ("INSERT INTO Encheres (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES = (?, ?, ?, ?)");
-
         try(Connection con = ConnectionProvider.getConnection()){
 
         PreparedStatement pstmt = con.prepareStatement(sqlInsertEnchere);
@@ -76,8 +81,36 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
     }
 
     public List<Enchere> selectEnCoursByNoUtilisateurs(Utilisateur utilisateur){
+        List<Enchere> listeEncheresEnCours = new ArrayList<>();
 
-        return null;
+        try(Connection con = ConnectionProvider.getConnection()){
+
+            PreparedStatement pstmt = con.prepareStatement(sqlSelectEncheresEnCours);
+            pstmt.setInt(1, utilisateur.getNoUtilisateur());
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                Enchere enchere = new Enchere(rs.getDate("date_enchere").toLocalDate(), rs.getInt("montant_enchere"));
+
+                Utilisateur utilisateurVendeur = new Utilisateur(rs.getString("pseudo"));
+
+                Articles article = new Articles();
+                article.setNomArticle(rs.getString("nom_article"));
+                article.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+                article.setUtilisateurs(utilisateurVendeur);
+
+                enchere.setArticleVendu(article);
+
+                listeEncheresEnCours.add(enchere);
+
+            }
+
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+
+        return listeEncheresEnCours;
     }
 
     public List<Enchere> selectEncheresGagneByNoUtilisateur(Utilisateur utilisateur){
