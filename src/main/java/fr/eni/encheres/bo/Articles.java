@@ -180,6 +180,8 @@ public class Articles {
 
     public void setUtilisateurs(Utilisateur utilisateurs) {
         this.utilisateur = utilisateurs;
+
+        utilisateurs.addArticleVendu(this);
     }
 
     //Methode Ajouter une enchères a l'article
