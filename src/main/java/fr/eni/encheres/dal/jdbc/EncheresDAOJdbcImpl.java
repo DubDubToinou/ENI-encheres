@@ -35,7 +35,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             "INNER JOIN Utilisateurs u ON e.no_utilisateur = u.no_utilisateur"+
             "WHERE e.no_utilisateur = 2");
 
-    public List<Enchere> selectByNumArticle(int idArticle) throws SQLException{
+    public List<Enchere> selectByNoArticle(int noArticle) throws SQLException{
 
         List<Enchere> listeEnchereByNumArticle = new ArrayList<>();
 

@@ -10,4 +10,5 @@ public class UtilisateurManager {
     public UtilisateurManager() {
         this.utilisateurDAO = DAOFactory.getUtilisateurDAO();
     }
+
 }

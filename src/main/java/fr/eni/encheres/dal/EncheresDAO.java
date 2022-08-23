@@ -8,10 +8,12 @@ import java.util.List;
 
 public interface EncheresDAO {
 
-    List<Enchere> selectByNumArticle(int idArticle) throws SQLException;
+    List<Enchere> selectByNoArticle(int noArticle) throws SQLException;
 
     void insert(Enchere elementEnchere) throws SQLException;
 
     List<Enchere> selectEnCoursByNoUtilisateurs(Utilisateur utilisateur) throws SQLException;
+
+    List<Enchere> selectEncheresGagneByNoUtilisateur(Utilisateur utilisateur) throws SQLException;
 
 }
