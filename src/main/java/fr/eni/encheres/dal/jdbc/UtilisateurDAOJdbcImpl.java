@@ -12,25 +12,28 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     @Override
     public Utilisateur selectByID(String pseudo) throws SQLException {
         Connection cnx = ConnectionProvider.getConnection();
-        PreparedStatement stmt = cnx.prepareStatement(SELECT);
-        stmt.setString(pseudo);
-        ResultSet result = stmt.executeQuery("SELECT no_utilisateur, nom, prenom, email, telephone, adminisrateur FROM UTILISATEURS WHERE pseudo = ?";
+        PreparedStatement stmt = cnx.prepareStatement("SELECT no_utilisateur, nom, prenom, email, telephone FROM UTILISATEURS WHERE pseudo = ?");
+        stmt.setString(1, pseudo);
+        ResultSet result = stmt.executeQuery();
         Utilisateur u = new Utilisateur();
+
         // Récupère la liste des articles mis en vente par l'utilisateur
-        ResultSet resultArticle = stmt.executeQuery("SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_categorie FROM ARTICLES_VENDUS WHERE no_utilisateur = " + result.getInt("no_utilisateur"));
-        List<Articles> articles = new ArrayList<>();
-        if(result.next()) {
+        PreparedStatement stmtArticle = cnx.prepareStatement("SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_categorie FROM ARTICLES_VENDUS WHERE no_utilisateur = ?");
+        stmtArticle.setInt(1, result.getInt("no_utilisateur"));
+        ResultSet resultArticle = stmtArticle.executeQuery();
+        if (result.next()) {
+            List<Articles> articles = new ArrayList<>();
             u.setPseudo(pseudo);
             u.setNom(result.getString("nom"));
-           // u = new Utilisateur(pseudo, result.getString("nom"), result.getString("prenom"), result.getString("email"), result.getString("telephone"), articles);
+            u.setPrenom(result.getString("prenom"));
+            u.setEmail(result.getString("email"));
+            u.setTelephone(result.getString("telephone"));
+
             while (resultArticle.next()) {
                 Articles article = new Articles(resultArticle.getInt("no_article"), resultArticle.getString("nom_article"), resultArticle.getString("description"), resultArticle.getDate("date_debut_encheres").toLocalDate(), resultArticle.getDate("date_fin_encheres").toLocalDate(), resultArticle.getInt("prix_initial"), resultArticle.getInt("prix_vente"));
                 u.addArticleVendu(article);
             }
         }
-
-
-
         result.close();
         resultArticle.close();
         stmt.close();
@@ -42,8 +45,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     @Override
     public Utilisateur selectOwnProfile(String pseudo) throws SQLException {
         Connection cnx = ConnectionProvider.getConnection();
-        Statement stmt = cnx.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, adminisrateur FROM UTILISATEURS WHERE pseudo = " + pseudo);
+        PreparedStatement stmt = cnx.prepareStatement("SELECT nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit FROM UTILISATEURS WHERE pseudo = ?");
+        stmt.setString(1, pseudo);
+        ResultSet result = stmt.executeQuery();
         Utilisateur u = new Utilisateur(pseudo, result.getString("nom"), result.getString("prenom"), result.getString("email"), result.getString("telephone"), result.getString("rue"), result.getString("code_postal"), result.getString("ville"), result.getString("mot_de_passe"), result.getInt("credit"));
 
         result.close();
@@ -82,7 +86,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     public void update(Utilisateur utilisateur) throws SQLException {
         Connection cnx = ConnectionProvider.getConnection();
 
-        PreparedStatement stmt = cnx.prepareStatement("UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = " + utilisateur.getNoUtilisateur());
+        PreparedStatement stmt = cnx.prepareStatement("UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?");
         stmt.setString(1, utilisateur.getPseudo());
         stmt.setString(2, utilisateur.getNom());
         stmt.setString(3, utilisateur.getPrenom());
@@ -92,6 +96,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
         stmt.setString(7, utilisateur.getCodePostal());
         stmt.setString(8, utilisateur.getVille());
         stmt.setString(9, utilisateur.getMotDePasse());
+        stmt.setInt(10, utilisateur.getNoUtilisateur());
+        stmt.execute();
 
         stmt.close();
         cnx.close();
@@ -100,8 +106,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     @Override
     public void delete(Utilisateur utilisateur) throws SQLException {
         Connection cnx = ConnectionProvider.getConnection();
-        Statement stmt = cnx.createStatement();
-        stmt.execute("DELETE FROM UTILISATEURS WHERE pseudo = " + utilisateur.getPseudo());
+        PreparedStatement stmt = cnx.prepareStatement("DELETE FROM UTILISATEURS WHERE pseudo = ?");
+        stmt.setString(1, utilisateur.getPseudo());
+        stmt.execute();
 
         stmt.close();
         cnx.close();
