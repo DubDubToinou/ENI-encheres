@@ -15,9 +15,18 @@ import java.util.List;
 public class EncheresDAOJdbcImpl implements EncheresDAO {
 
 
+    String sqlSelectEncheresGagnes =
+            ("SELECT * " +
+            "FROM ARTICLES a " +
+            "INNER JOIN ENCHERES e on a.no_article = e.no_article " +
+            "WHERE e.no_utilisateur = ? AND a.date_fin_encheres < GETDATE() AND e.montant_enchere = (SELECT MAX(montant_enchere) " +
+            "FROM ENCHERES e2 " +
+            "WHERE e2.no_article = a.no_article)");
+    String sqlSelectArticle = ("SELECT date_enchere, montant_enchere FROM Encheres WHERE no_article = ?");
+
+
     public List<Enchere> selectByNumArticle(int idArticle) throws SQLException {
 
-        String sqlSelectArticle = ("SELECT date_enchere, montant_enchere FROM Encheres WHERE no_article = ?");
         List<Enchere> listeEnchereByNumArticle = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()) {
@@ -69,12 +78,31 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         return null;
     }
 
-    public List<Enchere> selectEncheresGagneByNoUtilisateurs(Utilisateur utilisateur){
+    public List<Enchere> selectEncheresGagneByNoUtilisateur(Utilisateur utilisateur){
         List<Enchere> listeEncheresGagnes = new ArrayList<>();
-        String sqlSelectEncheresGagnes = "SELECT";
 
 
-        //TODO : Continuer ici
+        try(Connection con = ConnectionProvider.getConnection()){
+
+            PreparedStatement pstmt = con.prepareStatement(sqlSelectEncheresGagnes);
+            pstmt.setInt(1, utilisateur.getNoUtilisateur());
+            ResultSet rs = pstmt.executeQuery()
+
+
+            while (rs.next()){
+
+            }
+
+
+
+
+
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+
+
+
 
 
         return listeEncheresGagnes;
