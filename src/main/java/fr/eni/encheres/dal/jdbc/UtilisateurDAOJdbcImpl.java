@@ -17,7 +17,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     private static final String DELETE = "DELETE FROM UTILISATEURS WHERE pseudo = ?";
 
     @Override
-    public Utilisateur selectByID(String pseudo) throws SQLException {
+    public Utilisateur selectByPseudo(String pseudo) throws SQLException {
         Utilisateur u = new Utilisateur();
 
         try (Connection cnx = ConnectionProvider.getConnection()) {
