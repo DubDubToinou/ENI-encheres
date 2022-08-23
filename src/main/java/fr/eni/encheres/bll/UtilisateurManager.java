@@ -16,7 +16,7 @@ public class UtilisateurManager {
 
 
     public Utilisateur afficherSonProfil(String pseudo) throws SQLException{
-        return this.utilisateurDAO.selectByID(pseudo);
+        return this.utilisateurDAO.selectByPseudo(pseudo);
     }
 
     public Utilisateur afficherUnProfil(String pseudo) throws SQLException{
