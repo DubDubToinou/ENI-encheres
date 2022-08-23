@@ -36,6 +36,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
     private static final String SELECT_BY_MOT_CLE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
             "a.prix_initial, a.prix_vente, u.pseudo, c.libelle FROM Articles " +
             "LEFT JOIN Utilisateurs u " +
+
+
             "ON a.no_utilisateur = u.no_utilisateur " +
             "LEFT JOIN Categories c " +
             "ON a.no_categorie = c.no_categorie " +

@@ -5,6 +5,7 @@ package fr.eni.encheres.dal.jdbc;
  */
 
 import fr.eni.encheres.bo.Enchere;
+import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.EncheresDAO;
 
 import java.sql.*;
@@ -68,9 +69,10 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         return null;
     }
 
-    public List<Enchere> selectEncheresGagneByNoUtilisateurs(){
+    public List<Enchere> selectEncheresGagneByNoUtilisateurs(Utilisateur utilisateur){
         List<Enchere> listeEncheresGagnes = new ArrayList<>();
         String sqlSelectEncheresGagnes = "SELECT";
+
 
         //TODO : Continuer ici
 
