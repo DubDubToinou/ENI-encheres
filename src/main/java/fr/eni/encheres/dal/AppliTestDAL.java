@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppliTestDAL {
-    public static void main() {
+    public static void main(String[] args) {
 
         ArticleDAO articleDAO = DAOFactory.getArticleDAO();
         UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
@@ -49,6 +49,7 @@ public class AppliTestDAL {
             utilisateurDAO.insert(sheila);
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
 /*
@@ -78,7 +79,8 @@ public class AppliTestDAL {
             utilisateurDAO.delete(antoine);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
+/*
 
         //ARTICLES/////////////////////////////////////////////////////////////////////////////////////
         //insert
@@ -143,5 +145,6 @@ public class AppliTestDAL {
             System.out.println(a.toString());
         }
 */
+
     }
 }

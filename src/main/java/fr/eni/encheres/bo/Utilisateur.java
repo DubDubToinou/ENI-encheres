@@ -18,7 +18,7 @@ public class Utilisateur {
     private String codePostal;
     private String ville;
     private String motDePasse;
-    private int credit;
+    private int credit=0;
     private int administrateur = 0;
     private List<Articles> listeArticlesVendus = new ArrayList<>();
     private List<Articles> listeArticlesAchetes = new ArrayList<>();
@@ -258,6 +258,7 @@ public class Utilisateur {
                 ", credit=" + credit +
                 ", administrateur=" + administrateur +
                 ", encheres=" + encheres +
+                ", Articles vendus=" + listeArticlesVendus +
                 '}';
     }
 }
