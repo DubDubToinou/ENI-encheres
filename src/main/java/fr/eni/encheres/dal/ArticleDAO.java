@@ -7,9 +7,9 @@ import fr.eni.encheres.bo.Utilisateur;
 import java.util.List;
 
 public interface ArticleDAO extends DAO<Articles> {
-    public List<Articles> selectAll();
+    public List<Articles> selectVentesEnCours();
     public List<Articles> selectByCategorie(Categorie categorie);
     public List<Articles> selectByMotCle(String motCle);
-    public List<Articles> selectVentesEnCours(Utilisateur utilisateur);
-    public List<Articles> selectVentesTerminees(Utilisateur utilisateur);
+    public List<Articles> selectVentesEnCoursParUtilisateur(Utilisateur utilisateur);
+    public List<Articles> selectVentesTermineesParUtilisateur(Utilisateur utilisateur);
 }

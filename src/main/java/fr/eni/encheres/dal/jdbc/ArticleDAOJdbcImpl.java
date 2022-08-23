@@ -151,7 +151,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
         }
     }
     @Override
-    public List<Articles> selectAll() {
+    public List<Articles> selectVentesEnCours() {
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
@@ -253,7 +253,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
     }
 
     @Override
-    public List<Articles> selectVentesEnCours(Utilisateur utilisateur) {
+    public List<Articles> selectVentesEnCoursParUtilisateur(Utilisateur utilisateur) {
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
@@ -286,7 +286,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
     }
 
     @Override
-    public List<Articles> selectVentesTerminees(Utilisateur utilisateur) {
+    public List<Articles> selectVentesTermineesParUtilisateur(Utilisateur utilisateur) {
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
