@@ -48,10 +48,10 @@ public class AppliTestDAL {
             utilisateurDAO.insert(francois);
             utilisateurDAO.insert(sheila);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
-
+/*
         System.out.println("Select By id");
         try {
             utilisateurDAO.selectByID("dubdub");
@@ -142,6 +142,6 @@ public class AppliTestDAL {
         for(Articles a : listesTerminéesParUtilisateur) {
             System.out.println(a.toString());
         }
-
+*/
     }
 }

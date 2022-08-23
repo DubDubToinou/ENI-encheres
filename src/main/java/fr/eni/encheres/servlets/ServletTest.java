@@ -12,6 +12,9 @@ public class ServletTest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AppliTestDAL.main();
+
+        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        rd.forward(request,response);
     }
 
     @Override

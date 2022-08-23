@@ -8,8 +8,5 @@
             url="jdbc:sqlserver://localhost;databaseName=ENI_ENCHERES;trustServerCertificate=True"
             username="utilisateurBDD"
             password="Pa$$w0rd"
-
-            <!-- ## Attention à l'utilisateur : utilisateurBDD, il faut qu'il ai les droits sur sql server.
-            NOM de la base: ENI_ENCHERES-->
     />
 </Context>
