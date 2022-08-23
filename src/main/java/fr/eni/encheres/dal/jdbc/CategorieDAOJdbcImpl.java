@@ -20,13 +20,17 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
             try(Connection con = ConnectionProvider.getConnection()){
 
-                PreparedStatement pstmt = con.prepareStatement(sqlInsert);
+                PreparedStatement pstmt = con.prepareStatement(sqlInsert, PreparedStatement.RETURN_GENERATED_KEYS);
 
+                ResultSet rs = pstmt.getGeneratedKeys();
+
+                categorie.setNoCategorie(rs.getInt("no_categorie"));
                 pstmt.setString(1, categorie.getLibelle());
 
                 pstmt.executeUpdate();
 
                 pstmt.close();
+                rs.close();
 
 
             }catch (SQLException ex){
