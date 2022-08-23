@@ -14,6 +14,7 @@ public class UtilisateurManager {
         this.utilisateurDAO = DAOFactory.getUtilisateurDAO();
     }
 
+
     public Utilisateur afficherSonProfil(String pseudo) throws SQLException{
         return this.utilisateurDAO.selectByID(pseudo);
     }

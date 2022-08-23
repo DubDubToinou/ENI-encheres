@@ -18,6 +18,7 @@ public class ArticleManager {
     }
 
 
+
     public List<Articles> listeArticleNonConnecte(){
         return this.articleDAO.selectVentesEnCours();
     }
