@@ -3,6 +3,7 @@
 <html lang="fr">
 <head>
     <title>Connexion</title>
+    <link rel="stylesheet" href="./styles/connexion.css" />
 </head>
 <body>
 <header>
