@@ -4,6 +4,7 @@ package fr.eni.encheres.dal.jdbc;
  * @Author Antoine
  */
 
+import com.microsoft.sqlserver.jdbc.SQLServerMetaData;
 import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
@@ -34,7 +35,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             "INNER JOIN Utilisateurs u ON e.no_utilisateur = u.no_utilisateur"+
             "WHERE e.no_utilisateur = 2");
 
-    public List<Enchere> selectByNumArticle(int idArticle) {
+    public List<Enchere> selectByNumArticle(int idArticle) throws SQLException{
 
         List<Enchere> listeEnchereByNumArticle = new ArrayList<>();
 
@@ -59,7 +60,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         return listeEnchereByNumArticle;
     }
 
-    public void insert(Enchere elementEnchere){
+    public void insert(Enchere elementEnchere) throws SQLException{
 
         try(Connection con = ConnectionProvider.getConnection()){
 
@@ -80,7 +81,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         }
     }
 
-    public List<Enchere> selectEnCoursByNoUtilisateurs(Utilisateur utilisateur){
+    public List<Enchere> selectEnCoursByNoUtilisateurs(Utilisateur utilisateur) throws SQLException{
         List<Enchere> listeEncheresEnCours = new ArrayList<>();
 
         try(Connection con = ConnectionProvider.getConnection()){
@@ -113,7 +114,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         return listeEncheresEnCours;
     }
 
-    public List<Enchere> selectEncheresGagneByNoUtilisateur(Utilisateur utilisateur){
+    public List<Enchere> selectEncheresGagneByNoUtilisateur(Utilisateur utilisateur) throws SQLException {
         List<Enchere> listeEncheresGagnes = new ArrayList<>();
 
 
