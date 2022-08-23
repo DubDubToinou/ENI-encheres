@@ -5,7 +5,7 @@ import fr.eni.encheres.bo.Utilisateur;
 import java.sql.SQLException;
 
 public interface UtilisateurDAO extends DAO<Utilisateur> {
-    public Utilisateur selectByID(String pseudo) throws SQLException;
+    public Utilisateur selectByPseudo(String pseudo) throws SQLException;
 
     public Utilisateur selectOwnProfile(String pseudo) throws SQLException;
 
