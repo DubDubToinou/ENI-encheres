@@ -12,18 +12,24 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     @Override
     public Utilisateur selectByID(String pseudo) throws SQLException {
         Connection cnx = ConnectionProvider.getConnection();
-        Statement stmt = cnx.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT no_utilisateur, nom, prenom, email, telephone, adminisrateur FROM UTILISATEURS WHERE pseudo = " + pseudo);
-
+        PreparedStatement stmt = cnx.prepareStatement(SELECT);
+        stmt.setString(pseudo);
+        ResultSet result = stmt.executeQuery("SELECT no_utilisateur, nom, prenom, email, telephone, adminisrateur FROM UTILISATEURS WHERE pseudo = ?";
+        Utilisateur u = new Utilisateur();
         // Récupère la liste des articles mis en vente par l'utilisateur
         ResultSet resultArticle = stmt.executeQuery("SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_categorie FROM ARTICLES_VENDUS WHERE no_utilisateur = " + result.getInt("no_utilisateur"));
         List<Articles> articles = new ArrayList<>();
-        while (resultArticle.next()) {
-            Articles utilisateur = new Articles(resultArticle.getInt("no_article"), resultArticle.getString("nom_article"), resultArticle.getString("description"), resultArticle.getDate("date_debut_encheres").toLocalDate(), resultArticle.getDate("date_fin_encheres").toLocalDate(), resultArticle.getInt("prix_initial"), resultArticle.getInt("prix_vente"));
-            articles.add(utilisateur);
+        if(result.next()) {
+            u.setPseudo(pseudo);
+            u.setNom(result.getString("nom"));
+           // u = new Utilisateur(pseudo, result.getString("nom"), result.getString("prenom"), result.getString("email"), result.getString("telephone"), articles);
+            while (resultArticle.next()) {
+                Articles article = new Articles(resultArticle.getInt("no_article"), resultArticle.getString("nom_article"), resultArticle.getString("description"), resultArticle.getDate("date_debut_encheres").toLocalDate(), resultArticle.getDate("date_fin_encheres").toLocalDate(), resultArticle.getInt("prix_initial"), resultArticle.getInt("prix_vente"));
+                u.addArticleVendu(article);
+            }
         }
 
-        Utilisateur u = new Utilisateur(pseudo, result.getString("nom"), result.getString("prenom"), result.getString("email"), result.getString("telephone"), articles);
+
 
         result.close();
         resultArticle.close();
