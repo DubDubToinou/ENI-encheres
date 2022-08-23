@@ -64,7 +64,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         }
     }
 
-    public List<Enchere> selectEnCoursByNoUtilisateurs(){
+    public List<Enchere> selectEnCoursByNoUtilisateurs(Utilisateur utilisateur){
 
         return null;
     }

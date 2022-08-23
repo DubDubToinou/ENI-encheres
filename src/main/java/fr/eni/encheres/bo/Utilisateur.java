@@ -18,7 +18,7 @@ public class Utilisateur {
     private String codePostal;
     private String ville;
     private String motDePasse;
-    private int credit = 0;
+    private int credit;
     private int administrateur = 0;
     private List<Articles> listeArticlesVendus = new ArrayList<>();
     private List<Articles> listeArticlesAchetes = new ArrayList<>();
@@ -46,9 +46,22 @@ public class Utilisateur {
         this.credit = credit;
     }
 
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse) {
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.telephone = telephone;
+        this.rue = rue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.motDePasse = motDePasse;
+        this.credit =0;
+    }
+
     //Constructeur avec enchere
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, List<Enchere> enchere) {
-        this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit);
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, List<Enchere> enchere) {
+        this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse);
         this.encheres = enchere;
     }
 
