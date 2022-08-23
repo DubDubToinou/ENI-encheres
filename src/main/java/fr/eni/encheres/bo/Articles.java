@@ -152,6 +152,7 @@ public class Articles {
 
     public void setCategorieArticle(Categorie categorieArticle) {
         this.categorieArticle = categorieArticle;
+        categorieArticle.addArticle(this);
     }
 
     //Getter et Setter Lieu de retrait
@@ -161,6 +162,7 @@ public class Articles {
 
     public void setLieuRetrait(Retrait lieuRetrait) {
         this.lieuRetrait = lieuRetrait;
+        lieuRetrait.setArticle(this);
     }
 
     //Getter et Setter List Encheres

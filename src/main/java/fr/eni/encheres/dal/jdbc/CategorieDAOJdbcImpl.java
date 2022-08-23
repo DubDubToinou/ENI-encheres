@@ -11,8 +11,8 @@ import java.sql.SQLException;
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 
         private static final String INSERT_CATEGORIE = "INSERT INTO Categories (libelle) VALUES(?)";
-        private static final String UPDATE_CATEGORIE = "UPDATE Categories SET libelle ? WHERE no_categorie ?";
-        private static final String DELETE_CATEGORIE = "DELETE FROM Categories WHERE no_categorie ?";
+        private static final String UPDATE_CATEGORIE = "UPDATE Categories SET libelle = ? WHERE no_categorie = ?";
+        private static final String DELETE_CATEGORIE = "DELETE FROM Categories WHERE no_categorie = ?";
 
         public void insert(Categorie categorie){
 
@@ -26,7 +26,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
                 ResultSet rs = pstmt.getGeneratedKeys();
 
                 if(rs.next()) {
-                    categorie.setNoCategorie(rs.getInt("no_categorie"));
+                    categorie.setNoCategorie(rs.getInt(1));
                 }
 
                 pstmt.close();

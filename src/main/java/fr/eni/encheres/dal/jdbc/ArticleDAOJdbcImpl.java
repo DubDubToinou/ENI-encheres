@@ -13,7 +13,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
     private static final String INSERT_ARTICLE = "INSERT INTO Articles(nom_article, description, date_debut_encheres, date_fin_encheres, " +
             "prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String INSERT_RETRAIT = "INSERT INTO RETRAITS(no_article, rue, code_postal, ville VALUES (?, ?, ?, ?)";
+    private static final String INSERT_RETRAIT = "INSERT INTO RETRAITS(no_article, rue, code_postal, ville) VALUES (?, ?, ?, ?)";
     private static final String UPDATE_ARTICLE = "UPDATE Articles SET nom_article = ?, description = ?, date_debut_encheres = ?, " +
             "date_fin_encheres = ?, prix_initial = ?, no_categorie = ? WHERE no_article = ?";
     private static final String UPDATE_RETRAIT = "UPDATE Retraits SET rue = ?, code_postal = ?, ville = ? WHERE no_article = ?";
@@ -84,7 +84,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             ResultSet rs = pstmtArticle.getGeneratedKeys();
 
             if(rs.next()) {
-                article.setNoArticle(rs.getInt("no_article"));
+                article.setNoArticle(rs.getInt(1));
 
                 //ajout du lieu de retrait (par défaut adresse du vendeur)
                 pstmtRetrait.setInt(1, article.getNoArticle());
@@ -164,12 +164,12 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             ResultSet rs = selectall.executeQuery(SELECT_VENTES_EN_COURS);
 
             while(rs.next()) {
-              Articles article = new Articles(rs.getInt("a.no_article"), rs.getString("a.nom_article"), rs.getString("a.description"),
-                      rs.getDate("a.date_debut_encheres").toLocalDate(), rs.getDate("a.date_fin_encheres").toLocalDate(),
-                      rs.getInt("a.prix_initial"), rs.getInt("a.prix_vente"));
+              Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
+                      rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                      rs.getInt(6), rs.getInt(7));
 
-              Utilisateur utilisateur = new Utilisateur(rs.getString("u.pseudo"));
-              Categorie categorie = new Categorie(rs.getString("c.libelle"));
+              Utilisateur utilisateur = new Utilisateur(rs.getString(8));
+              Categorie categorie = new Categorie(rs.getString(9));
 
               article.setUtilisateurs(utilisateur);
               article.setCategorieArticle(categorie);

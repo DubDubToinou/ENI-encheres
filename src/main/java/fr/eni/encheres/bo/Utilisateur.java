@@ -165,15 +165,6 @@ public class Utilisateur {
         this.ville = ville;
     }
 
-    //adresse
-    public String getAdresse() {
-        StringBuilder bld = new StringBuilder();
-        bld.append(this.rue + " ");
-        bld.append(this.codePostal + " ");
-        bld.append(this.ville);
-        return bld.toString();
-    }
-
     //password
     public String getMotDePasse() {
         return this.motDePasse;
