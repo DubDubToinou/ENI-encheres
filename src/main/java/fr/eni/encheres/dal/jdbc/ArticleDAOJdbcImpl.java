@@ -101,6 +101,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
 
         } catch(SQLException ex) {
+            ex.printStackTrace();
 //TODO
         }
     }
@@ -132,6 +133,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmtRetrait.close();
 
         } catch (SQLException ex) {
+            ex.printStackTrace();
     //TODO
         }
     }
@@ -149,6 +151,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmtArticle.close();
 
         } catch(SQLException ex) {
+            ex.printStackTrace();
 //TODO
         }
     }
@@ -179,6 +182,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             selectall.close();
 
         } catch(SQLException ex) {
+            ex.printStackTrace();
             //TODO
         }
 
@@ -212,6 +216,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             rs.close();
             pstmt.close();
         }catch(SQLException ex) {
+            ex.printStackTrace();
             //TODO
         }
 
@@ -247,6 +252,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmt.close();
 
         }catch(SQLException ex) {
+            ex.printStackTrace();
     //TODO
         }
 
@@ -281,6 +287,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmt.close();
 
         } catch(SQLException ex) {
+            ex.printStackTrace();
             //TODO
         }
 
@@ -314,6 +321,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmt.close();
 
         } catch(SQLException ex) {
+            ex.printStackTrace();
             //TODO
         }
 
