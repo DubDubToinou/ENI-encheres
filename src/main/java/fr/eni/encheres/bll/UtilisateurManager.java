@@ -17,7 +17,7 @@ public class UtilisateurManager {
     }
 
     //Methode ajouter un Utilisateur
-    public void ajouterUser(Utilisateur utilisateur) throws BusinessException, SQLException {
+    public void ajouterUser(Utilisateur utilisateur) throws BusinessException, SQLException{
         BusinessException businessException = new BusinessException();
         this.validateUser(utilisateur, businessException);
 
