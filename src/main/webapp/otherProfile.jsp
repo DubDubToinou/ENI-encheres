@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -31,13 +31,35 @@
       <h2>Contact</h2>
       <p>U Téléphone</p>
       <p>U@email.com</p>
-      <p>U Adresse</p>
     </div>
-    <p>UCrédits</p>
-    <a href="">Modifier mon profil</a>
   </div>
-  <div class="options">
-    <a>Vendre un article</a>
+  <div class="items">
+    <h3>Articles en vente</h3>
+    <div class="card">
+      <div class="seller">
+        <p>Par</p>
+        <a href="">U pseudo</a>
+      </div>
+      <div class="product">
+        <a href="">A titre</a>
+        <p class="tag">A etat</p>
+      </div>
+      <div class="info">
+        <div>
+          <h3>Prix</h3>
+          <p>A prix</p>
+        </div>
+        <div>
+          <h3>Date de fin</h3>
+          <p>A date fin</p>
+        </div>
+      </div>
+      <div class="address">
+        <h3>Adresse</h3>
+        <p>A retrait</p>
+      </div>
+      <a href="">Voir</a>
+    </div>
   </div>
 </main>
 </body>
