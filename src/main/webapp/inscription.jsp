@@ -3,6 +3,7 @@
 <html lang="fr">
 <head>
     <title>Inscription</title>
+    <link rel="stylesheet" href="./styles/inscription.css" />
 </head>
 <body>
 <header>
