@@ -17,7 +17,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     private static final String DELETE = "DELETE FROM UTILISATEURS WHERE pseudo = ?";
     private static final String SELECT_PSEUDO_EXISTANT = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
     private static final String SELECT_EMAIL_EXISTANT = "SELECT email FROM UTILISATEURS WHERE email = ?";
-    private static final String SELECT_LOGIN_INFOS = "SELECT pseudo, email, mot_de_passe FROM UTILISATEURS WHERE no_utilisateur = ?";
+    private static final String SELECT_MOT_DE_PASSE = "SELECT mot_de_passe FROM UTILISATEURS WHERE (pseudo = ? or email= ?)";
 
     @Override
     public Utilisateur selectByPseudo(String pseudo) throws SQLException {
@@ -194,5 +194,26 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
         }
         return isInBase;
+    }
+
+    @Override
+    public String selectMotDePasse(Utilisateur utilisateur) throws SQLException {
+        String password = "";
+        try (Connection cnx = ConnectionProvider.getConnection()) {
+            PreparedStatement pstmt = cnx.prepareStatement(SELECT_MOT_DE_PASSE);
+            pstmt.setString(1, utilisateur.getPseudo());
+            pstmt.setString(2, utilisateur.getEmail());
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+               password = password.concat(rs.getString(1));
+            }
+
+        } catch(SQLException ex) {
+//TODO
+        }
+
+        return password;
     }
 }

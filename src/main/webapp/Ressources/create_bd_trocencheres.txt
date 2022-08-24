@@ -91,4 +91,4 @@ ALTER TABLE ARTICLES
 ON DELETE CASCADE
     ON UPDATE no action 
 
-ALTER TABLE Utilisateurs ADD CONSTRAINT mot_de_passe_alphanumerique CHECK (mot_de_passe NOT LIKE '%[^A-Z0-9 ]%')
+ALTER TABLE Utilisateurs ADD CONSTRAINT pseudo_alphanumerique CHECK (pseudo NOT LIKE '%[^A-Z0-9 ]%')
