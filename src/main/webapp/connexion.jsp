@@ -11,8 +11,8 @@
         <a href="">Enchères</a>
     </div>
     <div class="buttons">
-        <a href="connexion.jsp">Se connecter</a>
-        <a href="./inscription.jsp">S'inscrire</a>
+        <a class="login" href="connexion.jsp">Se connecter</a>
+        <a class="signup" href="./inscription.jsp">S'inscrire</a>
     </div>
 </header>
 <main>
