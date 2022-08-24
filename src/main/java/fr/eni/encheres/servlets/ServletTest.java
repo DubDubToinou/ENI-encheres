@@ -15,7 +15,7 @@ import java.util.List;
 public class ServletTest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArticleDAO articleDAO = DAOFactory.getArticleDAO();
+        /*ArticleDAO articleDAO = DAOFactory.getArticleDAO();
         UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
         EncheresDAO encheresDAO = DAOFactory.getEncheresDAO();
         CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
@@ -143,7 +143,7 @@ public class ServletTest extends HttpServlet {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
         rd.forward(request, response);

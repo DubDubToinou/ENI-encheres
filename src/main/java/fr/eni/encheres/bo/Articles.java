@@ -39,6 +39,17 @@ public class Articles {
         this.categorieArticle = categorieArticle;
     }
 
+    public Articles(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix, boolean etatVente, Categorie categorieArticle) {
+        this.noArticle = noArticle;
+        this.nomArticle = nomArticle;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.miseAPrix = miseAPrix;
+        this.etatVente = etatVente;
+        this.categorieArticle = categorieArticle;
+    }
+
     //Constructeur sans ID.
     public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
                     Integer miseAPrix, Integer prixVente, boolean etatVente, Categorie categorieArticle) {
