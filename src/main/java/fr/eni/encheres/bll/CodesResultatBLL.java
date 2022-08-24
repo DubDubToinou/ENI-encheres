@@ -34,13 +34,16 @@ public abstract class CodesResultatBLL {
     public static final int REGLE_ARTICLE_NOCATEGORIE_ERREUR = 20207;
 
 
-
     // #### CODE ERREUR validateRetraitArticle ####
 
     public static final int REGLE_RETRAIT_ARTICLE_NOARTICLE_ERREUR = 20251;
     public static final int REGLE_RETRAIT_ARTICLE_RUE_ERREUR = 20252;
     public static final int REGLE_RETRAIT_ARTICLE_CODEPOSTAL_ERREUR = 20253;
     public static final int REGLE_RETRAIT_ARTICLE_VILLE_ERREUR = 20254;
+
+    // #### CODE ERREUR validate Categorie ####
+
+    public static final int REGLE_CATEGORIE_LIBELLE_ERREUR = 20300;
 
 
 
