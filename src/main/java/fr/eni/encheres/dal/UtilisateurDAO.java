@@ -14,4 +14,8 @@ public interface UtilisateurDAO extends DAO<Utilisateur> {
     public void update(Utilisateur utilisateur) throws SQLException;
 
     public void delete(Utilisateur utilisateur) throws SQLException;
+    public boolean pseudoIsInBase(Utilisateur utilisateur) throws SQLException;
+    public boolean emailIsInBase(Utilisateur utilisateur) throws SQLException;
+
+    
 }

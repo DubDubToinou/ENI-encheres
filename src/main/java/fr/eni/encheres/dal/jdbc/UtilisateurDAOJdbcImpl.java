@@ -15,6 +15,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
     private static final String DELETE = "DELETE FROM UTILISATEURS WHERE pseudo = ?";
+    private static final String SELECT_PSEUDO_EXISTANT = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
+    private static final String SELECT_EMAIL_EXISTANT = "SELECT email FROM UTILISATEURS WHERE email = ?";
+    private static final String SELECT_LOGIN_INFOS = "SELECT pseudo, email, mot_de_passe FROM UTILISATEURS WHERE no_utilisateur = ?";
 
     @Override
     public Utilisateur selectByPseudo(String pseudo) throws SQLException {
@@ -145,5 +148,51 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean pseudoIsInBase(Utilisateur utilisateur) throws SQLException {
+        boolean isInBase = false;
+
+        try (Connection cnx = ConnectionProvider.getConnection()) {
+
+            PreparedStatement pstmt = cnx.prepareStatement(SELECT_PSEUDO_EXISTANT);
+            pstmt.setString(1, utilisateur.getPseudo().trim());
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                isInBase = true;
+            }
+
+            rs.close();
+            pstmt.close();
+
+        } catch(SQLException ex) {
+
+        }
+        return isInBase;
+    }
+
+    @Override
+    public boolean emailIsInBase(Utilisateur utilisateur) throws SQLException {
+        boolean isInBase = false;
+
+        try (Connection cnx = ConnectionProvider.getConnection()) {
+
+            PreparedStatement pstmt = cnx.prepareStatement(SELECT_EMAIL_EXISTANT);
+            pstmt.setString(1, utilisateur.getEmail().trim());
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                isInBase = true;
+            }
+
+            rs.close();
+            pstmt.close();
+
+        } catch(SQLException ex) {
+
+        }
+        return isInBase;
     }
 }
