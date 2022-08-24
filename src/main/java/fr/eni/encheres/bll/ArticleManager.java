@@ -7,9 +7,7 @@ import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.DAOFactory;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class ArticleManager {
@@ -22,7 +20,7 @@ public class ArticleManager {
 
     //Methode Ajout d'un article en vente
 
-    public void ajouterUnArticle(Articles article) throws BusinessException, SQLException {
+    public void ajouterUnArticle(Articles article) throws BusinessException {
         BusinessException businessException = new BusinessException();
         this.validateArticle(article, businessException);
         this.validateRetraitArticle(article, businessException);
@@ -34,7 +32,7 @@ public class ArticleManager {
     }
 
     //methode Update d'un Article
-    public void updateUnArticle(Articles article) throws BusinessException, SQLException {
+    public void updateUnArticle(Articles article) throws BusinessException {
         BusinessException businessException = new BusinessException();
         this.validateRetraitArticle(article, businessException);
         this.validateRetraitArticle(article, businessException);
@@ -46,7 +44,7 @@ public class ArticleManager {
     }
 
     //Suppression d'un article
-    public void removeArticle(Articles article) throws SQLException{
+    public void removeArticle(Articles article) throws BusinessException{
         this.articleDAO.delete(article);
     }
 
@@ -56,27 +54,27 @@ public class ArticleManager {
     }
 
     //Affichage list article par catégorie
-    public List<Articles> listeArticleParCategorie(Categorie categorie){
+    public List<Articles> listeArticleParCategorie(Categorie categorie) throws BusinessException{
         return this.articleDAO.selectByCategorie(categorie);
     }
 
     //Affichage liste article par mot clé.
-    public List<Articles> listeArticleByMotCle(String motCle){
+    public List<Articles> listeArticleByMotCle(String motCle) throws BusinessException{
         return this.articleDAO.selectByMotCle(motCle);
     }
 
     //Affichage liste vente en cours par utilisateur
-    public List<Articles> listeVenteEnCoursParUtilisateur(Utilisateur utilisateur){
+    public List<Articles> listeVenteEnCoursParUtilisateur(Utilisateur utilisateur) throws BusinessException {
         return this.articleDAO.selectVentesEnCoursParUtilisateur(utilisateur);
     }
 
     // Affichage liste vente terminée par utilisateur.
-    public List<Articles> listeVenteTermineesParUtilisateur(Utilisateur utilisateur){
+    public List<Articles> listeVenteTermineesParUtilisateur(Utilisateur utilisateur) throws BusinessException{
         return this.articleDAO.selectVentesTermineesParUtilisateur(utilisateur);
     }
 
     //validation des données :
-    public void validateArticle(Articles article, BusinessException businessException){
+    public void validateArticle(Articles article, BusinessException businessException) throws BusinessException{
 
         if (article.getNomArticle() == null || article.getNomArticle().isBlank()){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_NOM_ERREUR);
@@ -114,7 +112,7 @@ public class ArticleManager {
     }
 
     //Validation des données pour le retrait article.
-    public void validateRetraitArticle(Articles article, BusinessException businessException) throws SQLException{
+    public void validateRetraitArticle(Articles article, BusinessException businessException) throws BusinessException{
 
         if (article.getNoArticle() == null){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_RETRAIT_ARTICLE_NOARTICLE_ERREUR);
@@ -132,7 +130,4 @@ public class ArticleManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_RETRAIT_ARTICLE_VILLE_ERREUR);
         }
     }
-
-
-
 }
