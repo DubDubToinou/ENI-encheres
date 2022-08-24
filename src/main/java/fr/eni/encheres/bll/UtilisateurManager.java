@@ -16,28 +16,47 @@ public class UtilisateurManager {
         this.utilisateurDAO = DAOFactory.getUtilisateurDAO();
     }
 
+    //Methode ajouter un Utilisateur
+    public void ajouterUser(Utilisateur utilisateur) throws BusinessException, SQLException {
+        BusinessException businessException = new BusinessException();
+        this.validateUser(utilisateur, businessException);
+
+        if(!businessException.hasErreurs()){
+            Utilisateur newUtilisateur = new Utilisateur();
+            this.utilisateurDAO.insert(newUtilisateur);
+        }
+    }
+
+    //Methode mise à jour des utilisateurs
+    public void updateUser(Utilisateur utilisateur) throws BusinessException, SQLException{
+        BusinessException businessException = new BusinessException();
+        this.validateUser(utilisateur , businessException);
+
+        if (!businessException.hasErreurs()){
+            Utilisateur updateUtilisateur = new Utilisateur();
+            this.utilisateurDAO.update(updateUtilisateur);
+        }
+    }
 
     //Pouvoir se supprimer
     public void removeUser(Utilisateur utilisateur) throws SQLException {
-
         utilisateurDAO.delete(utilisateur);
-
     }
 
     //afficher son profil
     public Utilisateur afficherSonProfil(String pseudo) throws SQLException{
-        return this.utilisateurDAO.selectByPseudo(pseudo);
+        return this.utilisateurDAO.selectOwnProfile(pseudo);
     }
 
     //Afficher un profil en cliquant sur le pseudo d'un utilisateur.
     public Utilisateur afficherUnProfil(String pseudo) throws SQLException{
-        return this.utilisateurDAO.selectOwnProfile(pseudo);
+        return this.utilisateurDAO.selectByPseudo(pseudo);
     }
 
     //Methode qui valide les données avec insert / update
     public void validateUser(Utilisateur utilisateur, BusinessException businessException) throws SQLException{
 
-        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().isBlank() && !utilisateur.getPseudo().matches("^[a-zA-Z0-9]*$") ){
+        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().isBlank() && !utilisateur.getPseudo().matches("^[a-zA-Z0-9]*$") || utilisateur.getPseudo().length()<8 ){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PSEUDO_ERREUR);
         }
 
