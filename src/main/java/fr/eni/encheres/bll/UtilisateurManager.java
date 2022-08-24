@@ -32,7 +32,7 @@ public class UtilisateurManager {
 
     public void validateUser(Utilisateur utilisateur, BusinessException businessException){
 
-        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().isBlank()){
+        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().isBlank() && utilisateur.getPseudo().matches("^[a-zA-Z0-9]*$") ){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PSEUDO_ERREUR);
         }
 
@@ -68,7 +68,7 @@ public class UtilisateurManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_VILLE_ERREUR);
         }
 
-        if (utilisateur.getMotDePasse() == null || utilisateur.getMotDePasse().isBlank() || utilisateur.getMotDePasse().length()<8 && utilisateur.getMotDePasse().matches("^[a-zA-Z0-9]*$") ){
+        if (utilisateur.getMotDePasse() == null || utilisateur.getMotDePasse().isBlank() || utilisateur.getMotDePasse().length()<8){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_MOTDEPASSE_ERREUR);
         }
 
