@@ -32,6 +32,7 @@
       <p>U Téléphone</p>
       <p>U@email.com</p>
     </div>
+    <p>UCrédits</p>
     <a href="">Modifier mon profil</a>
   </div>
 </main>
