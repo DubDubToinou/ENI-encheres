@@ -14,6 +14,11 @@ public abstract class CodesResultatBLL {
     public  static final int REGLE_USER_VILLE_ERREUR = 20070;
     public  static final int REGLE_USER_MOTDEPASSE_ERREUR = 20080;
 
+    // #### Code Erreur validateConnexion ####
+    public static final int REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_LOGIN_ERREUR = 20100;
+    public static final int REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_MOTDEPASSE_ERREUR = 20101;
+
+
     //#### CODE ERREUR ARTICLE MANAGER ####
     // #### CODE ERREUR validateArticle ####
 
@@ -29,6 +34,7 @@ public abstract class CodesResultatBLL {
     public static final int REGLE_ARTICLE_NOCATEGORIE_ERREUR = 20207;
 
 
+
     // #### CODE ERREUR validateRetraitArticle ####
 
     public static final int REGLE_RETRAIT_ARTICLE_NOARTICLE_ERREUR = 20251;
@@ -37,9 +43,7 @@ public abstract class CodesResultatBLL {
     public static final int REGLE_RETRAIT_ARTICLE_VILLE_ERREUR = 20254;
 
 
-    // #### Code Erreur validateConnexion ####
-    public static final int REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_LOGIN_ERREUR = 20100;
-    public static final int REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_MOTDEPASSE_ERREUR = 20101;
+
 
 
 
