@@ -8,6 +8,7 @@ import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.DAOFactory;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ArticleManager {
@@ -98,7 +99,7 @@ public class ArticleManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_MISEAPRIX_ERREUR);
         }
 
-        if(article.getPrixVente() == null || article.getPrixVente() < article.getMiseAPrix()){
+        if(article.getPrixVente() == null){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_PRIXVENTE_ERREUR);
         }
 

@@ -103,7 +103,6 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
                 pstmt.setInt(2, elementEnchere.getArticleVendu().getNoArticle());
                 pstmt.setDate(3, Date.valueOf(elementEnchere.getDateEnchere()));
                 pstmt.setInt(4, elementEnchere.getMontant_enchere());
-
                 pstmt.executeUpdate();
 
                 pstmt.close();

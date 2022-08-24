@@ -9,7 +9,7 @@ public class LecteurMessage {
     {
         try
         {
-            rb = ResourceBundle.getBundle("fr.eni.javaee.gestionlistescourses.messages.messages_erreur");
+            rb = ResourceBundle.getBundle("fr.eni.encheres.messages.messages_erreur");
         }
         catch (Exception e)
         {
