@@ -31,6 +31,7 @@
       <h2>Contact</h2>
       <p>U Téléphone</p>
       <p>U@email.com</p>
+      <p>U Adresse</p>
     </div>
     <p>UCrédits</p>
     <a href="">Modifier mon profil</a>
