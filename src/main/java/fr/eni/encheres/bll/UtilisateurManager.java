@@ -36,7 +36,7 @@ public class UtilisateurManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PSEUDO_ERREUR);
         }
 
-        if(utilisateurDAO.pseudoIsInBase(utilisateur)){
+        if(utilisateurDAO.pseudoIsInBase(utilisateur)) {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PSEUDO_IN_BASE_ERREUR);
         }
 

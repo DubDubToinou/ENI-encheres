@@ -3,7 +3,7 @@ package fr.eni.encheres.bll;
 public abstract class CodesResultatBLL {
 
     public static final int REGLE_USER_PSEUDO_ERREUR = 20000;
-    public static final int REGLE_USER_PSEUDO_IN_BASE_ERREUR = 20001
+    public static final int REGLE_USER_PSEUDO_IN_BASE_ERREUR = 20001;
     public static final int REGLE_USER_NOM_ERREUR = 20010;
     public static final int REGLE_USER_PRENOM_ERREUR = 20020;
     public  static final int REGLE_USER_EMAIL_ERREUR = 20030;
