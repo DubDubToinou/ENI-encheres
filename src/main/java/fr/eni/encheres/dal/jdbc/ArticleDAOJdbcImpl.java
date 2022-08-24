@@ -26,7 +26,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             "ON a.no_categorie = c.no_categorie " +
             "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE()";
     private static final String SELECT_BY_CATEGORIE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
-            "a.prix_initial, a.prix_vente, u.pseudo, c.libelle FROM Articles " +
+            "a.prix_initial, a.prix_vente, u.pseudo, c.libelle FROM Articles a " +
             "LEFT JOIN Utilisateurs u " +
             "ON a.no_utilisateur = u.no_utilisateur " +
             "LEFT JOIN Categories c " +
@@ -34,25 +34,23 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE() AND a.no_categorie = ?";
 
     private static final String SELECT_BY_MOT_CLE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
-            "a.prix_initial, a.prix_vente, u.pseudo, c.libelle FROM Articles " +
+            "a.prix_initial, a.prix_vente, u.pseudo, c.libelle FROM Articles a " +
             "LEFT JOIN Utilisateurs u " +
-
-
             "ON a.no_utilisateur = u.no_utilisateur " +
             "LEFT JOIN Categories c " +
             "ON a.no_categorie = c.no_categorie " +
             "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE() " +
-            "AND (a.nom_article LIKE %?% OR a.description LIKE %?%)";
+            "AND (a.nom_article LIKE ? OR a.description LIKE ?)";
 
     private static final String SELECT_VENTES_EN_COURS_BY_UTILISATEUR = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
-            "a.prix_initial, a.prix_vente, c.libelle FROM Articles " +
+            "a.prix_initial, a.prix_vente, c.libelle FROM Articles a " +
             "LEFT JOIN Categories c " +
             "ON a.no_categorie = c.no_categorie " +
             "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE() " +
             "AND a.no_utilisateur = ?";
 
     private static final String SELECT_VENTES_TERMINEES_BY_UTILISATEUR = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
-            "a.prix_initial, a.prix_vente, c.libelle FROM Articles " +
+            "a.prix_initial, a.prix_vente, c.libelle FROM Articles a " +
             "LEFT JOIN Categories c " +
             "ON a.no_categorie = c.no_categorie " +
             "WHERE a.date_fin_encheres <= GETDATE() " +
@@ -200,12 +198,12 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()) {
-                Articles article = new Articles(rs.getInt("a.no_article"), rs.getString("a.nom_article"), rs.getString("a.description"),
-                        rs.getDate("a.date_debut_encheres").toLocalDate(), rs.getDate("a.date_fin_encheres").toLocalDate(),
-                        rs.getInt("a.prix_initial"), rs.getInt("a.prix_vente"));
+                Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        rs.getInt(6), rs.getInt(7));
 
-                Utilisateur utilisateur = new Utilisateur(rs.getString("u.pseudo"));
-                Categorie categorieArticle = new Categorie(rs.getString("c.libelle"));
+                Utilisateur utilisateur = new Utilisateur(rs.getString(8));
+                Categorie categorieArticle = new Categorie(rs.getString(9));
 
                 article.setUtilisateurs(utilisateur);
                 article.setCategorieArticle(categorieArticle);
@@ -229,18 +227,18 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
         try (Connection con = ConnectionProvider.getConnection()){
             PreparedStatement pstmt = con.prepareStatement(SELECT_BY_MOT_CLE);
-            pstmt.setString(1, motCle);
-            pstmt.setString(2, motCle);
+            pstmt.setString(1, "%" + motCle+ "%");
+            pstmt.setString(2, "%" + motCle+ "%");
 
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()) {
-                Articles article = new Articles(rs.getInt("a.no_article"), rs.getString("a.nom_article"), rs.getString("a.description"),
-                        rs.getDate("a.date_debut_encheres").toLocalDate(), rs.getDate("a.date_fin_encheres").toLocalDate(),
-                        rs.getInt("a.prix_initial"), rs.getInt("a.prix_vente"));
+                Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        rs.getInt(6), rs.getInt(7));
 
-                Utilisateur utilisateur = new Utilisateur(rs.getString("u.pseudo"));
-                Categorie categorie = new Categorie(rs.getString("c.libelle"));
+                Utilisateur utilisateur = new Utilisateur(rs.getString(8));
+                Categorie categorie = new Categorie(rs.getString(9));
 
                 article.setUtilisateurs(utilisateur);
                 article.setCategorieArticle(categorie);
@@ -271,11 +269,11 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()) {
-                Articles article = new Articles(rs.getInt("a.no_article"), rs.getString("a.nom_article"), rs.getString("a.description"),
-                        rs.getDate("a.date_debut_encheres").toLocalDate(), rs.getDate("a.date_fin_encheres").toLocalDate(),
-                        rs.getInt("a.prix_initial"), rs.getInt("a.prix_vente"));
+                Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        rs.getInt(6), rs.getInt(7));
 
-                Categorie categorie = new Categorie(rs.getString("c.libelle"));
+                Categorie categorie = new Categorie(rs.getString(8));
 
                 article.setUtilisateurs(utilisateur);
                 article.setCategorieArticle(categorie);
@@ -305,11 +303,11 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()) {
-                Articles article = new Articles(rs.getInt("a.no_article"), rs.getString("a.nom_article"), rs.getString("a.description"),
-                        rs.getDate("a.date_debut_encheres").toLocalDate(), rs.getDate("a.date_fin_encheres").toLocalDate(),
-                        rs.getInt("a.prix_initial"), rs.getInt("a.prix_vente"));
+                Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        rs.getInt(6), rs.getInt(7));
 
-                Categorie categorie = new Categorie(rs.getString("c.libelle"));
+                Categorie categorie = new Categorie(rs.getString(8));
 
                 article.setUtilisateurs(utilisateur);
                 article.setCategorieArticle(categorie);

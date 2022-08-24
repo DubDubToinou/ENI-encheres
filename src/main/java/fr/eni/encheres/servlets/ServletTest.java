@@ -1,9 +1,6 @@
 package fr.eni.encheres.servlets;
 
-import fr.eni.encheres.bo.Articles;
-import fr.eni.encheres.bo.Categorie;
-import fr.eni.encheres.bo.Retrait;
-import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.bo.*;
 import fr.eni.encheres.dal.*;
 
 import javax.servlet.*;
@@ -45,10 +42,10 @@ public class ServletTest extends HttpServlet {
 
         Articles clavier = new Articles("clavier ordinateur", "un clavier d'ordinateur de la marque XXX", LocalDate.of(2022,7,12), LocalDate.of(2022,10,12), 5, 15, true);
         Articles lampe = new Articles("lampe de chevet", "une lampe de chevet en bois", LocalDate.of(2022,7,12), LocalDate.of(2022,10,12), 6, 10, true);
-        Articles souris = new Articles("souris ordinateur", "une souris d'ordinateur de la marque XXX", LocalDate.of(2022,10,12), LocalDate.of(2022,11,12), 10, 20, true);
+        Articles souris = new Articles("souris ordinateur", "une souris d'ordinateur de la marque XXX", LocalDate.of(2022,8,12), LocalDate.of(2022,11,12), 10, 20, true);
         Articles couteauSuisse = new Articles("couteau suisse", "un couteau ustensile", LocalDate.of(2022,7,12), LocalDate.of(2022,7,13), 6, 10, true);
 
-        System.out.println(clavier.toString());
+
 
         clavier.setCategorieArticle(informatique);
         clavier.setUtilisateurs(antoine);
@@ -94,18 +91,58 @@ public class ServletTest extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        lampe.setCategorieArticle(informatique);
+      // ENCHERES
+        //insert
+        Enchere enchere1francois = new Enchere(LocalDate.of(2022, 8,24), 100);
+        enchere1francois.setArticleVendu(clavier);
+        enchere1francois.setUtilisateur(francois);
+
+
+        Enchere enchere1sheila = new Enchere(LocalDate.of(2022, 8,24), 200);
+        enchere1sheila.setArticleVendu(clavier);
+        enchere1sheila.setUtilisateur(sheila);
+
+        Enchere enchere2sheila = new Enchere(LocalDate.of(2022, 8,24), 300);
+        enchere2sheila.setArticleVendu(clavier);
+        enchere2sheila.setUtilisateur(sheila);
+
+        Enchere enchere3sheila = new Enchere(LocalDate.of(2022, 7,12), 300);
+        enchere3sheila.setArticleVendu(couteauSuisse);
+        enchere3sheila.setUtilisateur(sheila);
+
+        Enchere enchere2francois = new Enchere(LocalDate.of(2022, 7,12), 400);
+        enchere2francois.setArticleVendu(couteauSuisse);
+        enchere2francois.setUtilisateur(francois);
+
         try {
-            articleDAO.update(lampe);
+            encheresDAO.insert(enchere1francois);
+            encheresDAO.insert(enchere1sheila);
+            encheresDAO.insert(enchere2sheila);
+            encheresDAO.insert(enchere3sheila);
+            encheresDAO.insert(enchere2francois);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        //select ventes en cours
-        List<Articles> listeArticles = articleDAO.selectVentesEnCours();
+        try {
+            List<Enchere> liste = encheresDAO.selectEnCoursByUtilisateurs(sheila);
+            for(Enchere e : liste) {
+                System.out.println(e.toString());
+            }
 
-        for(Articles a : listeArticles) {
-            System.out.println(a.toString());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("/////");
+        try {
+            List<Enchere> liste = encheresDAO.selectEncheresGagneByUtilisateur(sheila);
+            for(Enchere e : liste) {
+                System.out.println(e.toString());
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");

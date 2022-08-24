@@ -8,11 +8,11 @@
 <body>
 <header>
     <div class="logo">
-        <p>Enchères</p>
+        <a href="">Enchères</a>
     </div>
     <div class="buttons">
-        <a href="">Se connecter</a>
-        <a href="">S'inscrire</a>
+        <a href="connexion.jsp">Se connecter</a>
+        <a href="./inscription.jsp">S'inscrire</a>
     </div>
 </header>
 <main>
@@ -30,7 +30,7 @@
         </div>
         <button type="submit">Connexion</button>
     </form>
-    <p>Vous n'avez pas de compte ? <a href="">Inscrivez-vous</a></p>
+    <p>Vous n'avez pas de compte ? <a href="./inscription.jsp">Inscrivez-vous</a></p>
 </main>
 </body>
 </html>

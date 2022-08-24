@@ -39,6 +39,7 @@ public class Enchere {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
+        utilisateur.addEnchere(this);
     }
 
 

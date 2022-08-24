@@ -1,5 +1,6 @@
 package fr.eni.encheres.bll;
 
+import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DAOFactory;
@@ -16,16 +17,16 @@ public class EnchereManager {
         this.enchereDAO = DAOFactory.getEncheresDAO();
     }
 
-    public List<Enchere> listeEnchereEnCoursParNoArticle(int noArticle) throws SQLException {
-        return this.enchereDAO.selectByNoArticle(noArticle);
+    public List<Enchere> listeEnchereEnCoursParArticle(Articles article) throws SQLException {
+        return this.enchereDAO.selectByArticle(article);
     }
 
     public List<Enchere> listeArticleEnchereEnCoursParUtilisateur(Utilisateur utilisateur) throws SQLException {
-        return this.enchereDAO.selectEnCoursByNoUtilisateurs(utilisateur);
+        return this.enchereDAO.selectEnCoursByUtilisateurs(utilisateur);
     }
 
     public List<Enchere> listeArticleEnchereGagneParUtilisateur(Utilisateur utilisateur) throws SQLException{
-        return this.enchereDAO.selectEncheresGagneByNoUtilisateur(utilisateur);
+        return this.enchereDAO.selectEncheresGagneByUtilisateur(utilisateur);
     }
 
 
