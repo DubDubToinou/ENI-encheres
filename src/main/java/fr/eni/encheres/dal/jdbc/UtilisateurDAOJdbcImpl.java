@@ -1,7 +1,9 @@
 package fr.eni.encheres.dal.jdbc;
 
+import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.CodesResultatDAL;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
 import java.sql.*;
@@ -20,7 +22,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     private static final String SELECT_MOT_DE_PASSE = "SELECT mot_de_passe FROM UTILISATEURS WHERE (pseudo = ? or email= ?)";
 
     @Override
-    public Utilisateur selectByPseudo(String pseudo) throws SQLException {
+    public Utilisateur selectByPseudo(String pseudo) throws BusinessException {
         Utilisateur u = new Utilisateur();
 
         try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -52,14 +54,17 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             result.close();
 
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_UTILISATEUR_PAR_PSEUDO_ECHEC);
+            throw businessException;
         }
         return u;
     }
 
     @Override
-    public Utilisateur selectOwnProfile(String pseudo) throws SQLException {
+    public Utilisateur selectOwnProfile(String pseudo) throws BusinessException {
         Utilisateur u = new Utilisateur();
 
         try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -81,14 +86,24 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             }
             result.close();
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_OWN_PROFILE_ECHEC);
+            throw businessException;
         }
         return u;
     }
 
     @Override
-    public void insert(Utilisateur utilisateur) throws SQLException {
+    public void insert(Utilisateur utilisateur) throws BusinessException {
+
+        if(utilisateur==null)
+        {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
+            throw businessException;
+        }
 
         try (Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement stmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -110,13 +125,23 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             utilisateur.setNoUtilisateur(dernierUtilisateur.getInt(1));
 
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+            throw businessException;
         }
     }
 
     @Override
-    public void update(Utilisateur utilisateur) throws SQLException {
+    public void update(Utilisateur utilisateur) throws BusinessException {
+
+        if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UTILISATEUR_INEXISTANT);
+            throw businessException;
+        }
+
         try (Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement stmt = cnx.prepareStatement(UPDATE);
             stmt.setString(1, utilisateur.getPseudo());
@@ -132,26 +157,40 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             stmt.execute();
 
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UPDATE_UTILISATEUR_ECHEC);
+            throw businessException;
         }
     }
 
     @Override
-    public void delete(Utilisateur utilisateur) throws SQLException {
+    public void delete(Utilisateur utilisateur) throws BusinessException {
+
+        if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UTILISATEUR_INEXISTANT);
+            throw businessException;
+        }
+
         try (Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement stmt = cnx.prepareStatement(DELETE);
             stmt.setString(1, utilisateur.getPseudo());
             stmt.execute();
 
             stmt.close();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.DELETE_UTILISATEUR_ECHEC);
+            throw businessException;
         }
     }
 
     @Override
-    public boolean pseudoIsInBase(Utilisateur utilisateur) throws SQLException {
+    public boolean pseudoIsInBase(Utilisateur utilisateur) throws BusinessException {
+
         boolean isInBase = false;
 
         try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -167,14 +206,17 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             rs.close();
             pstmt.close();
 
-        } catch(SQLException ex) {
-
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.PSEUDO_IN_BASE_ECHEC);
+            throw businessException;
         }
         return isInBase;
     }
 
     @Override
-    public boolean emailIsInBase(Utilisateur utilisateur) throws SQLException {
+    public boolean emailIsInBase(Utilisateur utilisateur) throws BusinessException {
         boolean isInBase = false;
 
         try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -190,19 +232,22 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             rs.close();
             pstmt.close();
 
-        } catch(SQLException ex) {
-
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.EMAIL_IN_BASE_ECHEC);
+            throw businessException;
         }
         return isInBase;
     }
 
     @Override
-    public String selectMotDePasse(Utilisateur utilisateur) throws SQLException {
+    public String selectMotDePasse(String login) throws BusinessException {
         String password = "";
         try (Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement pstmt = cnx.prepareStatement(SELECT_MOT_DE_PASSE);
-            pstmt.setString(1, utilisateur.getPseudo());
-            pstmt.setString(2, utilisateur.getEmail());
+            pstmt.setString(1, login);
+            pstmt.setString(2, login);
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -211,7 +256,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             }
 
         } catch(SQLException ex) {
-//TODO
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_PASSWORD_ECHEC);
+            throw businessException;
         }
 
         return password;

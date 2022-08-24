@@ -54,8 +54,8 @@ CREATE TABLE ARTICLES (
     description                   VARCHAR(300) NOT NULL,
 	date_debut_encheres           DATE NOT NULL,
     date_fin_encheres             DATE NOT NULL,
-    prix_initial                  INTEGER,
-    prix_vente                    INTEGER,
+    prix_initial                  INTEGER NOT NULL,
+    prix_vente                    INTEGER NOT NULL,
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL
 )

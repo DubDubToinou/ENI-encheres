@@ -1,9 +1,11 @@
 package fr.eni.encheres.dal.jdbc;
 
+import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ArticleDAO;
+import fr.eni.encheres.dal.CodesResultatDAL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -57,12 +59,15 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             "AND a.no_utilisateur = ?";
 
     @Override
-    public void insert(Articles article) {
-        if(article == null) {
-            //TODO Gestion erreur
+    public void insert(Articles article) throws BusinessException{
+        if(article==null)
+        {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
+            throw businessException;
         }
 
-        try(Connection con = ConnectionProvider.getConnection()) {
+        try(Connection con = ConnectionProvider.getConnection())  {
 
             PreparedStatement pstmtArticle = con.prepareStatement(INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
             PreparedStatement pstmtRetrait = con.prepareStatement(INSERT_RETRAIT);
@@ -73,7 +78,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmtArticle.setDate(3, Date.valueOf(article.getDateDebutEncheres()));
             pstmtArticle.setDate(4, Date.valueOf(article.getDateFinEncheres()));
             pstmtArticle.setInt(5, article.getMiseAPrix());
-            pstmtArticle.setInt(6, article.getPrixVente());
+            pstmtArticle.setInt(6, article.getMiseAPrix());
             pstmtArticle.setInt(7, article.getUtilisateurs().getNoUtilisateur());
             pstmtArticle.setInt(8, article.getCategorieArticle().getNoCategorie());
 
@@ -98,14 +103,22 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmtRetrait.close();
 
 
-        } catch(SQLException ex) {
+        } catch(Exception ex) {
             ex.printStackTrace();
-//TODO
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+            throw businessException;
         }
     }
 
     @Override
-    public void update(Articles article) {
+    public void update(Articles article) throws BusinessException{
+
+        if(article.getNoArticle()==null || article.getNoArticle()==0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.ARTICLE_NULL_ECHEC);
+            throw businessException;
+        }
 
         try(Connection con = ConnectionProvider.getConnection()) {
 
@@ -130,14 +143,22 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmtArticle.close();
             pstmtRetrait.close();
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-    //TODO
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UPDATE_ARTICLE_ECHEC);
+            throw businessException;
         }
     }
 
     @Override
-    public void delete(Articles article) {
+    public void delete(Articles article) throws BusinessException{
+
+        if(article.getNoArticle()==null || article.getNoArticle()==0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.ARTICLE_NULL_ECHEC);
+            throw businessException;
+        }
 
         try(Connection con = ConnectionProvider.getConnection()) {
             PreparedStatement pstmtArticle = con.prepareStatement(DELETE_ARTICLE);
@@ -148,13 +169,15 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             pstmtArticle.close();
 
-        } catch(SQLException ex) {
+        } catch(Exception ex) {
             ex.printStackTrace();
-//TODO
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.DELETE_ARTICLE_ECHEC);
+            throw businessException;
         }
     }
     @Override
-    public List<Articles> selectVentesEnCours() {
+    public List<Articles> selectVentesEnCours() throws BusinessException{
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
@@ -179,16 +202,18 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             rs.close();
             selectall.close();
 
-        } catch(SQLException ex) {
+        } catch(Exception ex) {
             ex.printStackTrace();
-            //TODO
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_VENTES_ENCOURS_ECHEC);
+            throw businessException;
         }
 
         return listeArticles;
     }
 
     @Override
-    public List<Articles> selectByCategorie(Categorie categorie) {
+    public List<Articles> selectByCategorie(Categorie categorie) throws BusinessException{
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
@@ -213,16 +238,24 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             rs.close();
             pstmt.close();
-        }catch(SQLException ex) {
+        }catch(Exception ex) {
             ex.printStackTrace();
-            //TODO
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_CATEGORIE_ECHEC);
+            throw businessException;
+        }
+
+        if(categorie.getNoCategorie()==null || categorie.getNoCategorie()==0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.CATEGORIE_NULL_ECHEC);
+            throw businessException;
         }
 
         return listeArticles;
     }
 
     @Override
-    public List<Articles> selectByMotCle(String motCle) {
+    public List<Articles> selectByMotCle(String motCle) throws BusinessException{
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
@@ -249,17 +282,18 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             rs.close();
             pstmt.close();
 
-        }catch(SQLException ex) {
+        }catch(Exception ex) {
             ex.printStackTrace();
-    //TODO
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_MOTCLE_ECHEC);
+            throw businessException;
         }
-
 
         return listeArticles;
     }
 
     @Override
-    public List<Articles> selectVentesEnCoursParUtilisateur(Utilisateur utilisateur) {
+    public List<Articles> selectVentesEnCoursParUtilisateur(Utilisateur utilisateur) throws BusinessException{
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
@@ -284,16 +318,24 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             rs.close();
             pstmt.close();
 
-        } catch(SQLException ex) {
+        } catch(Exception ex) {
             ex.printStackTrace();
-            //TODO
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_VENTES_PAR_UTILISATEUR_ECHEC);
+            throw businessException;
+        }
+
+        if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UTILISATEUR_INEXISTANT);
+            throw businessException;
         }
 
         return listeArticles;
     }
 
     @Override
-    public List<Articles> selectVentesTermineesParUtilisateur(Utilisateur utilisateur) {
+    public List<Articles> selectVentesTermineesParUtilisateur(Utilisateur utilisateur) throws BusinessException {
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
@@ -318,9 +360,17 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             rs.close();
             pstmt.close();
 
-        } catch(SQLException ex) {
+        } catch(Exception ex) {
             ex.printStackTrace();
-            //TODO
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_VENTES_TERMINEES_PAR_UTILISATEUR_ECHEC);
+            throw businessException;
+        }
+
+        if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UTILISATEUR_INEXISTANT);
+            throw businessException;
         }
 
         return listeArticles;

@@ -1,7 +1,9 @@
 package fr.eni.encheres.dal.jdbc;
 
+import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.dal.CategorieDAO;
+import fr.eni.encheres.dal.CodesResultatDAL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +16,14 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         private static final String UPDATE_CATEGORIE = "UPDATE Categories SET libelle = ? WHERE no_categorie = ?";
         private static final String DELETE_CATEGORIE = "DELETE FROM Categories WHERE no_categorie = ?";
 
-        public void insert(Categorie categorie){
+        public void insert(Categorie categorie) throws BusinessException {
+
+            if(categorie==null)
+            {
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
+                throw businessException;
+            }
 
             try(Connection con = ConnectionProvider.getConnection()){
 
@@ -33,12 +42,21 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
                 rs.close();
 
 
-            }catch (SQLException ex){
+            }catch (Exception ex){
                 ex.printStackTrace();
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+                throw businessException;
             }
         }
 
-        public void update(Categorie categorie){
+        public void update(Categorie categorie) throws BusinessException{
+
+            if(categorie.getNoCategorie()==null || categorie.getNoCategorie()==0) {
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodesResultatDAL.CATEGORIE_NULL_ECHEC);
+                throw businessException;
+            }
 
             try(Connection con = ConnectionProvider.getConnection()){
 
@@ -51,12 +69,21 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
                 pstmt.close();
 
-            }catch (SQLException ex){
+            }catch (Exception ex){
                 ex.printStackTrace();
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodesResultatDAL.UPDATE_CATEGORIE_ECHEC);
+                throw businessException;
             }
         }
 
-        public void delete(Categorie categorie){
+        public void delete(Categorie categorie) throws BusinessException {
+
+            if(categorie.getNoCategorie()==null || categorie.getNoCategorie()==0) {
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodesResultatDAL.CATEGORIE_NULL_ECHEC);
+                throw businessException;
+            }
 
             try(Connection con = ConnectionProvider.getConnection()){
 
@@ -67,8 +94,11 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
                pstmt.close();
 
-            }catch (SQLException ex){
+            }catch (Exception ex){
                 ex.printStackTrace();
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodesResultatDAL.DELETE_CATEGORIE_ECHEC);
+                throw businessException;
             }
         }
 
