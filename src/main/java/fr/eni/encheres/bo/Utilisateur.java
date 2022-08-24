@@ -238,18 +238,6 @@ public class Utilisateur {
         return "Utilisateur{" +
                 "NoUtilisateur=" + noUtilisateur +
                 ", pseudo='" + pseudo + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", email='" + email + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", rue='" + rue + '\'' +
-                ", codePostal='" + codePostal + '\'' +
-                ", ville='" + ville + '\'' +
-                ", motDePasse='" + motDePasse + '\'' +
-                ", credit=" + credit +
-                ", administrateur=" + administrateur +
-                ", encheres=" + encheres +
-                ", Articles vendus=" + listeArticlesVendus +
                 '}';
     }
 }
