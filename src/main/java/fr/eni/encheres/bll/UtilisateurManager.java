@@ -37,7 +37,7 @@ public class UtilisateurManager {
         }
 
         if(utilisateur.getNom() == null || utilisateur.getNom().isBlank()){
-            businessException.ajouterErreur(CodesResultatBLL);
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_NOM_ERREUR);
         }
 
     }
