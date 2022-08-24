@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inscription</title>
     <link rel="stylesheet" href="./styles/inscription.css"/>
 </head>
@@ -50,8 +51,8 @@
             </fieldset>
         </div>
         <div class="submit">
-            <button type="submit">S'inscrire</button>
             <a href="">Annuler</a>
+            <button type="submit">S'inscrire</button>
         </div>
     </form>
     <p>Vous avez déjà un compte ? <a href="connexion.jsp">Connectez-vous</a></p>
