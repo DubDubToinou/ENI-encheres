@@ -26,7 +26,7 @@
             <label for="name">Nom</label>
             <input type="text" name="name" id="name" maxlength="30" required/>
             <label for="phone">Téléphone</label>
-            <input type="tel" name="phone" id="phone" required/>
+            <input type="tel" name="phone" id="phone"/>
             <label for="email">Email</label>
             <input type="email" name="email" id="email" required/>
         </fieldset>
@@ -37,14 +37,14 @@
             <label for="city">Ville</label>
             <input type="text" name="city" id="city" maxlength="30" required/>
             <label for="zip">Code postal</label>
-            <input type="number" name="zip" id="zip" max="99999" required/>
+            <input type="text" name="zip" id="zip" pattern="[A-Za-z0-9]{10}" required/>
         </fieldset>
         <fieldset>
             <legend>Créer un mot de passe</legend>
             <label for="pwd">Mot de passe</label>
-            <input type="password" name="pwd" id="pwd" maxlength="30" required/>
+            <input type="password" name="pwd" id="pwd" pattern="[A-Za-z0-9]{8,30}" required/>
             <label for="pwdv">Confirmation</label>
-            <input type="password" name="pwdv" id="pwdv" maxlength="30" required/>
+            <input type="password" name="pwdv" id="pwdv" pattern="[A-Za-z0-9]{8,30}" required/>
         </fieldset>
         <div class="buttons">
             <button type="submit">S'inscrire</button>
