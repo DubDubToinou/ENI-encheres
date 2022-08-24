@@ -36,8 +36,40 @@ public class UtilisateurManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PSEUDO_ERREUR);
         }
 
+        if(utilisateurDAO.pseudoIsInBase(utilisateur)){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PSEUDO_IN_BASE_ERREUR);
+        }
+
         if(utilisateur.getNom() == null || utilisateur.getNom().isBlank()){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_NOM_ERREUR);
+        }
+
+        if (utilisateur.getPrenom() == null || utilisateur.getPrenom().isBlank()){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PRENOM_ERREUR);
+        }
+
+        if (utilisateur.getEmail() == null || utilisateur.getEmail().isBlank()){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_EMAIL_ERREUR);
+        }
+
+        if (utilisateurDAO.emailIsInBase(utilisateur)){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_EMAIL_IN_BASE_ERREUR);
+        }
+
+        if (utilisateur.getRue() == null || utilisateur.getRue().isBlank()){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_RUE_ERREUR);
+        }
+
+        if (utilisateur.getCodePostal() == null || utilisateur.getCodePostal().isBlank()){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_CODEPOSTAL_ERREUR);
+        }
+
+        if (utilisateur.getVille() == null || utilisateur.getVille().isBlank()){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_VILLE_ERREUR);
+        }
+
+        if (utilisateur.getMotDePasse() == null || utilisateur.getMotDePasse().isBlank() || utilisateur.getMotDePasse().length()<8 && utilisateur.getMotDePasse().matches("^[a-zA-Z0-9]*$") ){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_MOTDEPASSE_ERREUR);
         }
 
     }
