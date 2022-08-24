@@ -2,6 +2,7 @@ package fr.eni.encheres.bll;
 
 public abstract class CodesResultatBLL {
 
+    // Code Erreur validateUtilisateur
     public static final int REGLE_USER_PSEUDO_ERREUR = 20000;
     public static final int REGLE_USER_PSEUDO_IN_BASE_ERREUR = 20001;
     public static final int REGLE_USER_NOM_ERREUR = 20010;
@@ -12,6 +13,11 @@ public abstract class CodesResultatBLL {
     public  static final int REGLE_USER_CODEPOSTAL_ERREUR = 20060;
     public  static final int REGLE_USER_VILLE_ERREUR = 20070;
     public  static final int REGLE_USER_MOTDEPASSE_ERREUR = 20080;
+
+    //Code Erreur validateConnexion
+
+    public static final int REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_LOGIN_ERREUR = 20100;
+    public static final int REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_MOTDEPASSE_ERREUR = 20101;
 
 
 
