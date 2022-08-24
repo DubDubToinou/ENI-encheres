@@ -42,8 +42,6 @@ public class CategorieManager {
         categorieDAO.delete(categorie);
     }
 
-    public void updateCategorie
-
     //Validation de la donnée libelle pour la création de la catégorie.
     public void validateCategorie(Categorie categorie, BusinessException businessException) throws BusinessException{
         if (categorie.getLibelle() == null || categorie.getLibelle().isBlank()){
