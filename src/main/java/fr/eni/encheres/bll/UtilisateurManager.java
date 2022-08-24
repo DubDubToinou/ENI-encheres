@@ -32,7 +32,7 @@ public class UtilisateurManager {
 
     public void validateUser(Utilisateur utilisateur, BusinessException businessException){
 
-        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().isBlank() && utilisateur.getPseudo().matches("^[a-zA-Z0-9]*$") ){
+        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().isBlank() && !utilisateur.getPseudo().matches("^[a-zA-Z0-9]*$") ){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PSEUDO_ERREUR);
         }
 
