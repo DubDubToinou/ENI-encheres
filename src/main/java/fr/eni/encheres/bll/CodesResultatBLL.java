@@ -45,11 +45,11 @@ public abstract class CodesResultatBLL {
 
     public static final int REGLE_CATEGORIE_LIBELLE_ERREUR = 20300;
 
+    // #### CODE ERREUR validate Enchere ####
 
-
-
-
-
-
+    public static final int REGLE_ENCHERE_UTILISATEUR_ERREUR = 20600;
+    public static final int REGLE_ENCHERE_ARTICLE_ERREUR = 20601;
+    public static final int REGLE_ENCHERE_DATE_ERREUR = 20602;
+    public static final int REGLE_ENCHERE_MONTANT_ERREUR = 20603;
 
 }
