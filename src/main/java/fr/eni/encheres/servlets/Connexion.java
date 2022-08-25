@@ -45,7 +45,13 @@ public class Connexion extends HttpServlet {
         } else
         {
 
-            //utilisateurManager.validateConnexion();
+            Utilisateur ConnexionATester = new Utilisateur(login, motDePasse);
+            try {
+                Utilisateur utilisateur = utilisateurManager.RecupererProfil(ConnexionATester);
+            } catch (BusinessException ex) {
+                ex.printStackTrace();
+                request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
+            }
 
         }
 

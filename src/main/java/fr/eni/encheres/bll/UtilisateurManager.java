@@ -19,6 +19,7 @@ public class UtilisateurManager {
         BusinessException businessException = new BusinessException();
         this.validateUser(utilisateur, businessException);
 
+
         if(!businessException.hasErreurs()){
             try {
                 this.utilisateurDAO.insert(utilisateur);
@@ -26,6 +27,7 @@ public class UtilisateurManager {
             } catch(BusinessException ex) {
                 throw businessException;
             }
+
         }
     }
 
@@ -46,8 +48,15 @@ public class UtilisateurManager {
     }
 
     //afficher son profil
-    public Utilisateur afficherSonProfil(String pseudo) throws BusinessException{
-        return this.utilisateurDAO.selectOwnProfile(pseudo);
+    public Utilisateur RecupererProfil(Utilisateur utilisateur) throws BusinessException{
+        BusinessException businessException = new BusinessException();
+        this.validateConnexion(utilisateur, businessException);
+        Utilisateur utilisateurRetourne = null;
+
+        if (!businessException.hasErreurs()) {
+            utilisateurRetourne =  this.utilisateurDAO.selectOwnProfile(utilisateur);
+        }
+        return utilisateurRetourne;
     }
 
     //Afficher un profil en cliquant sur le pseudo d'un utilisateur.
@@ -99,17 +108,18 @@ public class UtilisateurManager {
         }
     }
 
+
     // Methode afin de valider la connexion.
     // On utilise la methode selectMotDePasse du DAO Utilisateur.
     // Si il n'y a pas de mot de passe retourné, alors il y a un probleme de login (pseudo ou mail)
     // sinon si il y a un mot de passe retourné par le selectMotDePasse alors on le compare à celui saisi par l'utilisateur.
     public void validateConnexion(Utilisateur utilisateur, BusinessException businessException) throws BusinessException {
 
-        if(utilisateurDAO.selectMotDePasse(String.valueOf(utilisateur)) == null || utilisateurDAO.selectMotDePasse(String.valueOf(utilisateur)).isBlank()){
+        if(!utilisateurDAO.pseudoIsInBase(utilisateur) && !utilisateurDAO.emailIsInBase(utilisateur)) {
 
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_LOGIN_ERREUR);
 
-        } else if (utilisateur.getMotDePasse().equals(utilisateurDAO.selectMotDePasse(String.valueOf(utilisateur)))) {
+        } else if (!utilisateur.getMotDePasse().trim().equals(utilisateurDAO.selectMotDePasse(utilisateur.getPseudo()))) {
 
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_MOTDEPASSE_ERREUR);
         }
