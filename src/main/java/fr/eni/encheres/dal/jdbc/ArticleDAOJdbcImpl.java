@@ -91,9 +91,9 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
                 //ajout du lieu de retrait (par défaut adresse du vendeur)
                 pstmtRetrait.setInt(1, article.getNoArticle());
-                pstmtRetrait.setString(2, article.getUtilisateurs().getRue());
-                pstmtRetrait.setString(3, article.getUtilisateurs().getCodePostal());
-                pstmtRetrait.setString(4, article.getUtilisateurs().getVille());
+                pstmtRetrait.setString(2, article.getLieuRetrait().getRue());
+                pstmtRetrait.setString(3, article.getLieuRetrait().getCodePostal());
+                pstmtRetrait.setString(4, article.getLieuRetrait().getVille());
 
                 pstmtRetrait.executeUpdate();
             }

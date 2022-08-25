@@ -22,7 +22,7 @@
 </header>
 <main>
     <h1>Mettre un article en vente</h1>
-    <form action="">
+    <form action="${pageContext.request.contextPath}/NouvelleVente" method="post">
         <label for="titre">Titre</label>
         <input type="text" name="nom_article" id="titre" maxlength="30" required/>
         <label for="description">Description</label>
@@ -43,11 +43,11 @@
         <fieldset>
             <legend>Retrait</legend>
             <label for="rue">Rue</label>
-            <input type="text" name="rue" id="rue" maxlength="30" required/>
+            <input type="text" name="rue" id="rue" maxlength="30" />
             <label for="codePostal">Code Postal</label>
-            <input type="text" name="code_postal" id="codePostal" pattern="[A-Za-z0-9]{1,10}" required/>
+            <input type="text" name="code_postal" id="codePostal" pattern="[A-Za-z0-9]{1,10}" />
             <label for="ville">Ville</label>
-            <input type="text" name="ville" id="ville" maxlength="30" required/>
+            <input type="text" name="ville" id="ville" maxlength="30" />
         </fieldset>
         <div class="submit">
             <a href="">Annuler</a>
