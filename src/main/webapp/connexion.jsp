@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion</title>
     <link rel="stylesheet" href="./styles/connexion.css" />
 </head>
@@ -11,8 +12,8 @@
         <a href="">Enchères</a>
     </div>
     <div class="buttons">
-        <a href="connexion.jsp">Se connecter</a>
-        <a href="./inscription.jsp">S'inscrire</a>
+        <a class="login" href="connexion.jsp">Se connecter</a>
+        <a class="signup" href="./inscription.jsp">S'inscrire</a>
     </div>
 </header>
 <main>

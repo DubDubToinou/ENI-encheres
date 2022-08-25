@@ -32,7 +32,7 @@ header {
 /* HEADER BUTTONS */
 /******************/
 
-.buttons > button {
+.buttons > a {
     padding: 10px 10px;
     margin-left: 8px;
     border-radius: 8px;
@@ -147,7 +147,7 @@ p {
         height: 80px;
     }
 
-    .buttons > button {
+    .buttons > a {
         margin-left: 12px;
         padding: 10px 18px;
     }
