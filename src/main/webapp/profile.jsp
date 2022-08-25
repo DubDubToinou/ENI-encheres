@@ -5,7 +5,7 @@
 <html lang="fr">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>U pseudo</title>
+  <title>Bonjour : ${ sessionScope.utilisateur.pseudo}</title>
   <link rel="stylesheet" href="" />
 </head>
 <body>
@@ -36,8 +36,9 @@
       <p>${ sessionScope.utilisateur.rue }</p> <!-- Affichage de la rue-->
       <p>${ sessionScope.utilisateur.ville }</p> <!-- Affichage de la ville-->
       <p>${ sessionScope.utilisateur.codePostal }</p> <!-- Affichage du code postal-->
+      <p>${ sessionScope.utililsateur.credit }</p>
     </div>
-    <p>${ sessionScope.utililsateur.credit}</p>
+
     <a href="">Modifier mon profil</a>
   </div>
 </main>
