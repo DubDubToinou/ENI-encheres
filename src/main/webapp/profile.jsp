@@ -40,9 +40,6 @@
     <p>${ sessionScope.utililsateur.credit}</p>
     <a href="">Modifier mon profil</a>
   </div>
-  <div class="options">
-    <a>Vendre un article</a>
-  </div>
 </main>
 </body>
 </html>
