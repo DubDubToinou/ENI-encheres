@@ -35,11 +35,11 @@
             <fieldset>
                 <legend>Votre adresse</legend>
                 <label for="street">Rue</label>
-                <input type="number" name="street" id="street" maxlength="30" required/>
+                <input type="text" name="street" id="street" maxlength="30" required/>
                 <label for="city">Ville</label>
                 <input type="text" name="city" id="city" maxlength="30" required/>
                 <label for="zip">Code postal</label>
-                <input type="text" name="zip" id="zip" pattern="[A-Za-z0-9]{10}" required/>
+                <input type="text" name="zip" id="zip" pattern="[A-Za-z0-9]{0,5}" required/>
             </fieldset>
             <fieldset>
                 <legend>Créer un mot de passe</legend>
