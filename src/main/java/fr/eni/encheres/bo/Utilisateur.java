@@ -32,6 +32,11 @@ public class Utilisateur {
     public Utilisateur(String pseudo) {
         this.pseudo = pseudo;
     }
+
+    public Utilisateur(String pseudo, String motDePasse) {
+        this.pseudo = pseudo;
+        this.motDePasse = motDePasse;
+    }
     //Constructeur
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit) {
         this.pseudo = pseudo;

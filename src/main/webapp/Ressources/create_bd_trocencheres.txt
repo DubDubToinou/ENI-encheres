@@ -35,7 +35,7 @@ CREATE TABLE UTILISATEURS (
     pseudo           VARCHAR(30) UNIQUE NOT NULL,
     nom              VARCHAR(30) NOT NULL,
     prenom           VARCHAR(30) NOT NULL,
-    email            VARCHAR(20) UNIQUE NOT NULL,
+    email            VARCHAR(50) UNIQUE NOT NULL,
     telephone        VARCHAR(15),
     rue              VARCHAR(30) NOT NULL,
     code_postal      VARCHAR(10) NOT NULL,
