@@ -55,7 +55,7 @@ public class EnchereManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ENCHERE_DATE_ERREUR);
         }
 
-        if (enchere.getMontant_enchere() == null || enchere.getMontant_enchere() <= 0) {
+        if (enchere.getMontant_enchere() == null || enchere.getMontant_enchere() <= enchere.getArticleVendu().getPrixVente()) {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ENCHERE_MONTANT_ERREUR);
         }
     }
