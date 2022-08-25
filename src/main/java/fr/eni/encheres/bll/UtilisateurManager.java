@@ -20,7 +20,11 @@ public class UtilisateurManager {
         this.validateUser(utilisateur, businessException);
 
         if(!businessException.hasErreurs()){
-            this.utilisateurDAO.insert(utilisateur);
+            try {
+                this.utilisateurDAO.insert(utilisateur);
+            } catch(BusinessException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -30,8 +34,8 @@ public class UtilisateurManager {
         this.validateUser(utilisateur , businessException);
 
         if (!businessException.hasErreurs()){
-            Utilisateur updateUtilisateur = new Utilisateur();
-            this.utilisateurDAO.update(updateUtilisateur);
+
+            this.utilisateurDAO.update(utilisateur);
         }
     }
 
