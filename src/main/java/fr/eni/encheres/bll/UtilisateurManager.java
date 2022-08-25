@@ -22,8 +22,9 @@ public class UtilisateurManager {
         if(!businessException.hasErreurs()){
             try {
                 this.utilisateurDAO.insert(utilisateur);
+
             } catch(BusinessException ex) {
-                ex.printStackTrace();
+                throw businessException;
             }
         }
     }
@@ -57,7 +58,7 @@ public class UtilisateurManager {
     //Methode qui valide les données avec insert / update
     public void validateUser(Utilisateur utilisateur, BusinessException businessException) throws BusinessException{
 
-        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().isBlank() || !utilisateur.getPseudo().matches("^[a-zA-Z0-9]*$") || utilisateur.getPseudo().length()<8 ){
+        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().isBlank() || !utilisateur.getPseudo().matches("^[a-zA-Z0-9]*$")){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_PSEUDO_ERREUR);
         }
 

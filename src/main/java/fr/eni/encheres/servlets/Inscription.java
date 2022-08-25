@@ -72,6 +72,7 @@ public class Inscription extends HttpServlet {
         }
         return utilisateur;
     }
+
     private String verifierMotDePasse(HttpServletRequest request, List<Integer> listeCodesErreur) {
         String motDePasse = lireParametreMotDePasse(request, listeCodesErreur);
         String confirmation = lireParametreConfirmation(request, listeCodesErreur);
