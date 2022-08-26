@@ -84,6 +84,17 @@ public class Articles {
         this.prixVente = prixVente;
     }
 
+    public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix, Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur) {
+        this.nomArticle = nomArticle;
+        this.description = description;
+        this.dateDebutEncheres = dateDebutEncheres;
+        this.dateFinEncheres = dateFinEncheres;
+        this.miseAPrix = miseAPrix;
+        this.categorieArticle = categorieArticle;
+        this.lieuRetrait = lieuRetrait;
+        this.utilisateur = utilisateur;
+    }
+
     //Getter et Setter noArticle
     public Integer getNoArticle() {
         return noArticle;

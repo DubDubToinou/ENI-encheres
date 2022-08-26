@@ -23,6 +23,7 @@ public class UtilisateurManager {
         if(!businessException.hasErreurs()){
             try {
                 this.utilisateurDAO.insert(utilisateur);
+
             } catch(BusinessException ex) {
                 throw businessException;
             }
