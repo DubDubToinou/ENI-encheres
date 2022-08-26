@@ -14,9 +14,8 @@
         <a href="">Enchères</a>
     </div>
     <nav>
-        <a href="">Accueil</a>
-        <a href="">Mes ventes</a>
-        <a href="">Mes enchères</a>
+        <a href="">Enchères</a>
+        <a href="">Vendre</a>
     </nav>
     <div class="buttons">
         <a class="logout" href="">Se déconnecter</a>
