@@ -7,15 +7,13 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "MonProfil", value = "/ServletMonProfil")
+@WebServlet(name = "MonProfil", value = "/MonProfil")
 public class MonProfil extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        UtilisateurManager utilisateurManager = new UtilisateurManager();
-        HttpSession session = request.getSession();
-        request.getRequestDispatcher("/profile.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request,response);
 
     }
 

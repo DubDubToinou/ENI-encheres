@@ -26,20 +26,20 @@
   <div class="profil">
     <div>
       <h1>${ sessionScope.utilisateur.pseudo }</h1> <!-- Affichage du pseudo -->
-      <p>${sessionScope.utilisateur.prenom}</p>     <!--Affichage du Prenom -->
-      <p>${sessionScope.utilisateur.nom}</p>        <!-- Affichage du Nom-->
+      <p>Prenom  : ${sessionScope.utilisateur.prenom}</p>     <!--Affichage du Prenom -->
+      <p>Nom : ${sessionScope.utilisateur.nom}</p>        <!-- Affichage du Nom-->
     </div>
     <div>
       <h2>Contact</h2>
-      <p>${ sessionScope.utilisateur.email  }</p>   <!--affichage de l'email -->
-      <p>${ sessionScope.utilisateur.telephone }</p><!--Affichage du telephone -->
-      <p>${ sessionScope.utilisateur.rue }</p> <!-- Affichage de la rue-->
-      <p>${ sessionScope.utilisateur.ville }</p> <!-- Affichage de la ville-->
-      <p>${ sessionScope.utilisateur.codePostal }</p> <!-- Affichage du code postal-->
-      <p>${ sessionScope.utililsateur.credit }</p>
+      <p>Email : ${ sessionScope.utilisateur.email  }</p>   <!--affichage de l'email -->
+      <p>Téléphone : ${ sessionScope.utilisateur.telephone }</p><!--Affichage du telephone -->
+      <p>Rue : ${ sessionScope.utilisateur.rue }</p> <!-- Affichage de la rue-->
+      <p>Ville : ${ sessionScope.utilisateur.ville }</p> <!-- Affichage de la ville-->
+      <p>Code Postal :  ${ sessionScope.utilisateur.codePostal }</p> <!-- Affichage du code postal-->
+      <p>Credit : ${ sessionScope.utilisateur.credit }</p> <!-- Affichage  des crédit -->
     </div>
 
-    <a href="modifierProfil.jsp">Modifier mon profil</a>
+    <a href="../modifierProfil.jsp">Modifier mon profil</a>
   </div>
 </main>
 </body>

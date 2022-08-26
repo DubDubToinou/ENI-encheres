@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="fr.eni.encheres.messages.LecteurMessage"%><!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,7 +19,7 @@
     </nav>
     <div class="buttons">
         <a href="">Se déconnecter</a>
-        <a href="">Mon profil</a>
+        <a href="${pageContext.request.contextPath}/WEB-INF/profile.jsp">Mon profil</a>
     </div>
 </header>
 <main>
@@ -84,6 +85,7 @@
                         id="pwd"
                         minlength="8"
                         maxlength="30"
+                        value=${sessionScope.utilisateur.motDePasse}
                         required
                 />
                 <label for="pwdn">Nouveau mot de passe</label>
@@ -105,7 +107,7 @@
                         required
                 />
             </fieldset>
-            <p>Crédit U Crédit</p>
+            <p>Crédit : ${sessionScope.utilisateur.credit}</p>
         </div>
         <div class="submit">
             <a href="">Supprimer mon compte</a>
