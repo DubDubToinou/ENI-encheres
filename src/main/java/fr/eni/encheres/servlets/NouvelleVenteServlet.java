@@ -2,6 +2,7 @@ package fr.eni.encheres.servlets;
 
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
   /*
@@ -26,7 +28,7 @@ public class NouvelleVenteServlet extends HttpServlet {
 
     }
 
-    private void creerVente(HttpServletRequest request, List<Integer> listeCodesErreur) {
+    private void creerVente(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
         ArticleManager articleManager = new ArticleManager();
 
         String nom = lireParametreNom(request, listeCodesErreur);
@@ -95,11 +97,18 @@ public class NouvelleVenteServlet extends HttpServlet {
     }
 
     private Utilisateur lireUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
-        //TODO Utilisateur connecté
+        HttpSession session = request.getSession();
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+        if(utilisateur == null) {
+            listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_OBLIGATOIRE);
+        }
+        return utilisateur;
     }
 
-    private Categorie lireParametreCategorie(HttpServletRequest request, List<Integer> listeCodesErreur) {
-        //TODO Catégorie
+    private Categorie lireParametreCategorie(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+        CategorieManager categorieManager = new CategorieManager();
+        String libelleCategorie = request.getParameter("categorie");
+        return categorieManager.selectCategorieByLibelle(libelleCategorie);
     }
 
     private Retrait lireParametreRetrait(HttpServletRequest request, List<Integer> listeCodesErreur) {
@@ -108,7 +117,12 @@ public class NouvelleVenteServlet extends HttpServlet {
         String ville = request.getParameter("ville");
 
         if (rue == null || rue.isBlank() || codePostal == null || codePostal.isBlank() || ville == null || ville.isBlank()) {
-            //TODO Adresse Utilisateur connecté
+            HttpSession session = request.getSession();
+            Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+
+            rue = utilisateur.getRue();
+            codePostal = utilisateur.getCodePostal();
+            ville = utilisateur.getVille();
         }
 
         Retrait lieuRetrait = new Retrait(rue, codePostal, ville);

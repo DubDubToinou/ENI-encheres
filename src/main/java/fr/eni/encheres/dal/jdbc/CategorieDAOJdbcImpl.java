@@ -1,6 +1,7 @@
 package fr.eni.encheres.dal.jdbc;
 
 import fr.eni.encheres.BusinessException;
+import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.dal.CategorieDAO;
 import fr.eni.encheres.dal.CodesResultatDAL;
@@ -9,12 +10,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 
         private static final String INSERT_CATEGORIE = "INSERT INTO Categories (libelle) VALUES(?)";
         private static final String UPDATE_CATEGORIE = "UPDATE Categories SET libelle = ? WHERE no_categorie = ?";
         private static final String DELETE_CATEGORIE = "DELETE FROM Categories WHERE no_categorie = ?";
+        private static final String SELECT_BY_LIBELLE = "SELECT no_categorie FROM CATEGORIES WHERE libelle = ?";
 
         public void insert(Categorie categorie) throws BusinessException {
 
@@ -102,7 +106,26 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
             }
         }
 
+        public Categorie selectByLibelle(String libelle) throws BusinessException {
+            Categorie c = new Categorie();
 
+            try (Connection cnx = ConnectionProvider.getConnection()) {
+                PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_LIBELLE);
+                stmt.setString(1, libelle);
+                ResultSet result = stmt.executeQuery();
+
+                c.setLibelle(libelle);
+                c.setNoCategorie(result.getInt("no_categorie"));
+
+                stmt.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                BusinessException businessException = new BusinessException();
+                businessException.ajouterErreur(CodesResultatDAL.SELECT_CATEGORIE_BY_LIBELLE_ECHEC);
+                throw businessException;
+            }
+            return c;
+        }
 
 
 }
