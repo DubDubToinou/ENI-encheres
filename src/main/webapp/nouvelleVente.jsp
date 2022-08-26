@@ -43,11 +43,11 @@
         <fieldset>
             <legend>Retrait</legend>
             <label for="rue">Rue</label>
-            <input type="text" name="rue" id="rue" maxlength="30" />
+            <input type="text" name="rue" id="rue" maxlength="30" placeholder="${ sessionScope.utilisateur.rue }"/>
             <label for="codePostal">Code Postal</label>
-            <input type="text" name="code_postal" id="codePostal" pattern="[A-Za-z0-9]{1,10}" />
+            <input type="text" name="code_postal" id="codePostal" pattern="[A-Za-z0-9]{1,10}" placeholder="${sessionScope.utilisateur.codePostal}"/>
             <label for="ville">Ville</label>
-            <input type="text" name="ville" id="ville" maxlength="30" />
+            <input type="text" name="ville" id="ville" maxlength="30" placeholder="${ sessionScope.utilisateur.ville }"/>
         </fieldset>
         <div class="submit">
             <a href="">Annuler</a>

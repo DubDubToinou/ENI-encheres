@@ -42,6 +42,11 @@ public class CategorieManager {
         categorieDAO.delete(categorie);
     }
 
+    //Méthode sélectionner une catégorie par son libelle
+    public Categorie selectCategorieByLibelle(String libelle) throws BusinessException {
+        return this.categorieDAO.selectByLibelle(libelle);
+    }
+
     //Validation de la donnée libelle pour la création de la catégorie.
     public void validateCategorie(Categorie categorie, BusinessException businessException) throws BusinessException{
         if (categorie.getLibelle() == null || categorie.getLibelle().isBlank()){
