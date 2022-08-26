@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.List;
-
+  /*
 @WebServlet(value = "/NouvelleVente")
 public class NouvelleVenteServlet extends HttpServlet {
     @Override
@@ -114,4 +114,4 @@ public class NouvelleVenteServlet extends HttpServlet {
         Retrait lieuRetrait = new Retrait(rue, codePostal, ville);
         return lieuRetrait;
     }
-}
+}                   */
