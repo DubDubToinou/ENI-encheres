@@ -8,24 +8,41 @@ import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(value = "/NouvelleVente")
 public class NouvelleVenteServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/nouvelleVente.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Integer> listeCodesErreur=new ArrayList<>();
 
+        try {
+            creerVente(request, listeCodesErreur);
+        } catch (BusinessException e) {
+            throw new RuntimeException(e);
+        }
+        if(listeCodesErreur.size() > 0) {
+            request.getRequestDispatcher("/nouvelleVente.jsp").forward(request,response);
+        } else {
+            HttpSession session = request.getSession();
+            boolean connecte = true;
+            session.setAttribute("connecte", connecte);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }
 
     private void creerVente(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
