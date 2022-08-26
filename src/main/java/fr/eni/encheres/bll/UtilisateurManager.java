@@ -55,6 +55,8 @@ public class UtilisateurManager {
 
         if (!businessException.hasErreurs()) {
             utilisateurRetourne =  this.utilisateurDAO.selectOwnProfile(utilisateur);
+        } else {
+            throw businessException;
         }
         return utilisateurRetourne;
     }
