@@ -9,6 +9,7 @@ import java.io.IOException;
 
 @WebServlet(name = "MonProfil", value = "/ServletMonProfil")
 public class MonProfil extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

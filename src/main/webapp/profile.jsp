@@ -39,7 +39,7 @@
       <p>${ sessionScope.utililsateur.credit }</p>
     </div>
 
-    <a href="">Modifier mon profil</a>
+    <a href="modifierProfil.jsp">Modifier mon profil</a>
   </div>
 </main>
 </body>

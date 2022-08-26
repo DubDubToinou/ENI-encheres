@@ -33,6 +33,7 @@
                         name="pseudo"
                         id="pseudo"
                         pattern="[A-Za-z0-9]{1,30}"
+                        value=${sessionScope.utilisateur.pseudo}
                         required
                 />
                 <label for="firstname">Prénom</label>
@@ -41,14 +42,15 @@
                         name="firstname"
                         id="firstname"
                         maxlength="30"
+                        value=${sessionScope.utilisateur.prenom}
                         required
                 />
                 <label for="name">Nom</label>
-                <input type="text" name="name" id="name" maxlength="30" required/>
+                <input type="text" name="name" id="name" maxlength="30" value=${sessionScope.utilisateur.nom} required/>
                 <label for="phone">Téléphone</label>
-                <input type="tel" name="phone" id="phone"/>
+                <input type="tel" name="phone" id="phone" value=${sessionScope.utilisateur.telephone} />
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" required/>
+                <input type="email" name="email" id="email" value=${sessionScope.utilisateur.email} required/>
             </fieldset>
             <fieldset>
                 <legend>Votre adresse</legend>
@@ -58,16 +60,18 @@
                         name="street"
                         id="street"
                         maxlength="30"
+                        value=${ sessionScope.utilisateur.rue }
                         required
                 />
                 <label for="city">Ville</label>
-                <input type="text" name="city" id="city" maxlength="30" required/>
+                <input type="text" name="city" id="city" maxlength="30" value=${ sessionScope.utilisateur.ville } required/>
                 <label for="zip">Code postal</label>
                 <input
                         type="text"
                         name="zip"
                         id="zip"
                         pattern="[A-Za-z0-9]{0,10}"
+                        value=${sessionScope.utilisateur.codePostal}
                         required
                 />
             </fieldset>
