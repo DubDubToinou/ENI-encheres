@@ -14,4 +14,12 @@ public abstract class CodesResultatServlets {
     public static final int EMAIL_OBLIGATOIRE = 30008;
     public static final int CP_OBLIGATOIRE = 30009;
     public static final int LOGIN_OBLIGATOIRE = 30010;
+
+    //Nouvelle vente
+    public static final int NOM_ARTICLE_OBLIGATOIRE=40000;
+    public static final int DESCRIPTION_OBLIGATOIRE=40001;
+    public static final int DATE_DEBUT_OBLIGATOIRE=40002;
+    public static final int DATE_FIN_OBLIGATOIRE=40003;
+    public static final int PRIX_INITIAL_OBLIGATOIRE=40004;
+    public static final int UTILISATEUR_OBLIGATOIRE=40005;
 }

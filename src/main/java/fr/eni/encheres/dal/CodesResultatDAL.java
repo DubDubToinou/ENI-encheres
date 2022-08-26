@@ -22,7 +22,7 @@ public abstract class CodesResultatDAL {
     public static final int CATEGORIE_NULL_ECHEC=10006;
     public static final int UPDATE_CATEGORIE_ECHEC=10012;
     public static final int DELETE_CATEGORIE_ECHEC=10013;
-    public static final int SELECT_CATEGORIE_BY_LIBELLE_ECHEC=10014;
+    public static final int SELECT_CATEGORIE_BY_LIBELLE_ECHEC=10050;
 
     //Encheres
     public static final int SELECT_ENCHERES_PAR_ARTICLE_ECHEC=10014;
