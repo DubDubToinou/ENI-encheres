@@ -39,7 +39,7 @@
       <p>Credit : ${ sessionScope.utilisateur.credit }</p> <!-- Affichage  des crédit -->
     </div>
 
-    <a href="../modifierProfil.jsp">Modifier mon profil</a>
+    <a href="${pageContext.request.contextPath}/ModifierProfil">Modifier mon profil</a>
   </div>
 </main>
 </body>

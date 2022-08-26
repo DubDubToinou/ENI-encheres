@@ -24,7 +24,19 @@
 </header>
 <main>
     <h1>Modifier mon compte</h1>
-    <form action="">
+
+    <c:if test="${!empty listeCodesErreur}">
+        <div>
+            <strong>Erreur!</strong>
+            <ul>
+                <c:forEach var="code" items="${listeCodesErreur}">
+                    <li>${LecteurMessage.getMessageErreur(code)}</li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:if>
+
+    <form action="${pageContext.request.contextPath}/ModifierProfil" method="post">
         <div class="fieldsets">
             <fieldset>
                 <legend>Vos informations</legend>
@@ -40,16 +52,16 @@
                 <label for="firstname">Prénom</label>
                 <input
                         type="text"
-                        name="firstname"
+                        name="prenom"
                         id="firstname"
                         maxlength="30"
                         value=${sessionScope.utilisateur.prenom}
                         required
                 />
                 <label for="name">Nom</label>
-                <input type="text" name="name" id="name" maxlength="30" value=${sessionScope.utilisateur.nom} required/>
+                <input type="text" name="nom" id="name" maxlength="30" value=${sessionScope.utilisateur.nom} required/>
                 <label for="phone">Téléphone</label>
-                <input type="tel" name="phone" id="phone" value=${sessionScope.utilisateur.telephone} />
+                <input type="tel" name="telephone" id="phone" value=${sessionScope.utilisateur.telephone} />
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" value=${sessionScope.utilisateur.email} required/>
             </fieldset>
@@ -58,18 +70,18 @@
                 <label for="street">Rue</label>
                 <input
                         type="text"
-                        name="street"
+                        name="rue"
                         id="street"
                         maxlength="30"
                         value=${ sessionScope.utilisateur.rue }
                         required
                 />
                 <label for="city">Ville</label>
-                <input type="text" name="city" id="city" maxlength="30" value=${ sessionScope.utilisateur.ville } required/>
+                <input type="text" name="ville" id="city" maxlength="30" value=${ sessionScope.utilisateur.ville } required/>
                 <label for="zip">Code postal</label>
                 <input
                         type="text"
-                        name="zip"
+                        name="code_postal"
                         id="zip"
                         pattern="[A-Za-z0-9]{0,10}"
                         value=${sessionScope.utilisateur.codePostal}
@@ -81,7 +93,7 @@
                 <label for="pwd">Mot de passe actuel</label>
                 <input
                         type="password"
-                        name="pwd"
+                        name="mot_de_passeold"
                         id="pwd"
                         minlength="8"
                         maxlength="30"
@@ -91,20 +103,20 @@
                 <label for="pwdn">Nouveau mot de passe</label>
                 <input
                         type="password"
-                        name="pwdn"
+                        name="mot_de_passe"
                         id="pwdn"
                         minlength="8"
                         maxlength="30"
-                        required
+
                 />
                 <label for="pwdv">Confirmation</label>
                 <input
                         type="password"
-                        name="pwdv"
+                        name="confirmation"
                         id="pwdv"
                         minlength="8"
                         maxlength="30"
-                        required
+
                 />
             </fieldset>
             <p>Crédit : ${sessionScope.utilisateur.credit}</p>
