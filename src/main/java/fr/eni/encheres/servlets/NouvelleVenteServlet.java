@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-/*
+
 @WebServlet(value = "/NouvelleVente")
 public class NouvelleVenteServlet extends HttpServlet {
     @Override
@@ -31,9 +31,13 @@ public class NouvelleVenteServlet extends HttpServlet {
         List<Integer> listeCodesErreur=new ArrayList<>();
 
         try {
+
             creerVente(request, listeCodesErreur);
+
         } catch (BusinessException e) {
+
             throw new RuntimeException(e);
+
         }
         if(listeCodesErreur.size() > 0) {
             request.getRequestDispatcher("/nouvelleVente.jsp").forward(request,response);
@@ -146,4 +150,4 @@ public class NouvelleVenteServlet extends HttpServlet {
         return lieuRetrait;
     }
 }
- */
+
