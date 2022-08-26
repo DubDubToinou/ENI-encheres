@@ -16,11 +16,16 @@
 
 header {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     border-bottom: 1px solid #eaecf0;
-    padding: 16px;
-    height: 72px;
+    padding: 18px 10%;
+    max-height: 160px;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    background-color: #FFFFFF;
 }
 
 .logo > a {
@@ -34,7 +39,7 @@ header {
 /******/
 
 nav {
-    margin-right: auto;
+    margin: auto;
     padding: 12px;
 }
 
@@ -162,13 +167,17 @@ input:focus {
         padding: 0;
     }
 
+    nav {
+        margin : 0 auto 0 0;
+    }
+
     main {
         padding: 18px 10%;
     }
 
     header {
-        padding: 18px 10%;
-        height: 80px;
+        max-height: 80px;
+        justify-content: space-between;
     }
 
     fieldset {
