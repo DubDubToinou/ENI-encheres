@@ -23,12 +23,14 @@ public class ArticleManager {
 
     public void ajouterUnArticle(Articles article) throws BusinessException {
         BusinessException businessException = new BusinessException();
-        this.validateArticle(article, businessException);
-        this.validateRetraitArticle(article, businessException);
+
+        //this.validateArticle(article, businessException);
+        //this.validateRetraitArticle(article, businessException);
+
 
         if(!businessException.hasErreurs()){
-            Articles newArticle = new Articles();
-            this.articleDAO.insert(newArticle);
+            System.out.println("test");
+            this.articleDAO.insert(article);
         }
     }
 
@@ -39,8 +41,7 @@ public class ArticleManager {
         this.validateRetraitArticle(article, businessException);
 
         if(!businessException.hasErreurs()){
-            Articles updateArticle = new Articles();
-            this.articleDAO.update(updateArticle);
+            this.articleDAO.update(article);
         }
     }
 
@@ -85,23 +86,23 @@ public class ArticleManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DESCRIPTION_ERREUR);
         }
 
-        if (article.getDateDebutEncheres() == null || article.getDateDebutEncheres().isBefore(LocalDate.now())){
-            businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DATEDEBUTENCHERE_ERREUR);
-        }
+       if (article.getDateDebutEncheres() == null || article.getDateDebutEncheres().isBefore(LocalDate.now())){
+           businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DATEDEBUTENCHERE_ERREUR);
+       }
 
-        if (article.getDateFinEncheres() == null ||
-                article.getDateFinEncheres().isBefore(article.getDateDebutEncheres()) ||
-                article.getDateFinEncheres().isBefore(LocalDate.now())){
-            businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DATEFINENCHERE_ERREUR);
-        }
+       if (article.getDateFinEncheres() == null ||
+               article.getDateFinEncheres().isBefore(article.getDateDebutEncheres()) ||
+               article.getDateFinEncheres().isBefore(LocalDate.now())){
+           businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DATEFINENCHERE_ERREUR);
+       }
 
         if (article.getMiseAPrix() == null || article.getMiseAPrix() <= 0 ){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_MISEAPRIX_ERREUR);
         }
 
-        if(article.getPrixVente() == null){
-            businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_PRIXVENTE_ERREUR);
-        }
+       if(article.getPrixVente() == null){
+           businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_PRIXVENTE_ERREUR);
+       }
 
         if (article.getUtilisateurs().getNoUtilisateur() == null){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_NOUTILISATEUR_ERREUR);

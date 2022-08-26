@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="fr.eni.encheres.messages.LecteurMessage"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,6 +11,16 @@
 <body>
 <header>
     <div class="logo">
+        <c:if test="${!empty listeCodesErreur}">
+            <div>
+                <strong>Erreur!</strong>
+                <ul>
+                    <c:forEach var="code" items="${listeCodesErreur}">
+                        <li>${LecteurMessage.getMessageErreur(code)}</li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </c:if>
         <a href="">Enchères</a>
     </div>
     <nav>
@@ -29,17 +41,17 @@
         <textarea name="description" id="description" cols="30" rows="10" maxlength="300" required></textarea>
         <label for="categorie">Catégorie</label>
         <select name="categorie" id="categorie">
-            <option value="informatique">Informatique</option>
-            <option value="ameublement">Ameublement</option>
-            <option value="vetements">Vêtements</option>
-            <option value="sport">Sport et Loisirs</option>
+            <option value="Informatique">Informatique</option>
+            <option value="Ameublement">Ameublement</option>
+            <option value="Vêtements">Vêtements</option>
+            <option value="Sport et Loisirs">Sport et Loisirs</option>
         </select>
         <label for="prixInitial">Mise à prix</label>
         <input type="number" name="prix_initial" id="prixInitial" required/>
         <label for="dateDebut">Début de l'enchère</label>
-        <input type="datetime-local" name="date_debut_encheres" id="dateDebut" required/>
+        <input type="date" name="date_debut_encheres" id="dateDebut" required/>
         <label for="dateFin">Fin de l'enchère</label>
-        <input type="datetime-local" name="date_fin_encheres" id="dateFin" required/>
+        <input type="date" name="date_fin_encheres" id="dateFin" required/>
         <fieldset>
             <legend>Retrait</legend>
             <label for="rue">Rue</label>

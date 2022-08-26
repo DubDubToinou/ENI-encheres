@@ -114,10 +114,13 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
                 stmt.setString(1, libelle);
                 ResultSet result = stmt.executeQuery();
 
-                c.setLibelle(libelle);
-                c.setNoCategorie(result.getInt("no_categorie"));
+                if(result.next()) {
+                    c.setNoCategorie(result.getInt("no_categorie"));
+                }
 
                 stmt.close();
+                result.close();
+
             } catch (Exception ex) {
                 ex.printStackTrace();
                 BusinessException businessException = new BusinessException();

@@ -87,6 +87,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             ResultSet rs = pstmtArticle.getGeneratedKeys();
 
             if(rs.next()) {
+                System.out.println(article);
                 article.setNoArticle(rs.getInt(1));
 
                 //ajout du lieu de retrait (par défaut adresse du vendeur)
