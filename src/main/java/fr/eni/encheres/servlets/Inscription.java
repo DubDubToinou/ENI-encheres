@@ -29,11 +29,11 @@ public class Inscription extends HttpServlet {
         if(listeCodesErreur.size() > 0) {
             request.getRequestDispatcher("/inscription.jsp").forward(request,response);
         } else {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
             HttpSession session = request.getSession();
             session.setAttribute("utilisateur", utilisateur);
             boolean connecte = true;
             session.setAttribute("connecte", connecte);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
 
@@ -59,6 +59,7 @@ public class Inscription extends HttpServlet {
         } else
         {
             utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, motDePasse);
+            utilisateur.setCredit(0);
 
             try {
 

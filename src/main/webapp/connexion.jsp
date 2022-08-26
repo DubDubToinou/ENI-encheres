@@ -33,6 +33,13 @@
         </div>
     </c:if>
 
+    <c:if test="${connecte}">
+        <p>Vous êtes ${ utilisateur.prenom } ${ utilisateur.nom } et vous êtes connecte !</p>
+    </c:if>
+    <c:if test="${!connecte}">
+        <p>Vous êtes ${ utilisateur.prenom } ${ utilisateur.nom } et vous êtes deconnecte !</p>
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/connexion" method="post">
         <label for="login">Identifiant</label>
         <input type="text" name="login" id="login" placeholder="Entrez votre identifiant" value ="${!empty listeCodesErreur?param.login:""}" required />
