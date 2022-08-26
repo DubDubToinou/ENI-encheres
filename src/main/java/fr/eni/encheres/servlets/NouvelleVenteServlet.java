@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
-
+/*
 @WebServlet(value = "/NouvelleVente")
 public class NouvelleVenteServlet extends HttpServlet {
     @Override
@@ -129,3 +129,4 @@ public class NouvelleVenteServlet extends HttpServlet {
         return lieuRetrait;
     }
 }
+ */

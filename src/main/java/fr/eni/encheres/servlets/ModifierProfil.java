@@ -53,18 +53,16 @@ public class ModifierProfil extends HttpServlet {
         String rue = lireParametreRue(request, listeCodesErreur);
         String ville = lireParametreVille(request, listeCodesErreur);
         String code_postal = lireParametreCP(request, listeCodesErreur);
-        String motDePasse = verifierMotDePasse(request, listeCodesErreur);
 
         if(listeCodesErreur.size()>0)
         {
             request.setAttribute("listeCodesErreur",listeCodesErreur);
         } else
         {
-            utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, motDePasse);
-            utilisateur.setCredit(0);
+            utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville);
 
             try {
-
+                System.out.println(utilisateur);
                 utilisateurManager.updateUser(utilisateur);
 
             } catch (BusinessException ex) {

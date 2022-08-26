@@ -155,7 +155,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             stmt.setString(6, utilisateur.getRue());
             stmt.setString(7, utilisateur.getCodePostal());
             stmt.setString(8, utilisateur.getVille());
-            stmt.setString(9, utilisateur.getMotDePasse());
             stmt.setInt(10, utilisateur.getNoUtilisateur());
             stmt.execute();
 

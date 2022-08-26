@@ -79,6 +79,17 @@ public class Utilisateur {
         this.listeArticlesVendus = listeArticlesVendus;
     }
 
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville) {
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.telephone = telephone;
+        this.rue = rue;
+        this.codePostal = code_postal;
+        this.ville = ville;
+    }
+
     //Getters & Setters
 
     //noUtilisateur

@@ -88,6 +88,7 @@
                         required
                 />
             </fieldset>
+            <!--
             <fieldset>
                 <legend>Modifier mon mot de passe</legend>
                 <label for="pwd">Mot de passe actuel</label>
@@ -118,7 +119,7 @@
                         maxlength="30"
 
                 />
-            </fieldset>
+            </fieldset>-->
             <p>Crédit : ${sessionScope.utilisateur.credit}</p>
         </div>
         <div class="submit">
