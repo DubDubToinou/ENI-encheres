@@ -24,8 +24,7 @@ public class EnchereManager {
         this.validateEnchere(enchere, businessException);
 
         if (!businessException.hasErreurs()) {
-            Enchere newEnchere = new Enchere();
-            this.enchereDAO.insert(newEnchere);
+            this.enchereDAO.insert(enchere);
         }
     }
 

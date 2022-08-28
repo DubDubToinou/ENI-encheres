@@ -21,7 +21,6 @@ public class CategorieManager {
         this.validateCategorie(categorie, businessException);
 
         if (!businessException.hasErreurs()){
-            Categorie newCategorie = new Categorie();
             this.categorieDAO.insert(categorie);
         }
     }
