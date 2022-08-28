@@ -162,6 +162,15 @@ input:focus, select:focus, textarea:focus {
     background-color: #1570EF;
 }
 
+p {
+    color: #101828;
+}
+
+p>a {
+    text-align: center;
+    color: #1570EF;
+}
+
 @media screen and (min-width : 1024px){
     .content {
         padding: 0;
