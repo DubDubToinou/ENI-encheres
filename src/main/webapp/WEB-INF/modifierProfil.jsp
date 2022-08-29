@@ -82,7 +82,7 @@
                     <div class="label">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" value=""
-                               placeholder=${sessionScope.utilisateur.email} required/>
+                               placeholder=${sessionScope.utilisateur.email} required>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -162,7 +162,7 @@
                 </fieldset>
                 <div class="label">
                     <p class="label">Crédit</p>
-                    <p>${sessionScope.utilisateur.credit} PTS</p>
+                    <p>${sessionScope.utilisateur.credit} Crédits</p>
                 </div>
             </div>
             <div class="submit">
