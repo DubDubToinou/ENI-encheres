@@ -129,6 +129,7 @@
                             placeholder="${ sessionScope.utilisateur.ville }"
                     />
                 </div>
+                <p>* Si tous les champs ne sont pas remplis, votre adresse sera défini comme adresse de retrait.</p>
             </fieldset>
             <div class="submit">
                 <a href="">Annuler</a>

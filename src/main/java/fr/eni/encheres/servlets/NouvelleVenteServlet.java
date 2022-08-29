@@ -42,9 +42,7 @@ public class NouvelleVenteServlet extends HttpServlet {
         if(listeCodesErreur.size() > 0) {
             request.getRequestDispatcher("/nouvelleVente.jsp").forward(request,response);
         } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("article", article);
-            request.getRequestDispatcher("/article.jsp").forward(request, response);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 
