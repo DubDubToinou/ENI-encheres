@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nouvelle vente</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="" />
 </head>
 <body>
 <header>
@@ -38,11 +38,11 @@
     <p>${sessionScope.article.lieuRetrait}</p>
     <h3>Vendeur</h3>
     <p>${sessionScope.article.utilisateur}</p>
-    <form action="">
+    <form method="post" action="${pageContext.request.contextPath}/NouvelleEnchere">
         <label for="enchere">Ma proposition</label>
         <input type="number" name="enchere" id="enchere" required />
         <input name="noArticle" value="${sessionScope.article.noArticle}" hidden />
-        <input name="prixVente" value="${sessionScope.article.prixVente}">
+        <input name="prixVente" value="${sessionScope.article.prixVente}" hidden />
         <button type="submit">Enchérir</button>
     </form>
 </main>
