@@ -42,6 +42,7 @@
         <label for="enchere">Ma proposition</label>
         <input type="number" name="enchere" id="enchere" required />
         <input name="noArticle" value="${sessionScope.article.noArticle}" hidden />
+        <input name="prixVente" value="${sessionScope.article.prixVente}">
         <button type="submit">Enchérir</button>
     </form>
 </main>
