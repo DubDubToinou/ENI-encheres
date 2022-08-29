@@ -38,7 +38,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
     private static final String SELECT_ENCHERES_EN_COURS =  "SELECT * "+
             "FROM Articles a "+
             "INNER JOIN Encheres e ON a.no_article = e.no_article "+
-            "INNER JOIN Utilisateurs u ON e.no_utilisateur = u.no_utilisateur "+
+            "INNER JOIN Utilisateurs u ON a.no_utilisateur = u.no_utilisateur "+
             "WHERE e.no_utilisateur = ?";
 
     public List<Enchere> selectByArticle(Articles article) throws BusinessException {
@@ -131,7 +131,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         }
     }
 
-    public List<Enchere> selectEnCoursByUtilisateurs(Utilisateur utilisateur) throws BusinessException{
+    public List<Articles> selectEncheresEnCoursByUtilisateurs(Utilisateur utilisateur) throws BusinessException{
 
         if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
             BusinessException businessException = new BusinessException();
@@ -139,7 +139,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             throw businessException;
         }
 
-        List<Enchere> listeEncheresEnCours = new ArrayList<>();
+        List<Articles> listeEncheresEnCours = new ArrayList<>();
 
         try(Connection con = ConnectionProvider.getConnection()){
 
@@ -154,13 +154,14 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
                 Utilisateur utilisateurVendeur = new Utilisateur(rs.getString("pseudo"));
 
                 Articles article = new Articles();
+                article.setNoArticle(rs.getInt("no_article"));
                 article.setNomArticle(rs.getString("nom_article"));
                 article.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+                article.setPrixVente(rs.getInt("prix_vente"));
                 article.setUtilisateurs(utilisateurVendeur);
+                article.addEnchere(enchere);
 
-                enchere.setArticleVendu(article);
-
-                listeEncheresEnCours.add(enchere);
+                listeEncheresEnCours.add(article);
 
             }
 
@@ -174,7 +175,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         return listeEncheresEnCours;
     }
 
-    public List<Enchere> selectEncheresGagneByUtilisateur(Utilisateur utilisateur) throws BusinessException {
+    public List<Articles> selectEncheresGagneByUtilisateur(Utilisateur utilisateur) throws BusinessException {
 
         if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
             BusinessException businessException = new BusinessException();
@@ -182,7 +183,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             throw businessException;
         }
 
-        List<Enchere> listeEncheresGagnes = new ArrayList<>();
+        List<Articles> listeEncheresGagnes = new ArrayList<>();
 
         try(Connection con = ConnectionProvider.getConnection()){
 
@@ -196,14 +197,16 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 
                 Utilisateur utilisateurVendeur = new Utilisateur(rs.getString("pseudo"));
 
-                Articles articleEncheres = new Articles();
-                articleEncheres.setNomArticle(rs.getString("nom_article"));
-                articleEncheres.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
-                articleEncheres.setUtilisateurs(utilisateurVendeur);
+                Articles article = new Articles();
+                article.setNoArticle(rs.getInt("no_article"));
+                article.setNomArticle(rs.getString("nom_article"));
+                article.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+                article.setPrixVente(rs.getInt("prix_vente"));
+                article.setUtilisateurs(utilisateurVendeur);
+                article.addEnchere(enchere);
 
-                enchere.setArticleVendu(articleEncheres);
+                listeEncheresGagnes.add(article);
 
-                listeEncheresGagnes.add(enchere);
             }
 
             pstmt.close();

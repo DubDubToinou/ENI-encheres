@@ -14,8 +14,8 @@ public interface EncheresDAO {
 
     void insert(Enchere elementEnchere) throws BusinessException;
 
-    List<Enchere> selectEnCoursByUtilisateurs(Utilisateur utilisateur) throws BusinessException;
+    List<Articles> selectEncheresEnCoursByUtilisateurs(Utilisateur utilisateur) throws BusinessException;
 
-    List<Enchere> selectEncheresGagneByUtilisateur(Utilisateur utilisateur) throws BusinessException;
+    List<Articles> selectEncheresGagneByUtilisateur(Utilisateur utilisateur) throws BusinessException;
 
 }
