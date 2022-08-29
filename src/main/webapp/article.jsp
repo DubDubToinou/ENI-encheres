@@ -40,7 +40,7 @@
     <h3>Vendeur</h3>
     <form action="">
         <label for="enchere">Ma proposition</label>
-        <input type="number" name="enchere" id="enchere" />
+        <input type="number" name="enchere" id="enchere" required />
         <button type="submit">Enchérir</button>
     </form>
 </main>
