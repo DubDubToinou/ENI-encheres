@@ -41,9 +41,6 @@ public class NouvelleEnchere extends HttpServlet {
             request.getRequestDispatcher("/nouvelleEnchere.jsp").forward(request,response);
 
         } else {
-            HttpSession session = request.getSession();
-            boolean connecte = true;
-            session.setAttribute("connecte", connecte);
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
@@ -80,8 +77,8 @@ public class NouvelleEnchere extends HttpServlet {
     }
 
     private Articles lireParametreArticle(HttpServletRequest request, List<Integer> listeCodesErreur) {
-        HttpSession session = request.getSession();
-        Articles article = (Articles) session.getAttribute("article");
+        Articles article = new Articles();
+        //select Article par noArticle
         if (article == null) {
             //listeCodesErreur.add(CodesResultatServlets.ARTICLE_OBLIGATOIRE);
         }
