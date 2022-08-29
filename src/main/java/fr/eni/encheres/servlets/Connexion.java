@@ -28,7 +28,7 @@ public class Connexion extends HttpServlet {
             HttpSession session = request.getSession();
             session.removeAttribute("connecte");
             session.removeAttribute("utilisateur");
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/accueil").forward(request, response);
 
         }
     }
@@ -48,7 +48,7 @@ public class Connexion extends HttpServlet {
             session.setAttribute("utilisateur", utilisateur);
             boolean connecte = true;
             session.setAttribute("connecte", connecte);
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/accueil").forward(request, response);
         }
 
     }

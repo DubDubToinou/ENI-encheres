@@ -33,7 +33,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             "ON a.no_utilisateur = u.no_utilisateur " +
             "LEFT JOIN Categories c " +
             "ON a.no_categorie = c.no_categorie " +
-            "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE() AND a.no_categorie = ?";
+            "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE() AND c.libelle = ?";
 
     private static final String SELECT_BY_MOT_CLE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
             "a.prix_initial, a.prix_vente, u.pseudo, c.libelle FROM Articles a " +
@@ -43,6 +43,16 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             "ON a.no_categorie = c.no_categorie " +
             "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE() " +
             "AND (a.nom_article LIKE ? OR a.description LIKE ?)";
+
+    private static final String SELECT_BY_MOT_CLE_AND_CATEGORIE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
+            "a.prix_initial, a.prix_vente, u.pseudo, c.libelle FROM Articles a " +
+            "LEFT JOIN Utilisateurs u " +
+            "ON a.no_utilisateur = u.no_utilisateur " +
+            "LEFT JOIN Categories c " +
+            "ON a.no_categorie = c.no_categorie " +
+            "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE() " +
+            "AND (a.nom_article LIKE ? OR a.description LIKE ?)" +
+            "AND c.libelle = ?";
 
     private static final String SELECT_VENTES_EN_COURS_BY_UTILISATEUR = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
             "a.prix_initial, a.prix_vente, c.libelle FROM Articles a " +
@@ -214,12 +224,12 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
     }
 
     @Override
-    public List<Articles> selectByCategorie(Categorie categorie) throws BusinessException{
+    public List<Articles> selectByCategorie(String libelle) throws BusinessException{
         List<Articles> listeArticles = new ArrayList<>();
 
         try (Connection con = ConnectionProvider.getConnection()){
            PreparedStatement pstmt = con.prepareStatement(SELECT_BY_CATEGORIE);
-           pstmt.setInt(1, categorie.getNoCategorie());
+           pstmt.setString(1, libelle);
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -246,7 +256,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             throw businessException;
         }
 
-        if(categorie.getNoCategorie()==null || categorie.getNoCategorie()==0) {
+        if(libelle==null || libelle.isBlank()) {
             BusinessException businessException = new BusinessException();
             businessException.ajouterErreur(CodesResultatDAL.CATEGORIE_NULL_ECHEC);
             throw businessException;
@@ -276,6 +286,45 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
                 article.setUtilisateurs(utilisateur);
                 article.setCategorieArticle(categorie);
+
+                listeArticles.add(article);
+            }
+
+            rs.close();
+            pstmt.close();
+
+        }catch(Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_BY_MOTCLE_ECHEC);
+            throw businessException;
+        }
+
+        return listeArticles;
+    }
+
+    @Override
+    public List<Articles> selectByMotCleAndCategorie(String motCle, String libelle) throws BusinessException{
+        List<Articles> listeArticles = new ArrayList<>();
+
+        try (Connection con = ConnectionProvider.getConnection()){
+            PreparedStatement pstmt = con.prepareStatement(SELECT_BY_MOT_CLE_AND_CATEGORIE);
+            pstmt.setString(1, "%" + motCle+ "%");
+            pstmt.setString(2, "%" + motCle+ "%");
+            pstmt.setString(3, libelle);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        rs.getInt(6), rs.getInt(7));
+
+                Utilisateur utilisateur = new Utilisateur(rs.getString(8));
+                Categorie categorieArticle = new Categorie(rs.getString(9));
+
+                article.setUtilisateurs(utilisateur);
+                article.setCategorieArticle(categorieArticle);
 
                 listeArticles.add(article);
             }

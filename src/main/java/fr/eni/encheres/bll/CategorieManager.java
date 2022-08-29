@@ -6,6 +6,8 @@ import fr.eni.encheres.dal.CategorieDAO;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
+import java.util.List;
+
 public class CategorieManager {
 
     private CategorieDAO categorieDAO;
@@ -44,6 +46,15 @@ public class CategorieManager {
     //Méthode sélectionner une catégorie par son libelle
     public Categorie selectCategorieByLibelle(String libelle) throws BusinessException {
         return this.categorieDAO.selectByLibelle(libelle);
+    }
+
+    public List<Categorie> selectAllCategories() throws BusinessException {
+        try {
+            return this.categorieDAO.selectCategories();
+        } catch(BusinessException ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 
     //Validation de la donnée libelle pour la création de la catégorie.
