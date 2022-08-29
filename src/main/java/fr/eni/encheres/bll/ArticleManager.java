@@ -51,18 +51,23 @@ public class ArticleManager {
     }
 
     //Affichage liste article en mode non connecté
-    public List<Articles> listeArticleNonConnecte() throws BusinessException{
+    public List<Articles> listeArticleEnCours() throws BusinessException{
         return this.articleDAO.selectVentesEnCours();
     }
 
     //Affichage list article par catégorie
-    public List<Articles> listeArticleParCategorie(Categorie categorie) throws BusinessException{
-        return this.articleDAO.selectByCategorie(categorie);
+    public List<Articles> listeArticleParCategorie(String libelle) throws BusinessException{
+        return this.articleDAO.selectByCategorie(libelle);
     }
 
     //Affichage liste article par mot clé.
     public List<Articles> listeArticleByMotCle(String motCle) throws BusinessException{
         return this.articleDAO.selectByMotCle(motCle);
+    }
+
+    //Affichage liste article par mot clé et catégorie
+    public List<Articles> listeArticleByMotCleAndCategorie(String motCle, String libelle) throws BusinessException{
+        return this.articleDAO.selectByMotCleAndCategorie(motCle, libelle);
     }
 
     //Affichage liste vente en cours par utilisateur

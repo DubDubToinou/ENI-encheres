@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface ArticleDAO extends DAO<Articles> {
     public List<Articles> selectVentesEnCours() throws BusinessException;
-    public List<Articles> selectByCategorie(Categorie categorie) throws BusinessException;
+    public List<Articles> selectByCategorie(String libelle) throws BusinessException;
     public List<Articles> selectByMotCle(String motCle) throws BusinessException ;
+    public List<Articles> selectByMotCleAndCategorie(String motCle, String libelle) throws BusinessException ;
     public List<Articles> selectVentesEnCoursParUtilisateur(Utilisateur utilisateur)throws BusinessException;
     public List<Articles> selectVentesTermineesParUtilisateur(Utilisateur utilisateur) throws BusinessException;
 }
