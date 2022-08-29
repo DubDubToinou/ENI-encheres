@@ -44,10 +44,14 @@ public class UtilisateurManager {
         BusinessException businessException = new BusinessException();
         this.validateUserForUpdate(utilisateur , businessException);
 
-        if (!businessException.hasErreurs()){
+        if (!businessException.hasErreurs()) {
             this.utilisateurDAO.update(utilisateur);
         }
-    }
+            else {
+                throw businessException;
+            }
+        }
+
 
     //Pouvoir se supprimer
     public void removeUser(Utilisateur utilisateur) throws BusinessException {
@@ -140,9 +144,9 @@ public class UtilisateurManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_EMAIL_ERREUR);
         }
 
-     //   if (utilisateurDAO.emailIsInBase(utilisateur)){
-     //       businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_EMAIL_IN_BASE_ERREUR);
-     //   }
+        if (utilisateurDAO.emailIsInBase(utilisateur)){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_EMAIL_IN_BASE_ERREUR);
+        }
 
         if (utilisateur.getRue() == null || utilisateur.getRue().isBlank()){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_RUE_ERREUR);

@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Modifier mon profil</title>
-    <link rel="stylesheet" href="../styles/modifierProfil.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/modifierProfil.css"/>
 </head>
 <body>
 <header>
@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div class="submit">
-                <a href="">Supprimer mon compte</a>
+                <a href="${pageContext.request.contextPath}/SupprimerProfil">Supprimer mon compte</a>
                 <button type="submit">Enregistrer</button>
             </div>
         </form>

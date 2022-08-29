@@ -44,6 +44,7 @@ public class ModifierProfil extends HttpServlet {
     private Utilisateur ModifierUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
         HttpSession session = request.getSession();
+        Utilisateur utilisateurSession = (Utilisateur) session.getAttribute("utilisateur");
 
         Utilisateur utilisateur = null;
 
@@ -67,12 +68,10 @@ public class ModifierProfil extends HttpServlet {
 
             try {
 
-                if(utilisateur.getPseudo().equals(request.getParameter("pseudo")) && utilisateur.getEmail().equals(request.getParameter("email"))){
+                if(utilisateur.getPseudo().equals(utilisateurSession.getPseudo()) && utilisateur.getEmail().equals(utilisateurSession.getEmail())){
                     utilisateurManager.updateUser(utilisateur);
-                } else{
+                }else
                     utilisateurManager.updateUserWithCheck(utilisateur);
-
-                }
 
             } catch (BusinessException ex) {
                 ex.printStackTrace();
