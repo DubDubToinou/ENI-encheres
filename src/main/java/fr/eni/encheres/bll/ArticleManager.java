@@ -75,6 +75,11 @@ public class ArticleManager {
         return this.articleDAO.selectVentesEnCoursParUtilisateur(utilisateur);
     }
 
+    //Affichage liste vente non débutées
+    public List<Articles> listeVenteNonDebuteesParUtilisateur(Utilisateur utilisateur) throws BusinessException {
+        return this.articleDAO.selectVentesNonDebuteesParUtilisateur(utilisateur);
+    }
+
     // Affichage liste vente terminée par utilisateur.
     public List<Articles> listeVenteTermineesParUtilisateur(Utilisateur utilisateur) throws BusinessException{
         return this.articleDAO.selectVentesTermineesParUtilisateur(utilisateur);

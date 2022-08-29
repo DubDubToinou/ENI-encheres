@@ -94,6 +94,7 @@ public class Inscription extends HttpServlet {
         }
         return pseudo;
     }
+
     private String lireParametrePrenom(HttpServletRequest request, List<Integer> listeCodesErreur) {
         String prenom;
         prenom = request.getParameter("prenom");

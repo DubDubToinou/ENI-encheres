@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accueil</title>
-    <link rel="stylesheet" href="./styles/modifierProfil.css"/>
+    <link rel="stylesheet" href="styles/modifierProfil.css"/>
 </head>
 <body>
 <header>
@@ -21,7 +21,8 @@
 <main>
     <div class="content">
         <h1>Liste des enchères</h1>
-        <form class="searchBar" action="${pageContext.request.contextPath}/" method="post">
+        <form class="searchBar" action="${pageContext.request.contextPath}/accueil" method="post">
+            <input type="hidden" name="form" value="form1"/>
             <div class="search">
                 <select name="categorie" id="categorie" class="input">
                     <option value="" disabled selected>Catégories</option>
@@ -35,6 +36,7 @@
         </form>
 
         <form action="${pageContext.request.contextPath}/accueil" method="post">
+            <input type="hidden" name="form" value="form2"/>
             <fieldset id="check">
                 <legend>Achats</legend>
                 <div>
@@ -52,9 +54,9 @@
                     <input type="radio" id="mes_encheres_remportees" name="check" value="mes_encheres_remportees">
                     <label for="mes_encheres_remportees">Mes enchères remportées</label>
                 </div>
-            <%--</fieldset>--%>
 
-            <%--<fieldset id="check">--%>
+
+
                 <legend>Mes ventes</legend>
                 <div>
                     <input type="radio" id="mes_ventes_en_cours" name="check" value="mes_ventes_en_cours">
@@ -71,6 +73,8 @@
                     <label for="ventes_terminees">Ventes terminées</label>
                 </div>
             </fieldset>
+
+            <button class="validate" type="submit">Rechercher</button>
         </form>
 
         <div class="items">
@@ -95,6 +99,18 @@
                         <h3>Par</h3>
                         <a href=""><c:out value="${article.utilisateurs.pseudo}" /></a>
                     </div>
+                    <c:if test="${!empty article.encheres}">
+                        <div class="enchere">
+
+                            <c:forEach var="encheres" items="${article.encheres}">
+                                <h3>Votre enchère</h3>
+                                <p><c:out value="${encheres.montant_enchere}"/></p>
+                                <h3>Date de l'enchère</h3>
+                                <p><c:out value="${encheres.dateEnchere}"/></p>
+                            </c:forEach>
+
+                        </div>
+                    </c:if>
                     <c:if test="${connecte}">
                         <a href="">Voir le détail</a>
                     </c:if>

@@ -31,11 +31,11 @@ public class EnchereManager {
         return this.enchereDAO.selectByArticle(article);
     }
 
-    public List<Enchere> listeArticleEnchereEnCoursParUtilisateur(Utilisateur utilisateur) throws BusinessException {
-        return this.enchereDAO.selectEnCoursByUtilisateurs(utilisateur);
+    public List<Articles> listeArticleEnchereEnCoursParUtilisateur(Utilisateur utilisateur) throws BusinessException {
+        return this.enchereDAO.selectEncheresEnCoursByUtilisateurs(utilisateur);
     }
 
-    public List<Enchere> listeArticleEnchereGagneParUtilisateur(Utilisateur utilisateur) throws BusinessException {
+    public List<Articles> listeArticleEnchereGagneParUtilisateur(Utilisateur utilisateur) throws BusinessException {
         return this.enchereDAO.selectEncheresGagneByUtilisateur(utilisateur);
     }
 

@@ -61,6 +61,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             "WHERE a.date_debut_encheres <= GETDATE() AND a.date_fin_encheres >= GETDATE() " +
             "AND a.no_utilisateur = ?";
 
+    private static final String SELECT_VENTES_NON_DEBUTEES_BY_UTILISATEUR = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
+            "a.prix_initial, a.prix_vente, c.libelle FROM Articles a " +
+            "LEFT JOIN Categories c " +
+            "ON a.no_categorie = c.no_categorie " +
+            "WHERE a.date_debut_encheres > GETDATE() " +
+            "AND a.no_utilisateur = ?";
+
     private static final String SELECT_VENTES_TERMINEES_BY_UTILISATEUR = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
             "a.prix_initial, a.prix_vente, c.libelle FROM Articles a " +
             "LEFT JOIN Categories c " +
@@ -384,6 +391,46 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
         return listeArticles;
     }
 
+    public List<Articles> selectVentesNonDebuteesParUtilisateur(Utilisateur utilisateur) throws BusinessException {
+        List<Articles> listeArticles = new ArrayList<>();
+
+        try (Connection con = ConnectionProvider.getConnection()){
+
+            PreparedStatement pstmt = con.prepareStatement(SELECT_VENTES_NON_DEBUTEES_BY_UTILISATEUR);
+            pstmt.setInt(1, utilisateur.getNoUtilisateur());
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        rs.getInt(6), rs.getInt(7));
+
+                Categorie categorie = new Categorie(rs.getString(8));
+
+                article.setUtilisateurs(utilisateur);
+                article.setCategorieArticle(categorie);
+
+                listeArticles.add(article);
+            }
+
+            rs.close();
+            pstmt.close();
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_VENTES_NON_DEBUTEES_PAR_UTILISATEUR_ECHEC);
+            throw businessException;
+        }
+
+        if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UTILISATEUR_INEXISTANT);
+            throw businessException;
+        }
+
+        return listeArticles;
+    }
     @Override
     public List<Articles> selectVentesTermineesParUtilisateur(Utilisateur utilisateur) throws BusinessException {
         List<Articles> listeArticles = new ArrayList<>();
