@@ -14,7 +14,7 @@ ALTER TABLE CATEGORIES ADD constraint categorie_pk PRIMARY KEY (no_categorie)
 CREATE TABLE ENCHERES (
     no_utilisateur   INTEGER NOT NULL,
     no_article       INTEGER NOT NULL,
-    date_enchere     DATETIME NOT NULL,
+    date_enchere     DATE NOT NULL,
 	montant_enchere  INTEGER NOT NULL
 
 )
@@ -52,8 +52,8 @@ CREATE TABLE ARTICLES (
     no_article                    INTEGER IDENTITY(1,1) NOT NULL,
     nom_article                   VARCHAR(30) NOT NULL,
     description                   VARCHAR(300) NOT NULL,
-	date_debut_encheres           DATETIME NOT NULL,
-    date_fin_encheres             DATETIME NOT NULL,
+	date_debut_encheres           DATE NOT NULL,
+    date_fin_encheres             DATE NOT NULL,
     prix_initial                  INTEGER NOT NULL,
     prix_vente                    INTEGER NOT NULL,
     no_utilisateur                INTEGER NOT NULL,
