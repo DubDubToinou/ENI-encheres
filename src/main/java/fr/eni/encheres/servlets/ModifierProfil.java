@@ -67,10 +67,11 @@ public class ModifierProfil extends HttpServlet {
 
             try {
 
-                if(utilisateur.getPseudo().equals(request.getParameter("pseudo")) || utilisateur.getEmail().equals(request.getParameter("email"))){
+                if(utilisateur.getPseudo().equals(request.getParameter("pseudo")) && utilisateur.getEmail().equals(request.getParameter("email"))){
                     utilisateurManager.updateUser(utilisateur);
-                }else {
-                    System.out.println("Coucou");
+                } else{
+                    utilisateurManager.updateUserWithCheck(utilisateur);
+
                 }
 
             } catch (BusinessException ex) {
