@@ -15,7 +15,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     private static final String SELECT_ARTICLE = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_categorie FROM ARTICLES WHERE no_utilisateur = ?";
     private static final String SELECT_PROFIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE pseudo = ?";
     private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
+    private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ? WHERE no_utilisateur = ?";
     private static final String DELETE = "DELETE FROM UTILISATEURS WHERE pseudo = ?";
     private static final String SELECT_PSEUDO_EXISTANT = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
     private static final String SELECT_EMAIL_EXISTANT = "SELECT email FROM UTILISATEURS WHERE email = ?";
@@ -155,7 +155,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             stmt.setString(6, utilisateur.getRue());
             stmt.setString(7, utilisateur.getCodePostal());
             stmt.setString(8, utilisateur.getVille());
-            stmt.setInt(10, utilisateur.getNoUtilisateur());
+            stmt.setInt(9, utilisateur.getNoUtilisateur());
             stmt.execute();
 
             stmt.close();

@@ -44,6 +44,7 @@
                     <legend>Vos informations</legend>
                     <div class="label">
                         <label for="pseudo">Pseudo</label>
+                        <input type="hidden" name="noUtilisateur" value="${sessionScope.utilisateur.noUtilisateur}">
                         <input type="text" name="pseudo" id="pseudo" pattern="[A-Za-z0-9]{1,30}" value="${sessionScope.utilisateur.pseudo}"
                                placeholder=${sessionScope.utilisateur.pseudo} required/>
                     </div>

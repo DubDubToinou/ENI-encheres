@@ -1,10 +1,9 @@
-
-
 package fr.eni.encheres.servlets;
 
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.UtilisateurDAO;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -28,6 +27,7 @@ public class ModifierProfil extends HttpServlet {
         List<Integer> listeCodesErreur=new ArrayList<>();
 
         Utilisateur utilisateur = ModifierUtilisateur(request, listeCodesErreur);
+
         if(listeCodesErreur.size() > 0) {
             request.getRequestDispatcher("/WEB-INF/modifierProfil.jsp").forward(request,response);
         } else {
@@ -43,8 +43,11 @@ public class ModifierProfil extends HttpServlet {
 
     private Utilisateur ModifierUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
+        HttpSession session = request.getSession();
+
         Utilisateur utilisateur = null;
 
+        Integer noUtilisateur = lireParametreNoUtilisateur(request);
         String pseudo = lireParametrePseudo(request, listeCodesErreur);
         String prenom = lireParametrePrenom(request, listeCodesErreur);
         String nom = lireParametreNom(request, listeCodesErreur);
@@ -60,16 +63,20 @@ public class ModifierProfil extends HttpServlet {
         } else
         {
             utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville);
+            utilisateur.setNoUtilisateur(noUtilisateur);
 
             try {
-                System.out.println(utilisateur);
-                utilisateurManager.updateUser(utilisateur);
+
+                if(utilisateur.getPseudo().equals(request.getParameter("pseudo")) || utilisateur.getEmail().equals(request.getParameter("email"))){
+                    utilisateurManager.updateUser(utilisateur);
+                }else {
+                    System.out.println("Coucou");
+                }
 
             } catch (BusinessException ex) {
                 ex.printStackTrace();
                 request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
             }
-
         }
         return utilisateur;
     }
@@ -98,6 +105,13 @@ public class ModifierProfil extends HttpServlet {
             listeCodesErreur.add(CodesResultatServlets.PSEUDO_OBLIGATOIRE);
         }
         return pseudo;
+    }
+
+    private Integer lireParametreNoUtilisateur(HttpServletRequest request){
+        Integer noUtilisateur;
+        noUtilisateur = Integer.valueOf(request.getParameter("noUtilisateur"));
+
+        return noUtilisateur;
     }
     private String lireParametrePrenom(HttpServletRequest request, List<Integer> listeCodesErreur) {
         String prenom;
