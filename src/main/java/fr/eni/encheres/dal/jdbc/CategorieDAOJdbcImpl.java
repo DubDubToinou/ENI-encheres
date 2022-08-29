@@ -6,10 +6,8 @@ import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.dal.CategorieDAO;
 import fr.eni.encheres.dal.CodesResultatDAL;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.swing.plaf.nimbus.State;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         private static final String UPDATE_CATEGORIE = "UPDATE Categories SET libelle = ? WHERE no_categorie = ?";
         private static final String DELETE_CATEGORIE = "DELETE FROM Categories WHERE no_categorie = ?";
         private static final String SELECT_BY_LIBELLE = "SELECT no_categorie FROM CATEGORIES WHERE libelle = ?";
+        private static final String SELECT_ALL = "SELECT no_categorie, libelle FROM Categories";
 
         public void insert(Categorie categorie) throws BusinessException {
 
@@ -129,6 +128,28 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
             }
             return c;
         }
+
+    @Override
+    public List<Categorie> selectCategories() throws BusinessException {
+            List<Categorie> categories = new ArrayList<>();
+
+        try(Connection con = ConnectionProvider.getConnection()){
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(SELECT_ALL);
+
+            while(rs.next()) {
+                Categorie categorie = new Categorie(rs.getInt(1), rs.getString(2));
+                categories.add(categorie);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_ALL_CATEGORIES_ECHEC);
+            throw businessException;
+        }
+
+        return categories;
+    }
 
 
 }

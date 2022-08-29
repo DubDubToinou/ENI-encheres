@@ -33,7 +33,7 @@ public class Inscription extends HttpServlet {
             session.setAttribute("utilisateur", utilisateur);
             boolean connecte = true;
             session.setAttribute("connecte", connecte);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("/accueil").forward(request, response);
         }
 
 
