@@ -30,28 +30,27 @@ public class NouvelleVenteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<Integer> listeCodesErreur=new ArrayList<>();
 
+
+        Articles article = null;
         try {
-
-            creerVente(request, listeCodesErreur);
-
+            article = creerVente(request, listeCodesErreur);
         } catch (BusinessException e) {
             throw new RuntimeException(e);
         }
 
+
         if(listeCodesErreur.size() > 0) {
-
             request.getRequestDispatcher("/nouvelleVente.jsp").forward(request,response);
-
         } else {
             HttpSession session = request.getSession();
-            boolean connecte = true;
-            session.setAttribute("connecte", connecte);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            session.setAttribute("article", article);
+            request.getRequestDispatcher("/article.jsp").forward(request, response);
         }
     }
 
-    private void creerVente(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+    private Articles creerVente(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
         ArticleManager articleManager = new ArticleManager();
+        Articles article = null;
 
         String nom = lireParametreNom(request, listeCodesErreur);
         String description = lireParametreDescription(request, listeCodesErreur);
@@ -65,17 +64,15 @@ public class NouvelleVenteServlet extends HttpServlet {
         if (listeCodesErreur.size() > 0) {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
         } else {
-            Articles article = new Articles(nom, description, dateDebut, dateFin, prixInitial, categorie, lieuRetrait, utilisateur);
-            System.out.println(article);
+            article = new Articles(nom, description, dateDebut, dateFin, prixInitial, categorie, lieuRetrait, utilisateur);
             try {
-
                 articleManager.ajouterUnArticle(article);
-
             } catch (BusinessException ex) {
                 ex.printStackTrace();
                 request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
             }
         }
+        return article;
     }
 
     private String lireParametreNom(HttpServletRequest request, List<Integer> listeCodesErreur) {
