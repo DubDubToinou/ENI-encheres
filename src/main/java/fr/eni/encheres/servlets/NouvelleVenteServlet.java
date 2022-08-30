@@ -58,7 +58,7 @@ public class NouvelleVenteServlet extends HttpServlet {
         if (listeCodesErreur.size() > 0) {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
         } else {
-            article = new Articles(nom, description, dateDebut, dateFin, prixInitial, categorie, lieuRetrait, utilisateur);
+            article = new Articles(nom, description, dateDebut, dateFin, prixInitial, prixInitial, categorie, lieuRetrait, utilisateur);
             try {
                 articleManager.ajouterUnArticle(article);
             } catch (BusinessException ex) {

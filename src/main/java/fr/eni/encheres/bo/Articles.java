@@ -84,12 +84,13 @@ public class Articles {
         this.prixVente = prixVente;
     }
 
-    public Articles(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, Integer miseAPrix, Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur) {
+    public Articles(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, Integer miseAPrix, Integer prixVente, Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
         this.dateFinEncheres = dateFinEncheres;
         this.miseAPrix = miseAPrix;
+        this.prixVente = prixVente;
         this.categorieArticle = categorieArticle;
         this.lieuRetrait = lieuRetrait;
         this.utilisateur = utilisateur;

@@ -31,11 +31,15 @@ public class NouvelleEnchere extends HttpServlet {
         List<Integer> listeCodesErreur=new ArrayList<>();
 
         try {
+
             creerEnchere(request, listeCodesErreur);
             preleverCredit(request, listeCodesErreur);
             rendreCredit(request, listeCodesErreur);
             updatePrixVenteArticle(request, listeCodesErreur);
+
+
         } catch (BusinessException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
 
@@ -51,6 +55,7 @@ public class NouvelleEnchere extends HttpServlet {
         Enchere enchere = null;
 
         Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
+        System.out.println(utilisateur);
         Articles article = lireParametreArticle(request, listeCodesErreur);
         LocalDateTime date = lireParametreDate(request, listeCodesErreur);
         int montant = lireParametreMontant(request, listeCodesErreur);
@@ -72,24 +77,27 @@ public class NouvelleEnchere extends HttpServlet {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
         Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
         int montant = lireParametreMontant(request, listeCodesErreur);
-
         utilisateur.setCredit(utilisateur.getCredit()-montant);
         utilisateurManager.updateUserWithCheck(utilisateur);
     }
 
     private void rendreCredit (HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
+        EnchereManager enchereManager = new EnchereManager();
         ArticleManager articleManager = new ArticleManager();
         Articles article = lireParametreArticle(request, listeCodesErreur);
         Utilisateur utilisateur = null;
 
         Articles fullArticle = articleManager.selectByNoArticle(article.getNoArticle());
-        List<Enchere> listeEnchere = fullArticle.getEncheres();
+        List<Enchere> listeEnchere = enchereManager.listeEnchereEnCoursParArticle(fullArticle);
 
         for (Enchere e : listeEnchere) {
             if (e.getMontant_enchere().equals(fullArticle.getPrixVente())){
+                utilisateur = utilisateurManager.afficherUnProfil(e.getUtilisateur().getPseudo());
                 utilisateur = e.getUtilisateur();
+                System.out.println(utilisateur);
                 utilisateur.setCredit(utilisateur.getCredit()+e.getMontant_enchere());
+                System.out.println(utilisateur);
                 utilisateurManager.updateUserWithCheck(utilisateur);
             }
         }
@@ -101,7 +109,15 @@ public class NouvelleEnchere extends HttpServlet {
         Articles fullArticle = articleManager.selectByNoArticle(article.getNoArticle());
         int montant = lireParametreMontant(request, listeCodesErreur);
         fullArticle.setPrixVente(montant);
-        articleManager.updateUnArticle(fullArticle);
+        System.out.println("test5");
+        System.out.println(fullArticle);
+        try {
+            System.out.println("test6");
+            articleManager.updateUnArticle(fullArticle);
+        }catch ( BusinessException ex){
+            ex.printStackTrace();
+        }
+
     }
 
     private Utilisateur lireParametreUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
@@ -133,7 +149,7 @@ public class NouvelleEnchere extends HttpServlet {
 
     private int lireParametreMontant(HttpServletRequest request, List<Integer> listeCodesErreur) {
         Articles article = lireParametreArticle(request, listeCodesErreur);
-        int montant = Integer.parseInt(request.getParameter("enchere"));
+        int montant = Integer.parseInt(request.getParameter("montant"));
         if (montant <= article.getPrixVente()) {
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_MONTANT_OBLIGATOIRE);
         }
