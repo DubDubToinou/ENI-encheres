@@ -53,10 +53,9 @@
                 <div class="label">
                     <label for="categorie">Catégorie</label>
                     <select name="categorie" id="categorie">
-                        <option value="Informatique">Informatique</option>
-                        <option value="Ameublement">Ameublement</option>
-                        <option value="Vêtements">Vêtements</option>
-                        <option value="Sport et Loisirs">Sport et Loisirs</option>
+                        <c:forEach var="c" items="${categories}">
+                            <option value="${c.libelle}"><c:out value="${c.libelle}" /></option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="label">

@@ -22,4 +22,11 @@ public abstract class CodesResultatServlets {
     public static final int DATE_FIN_OBLIGATOIRE=40003;
     public static final int PRIX_INITIAL_OBLIGATOIRE=40004;
     public static final int UTILISATEUR_OBLIGATOIRE=40005;
+
+    //Nouvelle enchère
+    public static final int ENCHERE_UTILISATEUR_OBLIGATOIRE=50001;
+    public static final int ENCHERE_ARTICLE_OBLIGATOIRE=50002;
+    public static final int ENCHERE_DATE_OBLIGATOIRE=50003;
+    public static final int ENCHERE_MONTANT_OBLIGATOIRE=50004;
+
 }

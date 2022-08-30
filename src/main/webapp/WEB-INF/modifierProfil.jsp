@@ -167,6 +167,7 @@
                 </div>
             </div>
             <div class="submit">
+                <a href="${pageContext.request.contextPath}/ModifierMotDePasse">Modifier mon mot de passe</a>
                 <a href="${pageContext.request.contextPath}/SupprimerProfil">Supprimer mon compte</a>
                 <button type="submit">Enregistrer</button>
             </div>
