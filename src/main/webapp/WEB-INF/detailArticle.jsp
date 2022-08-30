@@ -35,6 +35,8 @@
         <c:if test="${connecte && article.utilisateurs.pseudo != sessionScope.utilisateurs.pseudo}">
             <form method="post" action="${pageContext.request.contextPath}/NouvelleEnchere">
                 <label for="montant">Ma proposition : </label>
+                <input name="noArticle" type="hidden" value="${article.noArticle}"/>
+                <input name="prixVente" type="hidden" value="${article.prixVente}"/>
                 <input type="number" id="montant" name="montant" min="${article.prixVente}" placeholder="${article.prixVente}"/>
                 <button type="submit">Enchérir</button>
             </form>
