@@ -20,7 +20,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     private static final String SELECT_PSEUDO_EXISTANT = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
     private static final String SELECT_EMAIL_EXISTANT = "SELECT email FROM UTILISATEURS WHERE email = ?";
     private static final String SELECT_MOT_DE_PASSE = "SELECT mot_de_passe FROM UTILISATEURS WHERE (pseudo = ? or email= ?)";
-
+    private static final String UPDATE_MOT_DE_PASSE = "UPDATE UTILISATEURS SET mot_de_passe = ? WHERE pseudo = ?";
+//TODO
     @Override
     public Utilisateur selectByPseudo(String pseudo) throws BusinessException {
         Utilisateur u = new Utilisateur();
@@ -169,6 +170,33 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             throw businessException;
         }
     }
+
+    public void updateMotDePasse(Utilisateur utilisateur) throws BusinessException {
+
+        if (utilisateur.getNoUtilisateur() == null || utilisateur.getNoUtilisateur() == 0) {
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UTILISATEUR_INEXISTANT);
+            throw businessException;
+        }
+
+        try(Connection cnx = ConnectionProvider.getConnection()){
+            System.out.println(utilisateur);
+            PreparedStatement stmt = cnx.prepareStatement(UPDATE_MOT_DE_PASSE);
+            stmt.setString(1, utilisateur.getMotDePasse());
+            stmt.setString(2, utilisateur.getPseudo());
+            stmt.execute();
+
+            stmt.close();
+
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UPDATE_UTILISATEUR_ECHEC);
+            throw businessException;
+        }
+    }
+
+
 
     @Override
     public void delete(Utilisateur utilisateur) throws BusinessException {

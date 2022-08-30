@@ -35,8 +35,6 @@ public class Inscription extends HttpServlet {
             session.setAttribute("connecte", connecte);
             request.getRequestDispatcher("/accueil").forward(request, response);
         }
-
-
     }
 
     private Utilisateur creerUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
