@@ -61,7 +61,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 
             while (rs.next()){
                 Utilisateur utilisateur = new Utilisateur(rs.getString(1));
-                Enchere enchere = new Enchere(rs.getDate(2).toLocalDate(), rs.getInt(3));
+                Enchere enchere = new Enchere(((Timestamp) rs.getObject(2)).toLocalDateTime(), rs.getInt(3));
                 enchere.setUtilisateur(utilisateur);
                 listeEnchereByNumArticle.add(enchere);
             }
@@ -101,7 +101,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 
                 pstmt.setInt(1, elementEnchere.getUtilisateur().getNoUtilisateur());
                 pstmt.setInt(2, elementEnchere.getArticleVendu().getNoArticle());
-                pstmt.setDate(3, Date.valueOf(elementEnchere.getDateEnchere()));
+                pstmt.setObject(3, elementEnchere.getDateEnchere());
                 pstmt.setInt(4, elementEnchere.getMontant_enchere());
                 pstmt.executeUpdate();
 
@@ -109,7 +109,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             } else {
                 PreparedStatement stmtUpdate = con.prepareStatement(UPDATE_ENCHERE);
 
-                stmtUpdate.setDate(1, Date.valueOf(elementEnchere.getDateEnchere()));
+                stmtUpdate.setObject(1, elementEnchere.getDateEnchere());
                 stmtUpdate.setInt(2, elementEnchere.getMontant_enchere());
                 stmtUpdate.setInt(3, elementEnchere.getUtilisateur().getNoUtilisateur());
                 stmtUpdate.setInt(4, elementEnchere.getArticleVendu().getNoArticle());
@@ -149,14 +149,14 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
-                Enchere enchere = new Enchere(rs.getDate("date_enchere").toLocalDate(), rs.getInt("montant_enchere"));
+                Enchere enchere = new Enchere(((Timestamp) rs.getObject("date_enchere")).toLocalDateTime(), rs.getInt("montant_enchere"));
 
                 Utilisateur utilisateurVendeur = new Utilisateur(rs.getString("pseudo"));
 
                 Articles article = new Articles();
                 article.setNoArticle(rs.getInt("no_article"));
                 article.setNomArticle(rs.getString("nom_article"));
-                article.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+                article.setDateFinEncheres(((Timestamp) rs.getObject("date_fin_encheres")).toLocalDateTime());
                 article.setPrixVente(rs.getInt("prix_vente"));
                 article.setUtilisateurs(utilisateurVendeur);
                 article.addEnchere(enchere);
@@ -193,14 +193,14 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
-                Enchere enchere = new Enchere(rs.getDate("date_enchere").toLocalDate(), rs.getInt("montant_enchere"));
+                Enchere enchere = new Enchere(((Timestamp) rs.getObject("date_enchere")).toLocalDateTime(), rs.getInt("montant_enchere"));
 
                 Utilisateur utilisateurVendeur = new Utilisateur(rs.getString("pseudo"));
 
                 Articles article = new Articles();
                 article.setNoArticle(rs.getInt("no_article"));
                 article.setNomArticle(rs.getString("nom_article"));
-                article.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+                article.setDateFinEncheres(((Timestamp) rs.getObject("date_fin_encheres")).toLocalDateTime());
                 article.setPrixVente(rs.getInt("prix_vente"));
                 article.setUtilisateurs(utilisateurVendeur);
                 article.addEnchere(enchere);

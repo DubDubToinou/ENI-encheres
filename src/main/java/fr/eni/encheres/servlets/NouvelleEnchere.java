@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class NouvelleEnchere extends HttpServlet {
 
         Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
         Articles article = lireParametreArticle(request, listeCodesErreur);
-        LocalDate date = lireParametreDate(request, listeCodesErreur);
+        LocalDateTime date = lireParametreDate(request, listeCodesErreur);
         int montant = lireParametreMontant(request, listeCodesErreur);
 
         if (listeCodesErreur.size() > 0) {
@@ -82,8 +82,8 @@ public class NouvelleEnchere extends HttpServlet {
         return article;
     }
 
-    private LocalDate lireParametreDate(HttpServletRequest request, List<Integer> listeCodesErreur) {
-        LocalDate date = LocalDate.now();
+    private LocalDateTime lireParametreDate(HttpServletRequest request, List<Integer> listeCodesErreur) {
+        LocalDateTime date = LocalDateTime.now();
         if(date == null) {
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_DATE_OBLIGATOIRE);
         }

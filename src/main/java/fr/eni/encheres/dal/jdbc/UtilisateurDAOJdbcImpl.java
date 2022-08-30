@@ -46,7 +46,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
                 u.setTelephone(result.getString("telephone"));
 
                 while (resultArticle.next()) {
-                    Articles article = new Articles(resultArticle.getInt("no_article"), resultArticle.getString("nom_article"), resultArticle.getString("description"), resultArticle.getDate("date_debut_encheres").toLocalDate(), resultArticle.getDate("date_fin_encheres").toLocalDate(), resultArticle.getInt("prix_initial"), resultArticle.getInt("prix_vente"));
+                    Articles article = new Articles(resultArticle.getInt("no_article"), resultArticle.getString("nom_article"),
+                            resultArticle.getString("description"), ((Timestamp) resultArticle.getObject("date_debut_encheres")).toLocalDateTime(),
+                            ((Timestamp) resultArticle.getObject("date_fin_encheres")).toLocalDateTime(), resultArticle.getInt("prix_initial"),
+                            resultArticle.getInt("prix_vente"));
                     u.addArticleVendu(article);
                 }
                 resultArticle.close();

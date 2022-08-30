@@ -99,13 +99,13 @@ public class ArticleManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DESCRIPTION_ERREUR);
         }
 
-       if (article.getDateDebutEncheres() == null || article.getDateDebutEncheres().isBefore(LocalDate.now())){
+       if (article.getDateDebutEncheres() == null || article.getDateDebutEncheres().isBefore(LocalDateTime.now())){
            businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DATEDEBUTENCHERE_ERREUR);
        }
 
        if (article.getDateFinEncheres() == null ||
                article.getDateFinEncheres().isBefore(article.getDateDebutEncheres()) ||
-               article.getDateFinEncheres().isBefore(LocalDate.now())){
+               article.getDateFinEncheres().isBefore(LocalDateTime.now())){
            businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DATEFINENCHERE_ERREUR);
        }
 

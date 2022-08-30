@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import java.util.List;
 public class NouvelleVenteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        affichageCategories(request);
         request.getRequestDispatcher("/nouvelleVente.jsp").forward(request, response);
     }
 
@@ -40,6 +42,7 @@ public class NouvelleVenteServlet extends HttpServlet {
 
 
         if(listeCodesErreur.size() > 0) {
+            request.setAttribute("listeCodesErreur", listeCodesErreur);
             request.getRequestDispatcher("/nouvelleVente.jsp").forward(request,response);
         } else {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -52,8 +55,8 @@ public class NouvelleVenteServlet extends HttpServlet {
 
         String nom = lireParametreNom(request, listeCodesErreur);
         String description = lireParametreDescription(request, listeCodesErreur);
-        LocalDate dateDebut = lireParametreDateDebut(request, listeCodesErreur);
-        LocalDate dateFin = lireParametreDateFin(request, listeCodesErreur);
+        LocalDateTime dateDebut = lireParametreDateDebut(request, listeCodesErreur);
+        LocalDateTime dateFin = lireParametreDateFin(request, listeCodesErreur);
         int prixInitial = lireParametrePrixInitial(request, listeCodesErreur);
         Utilisateur utilisateur = lireUtilisateur(request, listeCodesErreur);
         Categorie categorie = lireParametreCategorie(request, listeCodesErreur);
@@ -73,6 +76,20 @@ public class NouvelleVenteServlet extends HttpServlet {
         return article;
     }
 
+    private void affichageCategories(HttpServletRequest request) {
+        List<Categorie> categories = new ArrayList<>();
+        CategorieManager categorieManager = new CategorieManager();
+        try {
+            categories = categorieManager.selectAllCategories();
+
+        } catch (BusinessException ex) {
+            ex.printStackTrace();
+            request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
+        }
+
+        request.setAttribute("categories", categories);
+    }
+
     private String lireParametreNom(HttpServletRequest request, List<Integer> listeCodesErreur) {
         String nom = request.getParameter("nom_article");
         if (nom == null || nom.trim().isBlank()) {
@@ -89,16 +106,16 @@ public class NouvelleVenteServlet extends HttpServlet {
         return description;
     }
 
-    private LocalDate lireParametreDateDebut(HttpServletRequest request, List<Integer> listeCodesErreur) {
-        LocalDate dateDebut = LocalDate.parse(request.getParameter("date_debut_encheres"));
-        if (dateDebut == null || dateDebut.isBefore(LocalDate.now())) {
+    private LocalDateTime lireParametreDateDebut(HttpServletRequest request, List<Integer> listeCodesErreur) {
+        LocalDateTime dateDebut = LocalDateTime.parse(request.getParameter("date_debut_encheres"));
+        if (dateDebut == null || dateDebut.isBefore(LocalDateTime.now())) {
             listeCodesErreur.add(CodesResultatServlets.DATE_DEBUT_OBLIGATOIRE);
         }
         return dateDebut;
     }
 
-    private LocalDate lireParametreDateFin(HttpServletRequest request, List<Integer> listeCodesErreur) {
-        LocalDate dateFin = LocalDate.parse(request.getParameter("date_fin_encheres"));
+    private LocalDateTime lireParametreDateFin(HttpServletRequest request, List<Integer> listeCodesErreur) {
+        LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("date_fin_encheres"));
         if (dateFin == null || dateFin.isBefore(lireParametreDateDebut(request, listeCodesErreur)) || dateFin.isEqual(lireParametreDateDebut(request, listeCodesErreur))) {
             listeCodesErreur.add(CodesResultatServlets.DATE_FIN_OBLIGATOIRE);
         }

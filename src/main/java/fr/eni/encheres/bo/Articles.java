@@ -4,7 +4,7 @@ package fr.eni.encheres.bo;
  * @author Antoine
  */
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +13,8 @@ public class Articles {
     private Integer noArticle;
     private String nomArticle;
     private String description;
-    private LocalDate dateDebutEncheres;
-    private LocalDate dateFinEncheres;
+    private LocalDateTime dateDebutEncheres;
+    private LocalDateTime dateFinEncheres;
     private Integer miseAPrix;
     private Integer prixVente;
     private boolean etatVente = false;
@@ -27,7 +27,7 @@ public class Articles {
     public Articles() {
     }
 
-    public Articles(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, boolean etatVente, Categorie categorieArticle) {
+    public Articles(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, Integer miseAPrix, Integer prixVente, boolean etatVente, Categorie categorieArticle) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -39,7 +39,7 @@ public class Articles {
         this.categorieArticle = categorieArticle;
     }
 
-    public Articles(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix, boolean etatVente, Categorie categorieArticle) {
+    public Articles(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, Integer miseAPrix, boolean etatVente, Categorie categorieArticle) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -51,7 +51,7 @@ public class Articles {
     }
 
     //Constructeur sans ID.
-    public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+    public Articles(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres,
                     Integer miseAPrix, Integer prixVente, boolean etatVente, Categorie categorieArticle) {
         this.nomArticle = nomArticle;
         this.description = description;
@@ -64,7 +64,7 @@ public class Articles {
     }
 
     //Constructeur sans catégorie de Catégorie.
-    public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente, boolean etatVente) {
+    public Articles(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, Integer miseAPrix, Integer prixVente, boolean etatVente) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -74,7 +74,7 @@ public class Articles {
         this.etatVente = etatVente;
     }
 
-    public Articles(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix, Integer prixVente) {
+    public Articles(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, Integer miseAPrix, Integer prixVente) {
         this.noArticle = noArticle;
         this.nomArticle = nomArticle;
         this.description = description;
@@ -84,7 +84,7 @@ public class Articles {
         this.prixVente = prixVente;
     }
 
-    public Articles(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, Integer miseAPrix, Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur) {
+    public Articles(String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, Integer miseAPrix, Categorie categorieArticle, Retrait lieuRetrait, Utilisateur utilisateur) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEncheres = dateDebutEncheres;
@@ -123,20 +123,20 @@ public class Articles {
     }
 
     //Getter et Setter Date Debut Encheres
-    public LocalDate getDateDebutEncheres() {
+    public LocalDateTime getDateDebutEncheres() {
         return dateDebutEncheres;
     }
 
-    public void setDateDebutEncheres(LocalDate dateDebutEncheres) {
+    public void setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
         this.dateDebutEncheres = dateDebutEncheres;
     }
 
     //Getter et Setter Date Fin Encheres
-    public LocalDate getDateFinEncheres() {
+    public LocalDateTime getDateFinEncheres() {
         return dateFinEncheres;
     }
 
-    public void setDateFinEncheres(LocalDate dateFinEncheres) {
+    public void setDateFinEncheres(LocalDateTime dateFinEncheres) {
         this.dateFinEncheres = dateFinEncheres;
     }
 
