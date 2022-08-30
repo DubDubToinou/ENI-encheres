@@ -37,11 +37,14 @@ public class ArticleManager {
     //methode Update d'un Article
     public void updateUnArticle(Articles article) throws BusinessException {
         BusinessException businessException = new BusinessException();
-        this.validateRetraitArticle(article, businessException);
-        this.validateRetraitArticle(article, businessException);
+        //this.validateRetraitArticle(article, businessException);
 
         if(!businessException.hasErreurs()){
+
             this.articleDAO.update(article);
+
+        }else{
+            throw businessException;
         }
     }
 

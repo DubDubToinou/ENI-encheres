@@ -18,11 +18,11 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             "prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String INSERT_RETRAIT = "INSERT INTO RETRAITS(no_article, rue, code_postal, ville) VALUES (?, ?, ?, ?)";
     private static final String UPDATE_ARTICLE = "UPDATE Articles SET nom_article = ?, description = ?, date_debut_encheres = ?, " +
-            "date_fin_encheres = ?, prix_initial = ?, no_categorie = ? WHERE no_article = ?";
+            "date_fin_encheres = ?, prix_initial = ?, prix_vente = ?, no_categorie = ? WHERE no_article = ?";
     private static final String UPDATE_RETRAIT = "UPDATE Retraits SET rue = ?, code_postal = ?, ville = ? WHERE no_article = ?";
     private static final String DELETE_ARTICLE = "DELETE FROM Articles WHERE no_article = ?";
     private static final String SELECT_BY_NO_ARTICLE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
-            "a.prix_initial, a.prix_vente, u.pseudo, r.rue, r.code_postal, r.ville, c.libelle " +
+            "a.prix_initial, a.prix_vente, u.pseudo, r.rue, r.code_postal, r.ville, c.libelle, c.no_categorie " +
             "FROM Articles a " +
             "INNER JOIN UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur " +
             "INNER JOIN Retraits r ON a.no_article = r.no_article " +
@@ -156,8 +156,9 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             pstmtArticle.setObject(3, article.getDateDebutEncheres());
             pstmtArticle.setObject(4, article.getDateFinEncheres());
             pstmtArticle.setInt(5, article.getMiseAPrix());
-            pstmtArticle.setInt(6, article.getCategorieArticle().getNoCategorie());
-            pstmtArticle.setInt(7, article.getNoArticle());
+            pstmtArticle.setInt(6, article.getPrixVente());
+            pstmtArticle.setInt(7, article.getCategorieArticle().getNoCategorie());
+            pstmtArticle.setInt(8, article.getNoArticle());
 
             pstmtArticle.executeUpdate();
 
@@ -228,7 +229,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
                 Retrait retrait = new Retrait(rs.getString(9), rs.getString(10), rs.getString(11));
                 article.setLieuRetrait(retrait);
 
-                Categorie categorie = new Categorie(rs.getString(11));
+                Categorie categorie = new Categorie(rs.getString(12));
+                categorie.setNoCategorie(rs.getInt(13));
                 article.setCategorieArticle(categorie);
 
             }

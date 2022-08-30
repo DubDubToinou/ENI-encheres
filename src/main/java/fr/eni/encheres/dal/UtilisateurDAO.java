@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public interface UtilisateurDAO extends DAO<Utilisateur> {
     public Utilisateur selectByPseudo(String pseudo) throws BusinessException;
 
-    public Utilisateur selectOwnProfile(Utilisateur utilisateur) throws BusinessException;
+    public Utilisateur selectOwnProfile(Utilisateur Utilisateur) throws BusinessException;
 
     public void insert(Utilisateur utilisateur) throws BusinessException;
 
