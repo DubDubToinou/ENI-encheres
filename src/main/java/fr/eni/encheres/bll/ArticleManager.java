@@ -24,8 +24,8 @@ public class ArticleManager {
     public void ajouterUnArticle(Articles article) throws BusinessException {
         BusinessException businessException = new BusinessException();
 
-        //this.validateArticle(article, businessException);
-        //this.validateRetraitArticle(article, businessException);
+        this.validateArticle(article, businessException);
+        this.validateRetraitArticle(article, businessException);
 
 
         if(!businessException.hasErreurs()){
@@ -132,9 +132,6 @@ public class ArticleManager {
     //Validation des données pour le retrait article.
     public void validateRetraitArticle(Articles article, BusinessException businessException) throws BusinessException{
 
-        if (article.getNoArticle() == null){
-            businessException.ajouterErreur(CodesResultatBLL.REGLE_RETRAIT_ARTICLE_NOARTICLE_ERREUR);
-        }
 
         if (article.getLieuRetrait().getRue() == null || article.getLieuRetrait().getRue().isBlank()){
             businessException.ajouterErreur(CodesResultatBLL.REGLE_RETRAIT_ARTICLE_RUE_ERREUR);
