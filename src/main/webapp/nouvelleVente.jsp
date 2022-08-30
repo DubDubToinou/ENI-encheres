@@ -85,7 +85,7 @@
                 <div class="label">
                     <label for="dateDebut">Début de l'enchère</label>
                     <input
-                            type="date"
+                            type="datetime-local"
                             name="date_debut_encheres"
                             id="dateDebut"
                             required
@@ -93,7 +93,7 @@
                 </div>
                 <div class="label">
                     <label for="dateFin">Fin de l'enchère</label>
-                    <input type="date" name="date_fin_encheres" id="dateFin" required/>
+                    <input type="datetime-local" name="date_fin_encheres" id="dateFin" required/>
                 </div>
             </fieldset>
             <fieldset>

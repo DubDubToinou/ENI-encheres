@@ -93,8 +93,8 @@
                         </div>
                         <div>
                             <h3>Date de fin</h3>
-                            <fmt:parseDate  value="${article.dateFinEncheres}"  type="date" pattern="yyyy-MM-dd" var="finEncheres" />
-                            <p><fmt:formatDate value="${finEncheres}" pattern="dd/MM/yyyy"/></p>
+                                <fmt:parseDate value="${article.dateFinEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateTimeFinEncheres" type="both" />
+                            <p> <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateTimeFinEncheres }" /></p>
                         </div>
                     </div>
                     <div class="seller">
@@ -108,8 +108,8 @@
                                 <h3>Votre enchère</h3>
                                 <p><c:out value="${encheres.montant_enchere}"/></p>
                                 <h3>Date de l'enchère</h3>
-                                <fmt:parseDate  value="${encheres.dateEnchere}"  type="date" pattern="yyyy-MM-dd" var="dateDeLEnchere" />
-                                <p><fmt:formatDate value="${dateDeLEnchere}" pattern="dd/MM/yyyy"/></p>
+                                <%--<fmt:parseDate  value="${encheres.dateEnchere}"  type="date" pattern="yyyy-MM-dd" var="dateDeLEnchere" />
+                                <p><fmt:formatDate value="${dateDeLEnchere}" pattern="dd/MM/yyyy"/></p>--%>
                             </c:forEach>
 
                         </div>

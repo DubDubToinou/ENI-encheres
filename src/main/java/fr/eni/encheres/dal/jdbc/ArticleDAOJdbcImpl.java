@@ -100,8 +100,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             //Ajout de l'article
             pstmtArticle.setString(1, article.getNomArticle());
             pstmtArticle.setString(2, article.getDescription());
-            pstmtArticle.setDate(3, Date.valueOf(article.getDateDebutEncheres()));
-            pstmtArticle.setDate(4, Date.valueOf(article.getDateFinEncheres()));
+            pstmtArticle.setObject(3, article.getDateDebutEncheres());
+            pstmtArticle.setObject(4, article.getDateFinEncheres());
             pstmtArticle.setInt(5, article.getMiseAPrix());
             pstmtArticle.setInt(6, article.getMiseAPrix());
             pstmtArticle.setInt(7, article.getUtilisateurs().getNoUtilisateur());
@@ -153,8 +153,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             pstmtArticle.setString(1, article.getNomArticle());
             pstmtArticle.setString(2, article.getDescription());
-            pstmtArticle.setDate(3, Date.valueOf(article.getDateDebutEncheres()));
-            pstmtArticle.setDate(4, Date.valueOf(article.getDateFinEncheres()));
+            pstmtArticle.setObject(3, article.getDateDebutEncheres());
+            pstmtArticle.setObject(4, article.getDateFinEncheres());
             pstmtArticle.setInt(5, article.getMiseAPrix());
             pstmtArticle.setInt(6, article.getCategorieArticle().getNoCategorie());
             pstmtArticle.setInt(7, article.getNoArticle());
@@ -217,8 +217,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
                 article.setNoArticle(rs.getInt(1));
                 article.setNomArticle(rs.getString(2));
                 article.setDescription(rs.getString(3));
-                article.setDateDebutEncheres(rs.getDate(4).toLocalDate());
-                article.setDateFinEncheres(rs.getDate(5).toLocalDate());
+                article.setDateDebutEncheres(((Timestamp) rs.getObject(4)).toLocalDateTime());
+                article.setDateFinEncheres(((Timestamp) rs.getObject(5)).toLocalDateTime());
                 article.setMiseAPrix(rs.getInt(6));
                 article.setPrixVente(rs.getInt(7));
 
@@ -250,7 +250,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             while(rs.next()) {
               Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
-                      rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                      ((Timestamp) rs.getObject(4)).toLocalDateTime(), ((Timestamp) rs.getObject(5)).toLocalDateTime(),
                       rs.getInt(6), rs.getInt(7));
 
               Utilisateur utilisateur = new Utilisateur(rs.getString(8));
@@ -288,7 +288,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             while(rs.next()) {
                 Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        ((Timestamp) rs.getObject(4)).toLocalDateTime(), ((Timestamp) rs.getObject(5)).toLocalDateTime(),
                         rs.getInt(6), rs.getInt(7));
 
                 Utilisateur utilisateur = new Utilisateur(rs.getString(8));
@@ -331,7 +331,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             while(rs.next()) {
                 Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        ((Timestamp) rs.getObject(4)).toLocalDateTime(), ((Timestamp) rs.getObject(5)).toLocalDateTime(),
                         rs.getInt(6), rs.getInt(7));
 
                 Utilisateur utilisateur = new Utilisateur(rs.getString(8));
@@ -370,7 +370,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             while(rs.next()) {
                 Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        ((Timestamp) rs.getObject(4)).toLocalDateTime(), ((Timestamp) rs.getObject(5)).toLocalDateTime(),
                         rs.getInt(6), rs.getInt(7));
 
                 Utilisateur utilisateur = new Utilisateur(rs.getString(8));
@@ -407,7 +407,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             while(rs.next()) {
                 Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        ((Timestamp) rs.getObject(4)).toLocalDateTime(), ((Timestamp) rs.getObject(5)).toLocalDateTime(),
                         rs.getInt(6), rs.getInt(7));
 
                 Categorie categorie = new Categorie(rs.getString(8));
@@ -448,7 +448,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             while(rs.next()) {
                 Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        ((Timestamp) rs.getObject(4)).toLocalDateTime(), ((Timestamp) rs.getObject(5)).toLocalDateTime(),
                         rs.getInt(6), rs.getInt(7));
 
                 Categorie categorie = new Categorie(rs.getString(8));
@@ -489,7 +489,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
             while(rs.next()) {
                 Articles article = new Articles(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(),
+                        ((Timestamp) rs.getObject(4)).toLocalDateTime(), ((Timestamp) rs.getObject(5)).toLocalDateTime(),
                         rs.getInt(6), rs.getInt(7));
 
                 Categorie categorie = new Categorie(rs.getString(8));
