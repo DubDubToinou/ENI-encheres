@@ -108,8 +108,8 @@
                                 <h3>Votre enchère</h3>
                                 <p><c:out value="${encheres.montant_enchere}"/></p>
                                 <h3>Date de l'enchère</h3>
-                                <%--<fmt:parseDate  value="${encheres.dateEnchere}"  type="date" pattern="yyyy-MM-dd" var="dateDeLEnchere" />
-                                <p><fmt:formatDate value="${dateDeLEnchere}" pattern="dd/MM/yyyy"/></p>--%>
+                                <fmt:parseDate  value="${encheres.dateEnchere}"  type="date" pattern="yyyy-MM-dd" var="dateDeLEnchere" />
+                                <p><fmt:formatDate value="${dateDeLEnchere}" pattern="dd/MM/yyyy"/></p>
                             </c:forEach>
 
                         </div>

@@ -32,31 +32,24 @@ public class NouvelleVenteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<Integer> listeCodesErreur=new ArrayList<>();
 
-
         Articles article = null;
-        try {
-            article = creerVente(request, listeCodesErreur);
-        } catch (BusinessException e) {
-            throw new RuntimeException(e);
-        }
-
+        article = creerVente(request, listeCodesErreur);
 
         if(listeCodesErreur.size() > 0) {
-            request.setAttribute("listeCodesErreur", listeCodesErreur);
             request.getRequestDispatcher("/nouvelleVente.jsp").forward(request,response);
         } else {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 
-    private Articles creerVente(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+    private Articles creerVente(HttpServletRequest request, List<Integer> listeCodesErreur) {
         ArticleManager articleManager = new ArticleManager();
         Articles article = null;
 
         String nom = lireParametreNom(request, listeCodesErreur);
         String description = lireParametreDescription(request, listeCodesErreur);
         LocalDateTime dateDebut = lireParametreDateDebut(request, listeCodesErreur);
-        LocalDateTime dateFin = lireParametreDateFin(request, listeCodesErreur);
+        LocalDateTime dateFin = lireParametreDateFin(request, dateDebut, listeCodesErreur);
         int prixInitial = lireParametrePrixInitial(request, listeCodesErreur);
         Utilisateur utilisateur = lireUtilisateur(request, listeCodesErreur);
         Categorie categorie = lireParametreCategorie(request, listeCodesErreur);
@@ -114,9 +107,9 @@ public class NouvelleVenteServlet extends HttpServlet {
         return dateDebut;
     }
 
-    private LocalDateTime lireParametreDateFin(HttpServletRequest request, List<Integer> listeCodesErreur) {
+    private LocalDateTime lireParametreDateFin(HttpServletRequest request, LocalDateTime dateDebut, List<Integer> listeCodesErreur) {
         LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("date_fin_encheres"));
-        if (dateFin == null || dateFin.isBefore(lireParametreDateDebut(request, listeCodesErreur)) || dateFin.isEqual(lireParametreDateDebut(request, listeCodesErreur))) {
+        if (dateFin == null || dateFin.isBefore(dateDebut) || dateFin.isEqual(dateDebut)) {
             listeCodesErreur.add(CodesResultatServlets.DATE_FIN_OBLIGATOIRE);
         }
         return dateFin;
@@ -139,11 +132,18 @@ public class NouvelleVenteServlet extends HttpServlet {
         return utilisateur;
     }
 
-    private Categorie lireParametreCategorie(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+    private Categorie lireParametreCategorie(HttpServletRequest request, List<Integer> listeCodesErreur) {
         CategorieManager categorieManager = new CategorieManager();
         String libelleCategorie = request.getParameter("categorie");
 
-        return categorieManager.selectCategorieByLibelle(libelleCategorie);
+        Categorie categorie = null;
+        try {
+            categorie = categorieManager.selectCategorieByLibelle(libelleCategorie);
+        } catch (BusinessException ex) {
+            ex.printStackTrace();
+        }
+
+        return categorie;
 
     }
 

@@ -24,6 +24,8 @@ public class EnchereManager {
 
         if (!businessException.hasErreurs()) {
             this.enchereDAO.insert(enchere);
+        } else {
+            throw businessException;
         }
     }
 

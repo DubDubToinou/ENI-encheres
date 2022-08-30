@@ -24,13 +24,14 @@ public class ArticleManager {
     public void ajouterUnArticle(Articles article) throws BusinessException {
         BusinessException businessException = new BusinessException();
 
-        //this.validateArticle(article, businessException);
-        //this.validateRetraitArticle(article, businessException);
+        this.validateArticle(article, businessException);
+        this.validateRetraitArticle(article, businessException);
 
 
         if(!businessException.hasErreurs()){
-            System.out.println("test");
             this.articleDAO.insert(article);
+        } else {
+            throw businessException;
         }
     }
 
