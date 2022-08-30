@@ -31,8 +31,6 @@
 
     <form action="${pageContext.request.contextPath}/SupprimerProfil" method="post">
         <label for="mot_de_passe">Mot de passe</label>
-        <input type="hidden" name="pseudo" value="${ sessionScope.utilisateur.pseudo }">
-        <input type="hidden" name="noUtilisateur" value="${sessionScope.utilisateur.noUtilisateur}">
         <input type="password" name="mot_de_passe" id="mot_de_passe" placeholder="Entrez votre mot de passe" required />
         <label for="confirm_mot_de_passe">Confirmation du mot de passe</label>
         <input type="password" name="confirm_mot_de_passe" id="confirm_mot_de_passe" placeholder="Confirmez votre mot de passe" required/>

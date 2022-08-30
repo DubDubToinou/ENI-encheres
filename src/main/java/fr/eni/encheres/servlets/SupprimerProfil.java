@@ -55,8 +55,6 @@ public class SupprimerProfil extends HttpServlet {
         HttpSession session = request.getSession();
         Utilisateur utilisateurSession = (Utilisateur) session.getAttribute("utilisateur");
 
-        String pseudo = request.getParameter("pseudo");
-        Integer noUtilisateur = Integer.valueOf(request.getParameter("noUtilisateur"));
         String motDePasse = request.getParameter("mot_de_passe");
         String confirm_mot_de_passe = request.getParameter("confirm_mot_de_passe");
 
@@ -64,10 +62,9 @@ public class SupprimerProfil extends HttpServlet {
         if (motDePasse.equals(confirm_mot_de_passe)) {
             if(confirm_mot_de_passe.equals(utilisateurSession.getMotDePasse())){
                 utilisateurManager.removeUser(utilisateurSession);
-            }else{
-                System.out.println("non");
             }
         }
 
     }
+
 }

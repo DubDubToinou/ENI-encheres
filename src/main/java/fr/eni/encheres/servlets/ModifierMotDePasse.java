@@ -31,6 +31,10 @@ public class ModifierMotDePasse extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/modifierMotDePasse.jsp").forward(request,response);
             } else {
                 HttpSession session = request.getSession();
+                Utilisateur utilisateurUpdate = (Utilisateur) session.getAttribute("utilisateur");
+                utilisateurUpdate.setMotDePasse(utilisateur.getMotDePasse());
+                session.removeAttribute("utilisateur");
+                session.setAttribute("utilisateur", utilisateurUpdate);
                 boolean connecte = true;
                 session.setAttribute("connecte", connecte);
                 request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
