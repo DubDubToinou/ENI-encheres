@@ -23,7 +23,7 @@ import java.util.List;
 public class NouvelleEnchere extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/nouvelleEnchere.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/nouvelleEnchere.jsp").forward(request, response);
     }
 
     @Override
@@ -44,9 +44,9 @@ public class NouvelleEnchere extends HttpServlet {
         }
 
         if(listeCodesErreur.size() > 0) {
-            request.getRequestDispatcher("/nouvelleEnchere.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/nouvelleEnchere.jsp").forward(request,response);
         } else {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
         }
     }
 

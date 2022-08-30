@@ -6,13 +6,29 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion</title>
-    <link rel="stylesheet" href="./styles/connexion.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/connexion.css" />
 </head>
 <body>
 <header>
     <div class="logo">
-        <a href="">Enchères</a>
+        <a href="${pageContext.request.contextPath}/accueil">COCOWIKI</a>
     </div>
+
+    <c:if test="${connecte}">
+        <div class="buttons">
+            <a class="logout" href="" hidden>Mes Enchères</a>
+            <a class="logout" href="${pageContext.request.contextPath}/NouvelleVente" hidden>Vendre un Article</a>
+            <a class="logout" href="${pageContext.request.contextPath}/MonProfil">Mon Profil</a>
+            <a class="account" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
+
+        </div>
+    </c:if>
+    <c:if test="${!connecte}">
+        <div class="buttons">
+            <a class="logout" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
+            <a class="account" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
+        </div>
+    </c:if>
 </header>
 <main>
     <h1>Merci de confirmer votre mot de passe</h1>
@@ -37,7 +53,7 @@
 
         <button type="submit">Confirmer la suppression</button>
     </form>
-    <p>Je ne souhaite pas supprimer mon compte ! <a href="${pageContext.request.contextPath}/index.jsp">Retour à l'accueil</a></p>
+    <p>Je ne souhaite pas supprimer mon compte ! <a href="${pageContext.request.contextPath}/WEB-INF/index.jsp">Retour à l'accueil</a></p>
 </main>
 </body>
 </html>

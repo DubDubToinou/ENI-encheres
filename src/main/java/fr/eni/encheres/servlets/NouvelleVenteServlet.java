@@ -25,7 +25,7 @@ public class NouvelleVenteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         affichageCategories(request);
-        request.getRequestDispatcher("/nouvelleVente.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp").forward(request, response);
     }
 
     @Override
@@ -43,9 +43,9 @@ public class NouvelleVenteServlet extends HttpServlet {
 
         if(listeCodesErreur.size() > 0) {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
-            request.getRequestDispatcher("/nouvelleVente.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp").forward(request,response);
         } else {
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
         }
     }
 

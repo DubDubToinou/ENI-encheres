@@ -31,7 +31,7 @@ public class SupprimerProfil extends HttpServlet {
 
             removeUser(request, listeCodesErreur);
 
-            request.getRequestDispatcher("/index.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request,response);
 
         } catch (BusinessException e) {
             throw new RuntimeException(e);
