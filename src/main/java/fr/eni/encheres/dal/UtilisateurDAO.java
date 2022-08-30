@@ -13,6 +13,7 @@ public interface UtilisateurDAO extends DAO<Utilisateur> {
     public void insert(Utilisateur utilisateur) throws BusinessException;
 
     public void update(Utilisateur utilisateur) throws BusinessException;
+    public void updateMotDePasse(Utilisateur utilisateur) throws BusinessException;
 
     public void delete(Utilisateur utilisateur) throws BusinessException;
     public boolean pseudoIsInBase(Utilisateur utilisateur) throws BusinessException;

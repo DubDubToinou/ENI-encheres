@@ -40,6 +40,7 @@
     </div>
 
     <a href="${pageContext.request.contextPath}/ModifierProfil">Modifier mon profil</a>
+
   </div>
 </main>
 </body>

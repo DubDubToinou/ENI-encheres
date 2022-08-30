@@ -52,6 +52,14 @@ public class UtilisateurManager {
             }
         }
 
+        public void updateMotDePasseUser(Utilisateur utilisateur) throws BusinessException{
+        BusinessException businessException = new BusinessException();
+
+        if (!businessException.hasErreurs()){
+            this.utilisateurDAO.updateMotDePasse(utilisateur);
+        }
+        }
+
 
     //Pouvoir se supprimer
     public void removeUser(Utilisateur utilisateur) throws BusinessException {

@@ -28,7 +28,7 @@
         </div>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/SupprimerProfil" method="post">
+    <form action="${pageContext.request.contextPath}/ModifierMotDePasse" method="post">
         <label for="NouveauMotDePasse">Nouveau mot de passe</label>
         <input type="hidden" name="pseudo" value="${ sessionScope.utilisateur.pseudo }">
         <input type="hidden" name="noUtilisateur" value="${sessionScope.utilisateur.noUtilisateur}">
@@ -38,7 +38,7 @@
 
         <button type="submit">Confirmer la suppression</button>
     </form>
-    <p>Je ne souhaite pas supprimer mon compte ! <a href="${pageContext.request.contextPath}/index.jsp">Retour à l'accueil</a></p>
+    <p>Retourner a mon profil<a href="${pageContext.request.contextPath}/MonProfil">Retour à l'accueil</a></p>
 </main>
 </body>
 </html>
