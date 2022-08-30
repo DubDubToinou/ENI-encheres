@@ -67,7 +67,7 @@ public class NouvelleEnchere extends HttpServlet {
         HttpSession session = request.getSession();
         Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
         if(utilisateur == null) {
-            listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_OBLIGATOIRE);
+            listeCodesErreur.add(CodesResultatServlets.ENCHERE_UTILISATEUR_OBLIGATOIRE);
         }
         return utilisateur;
     }
@@ -77,7 +77,7 @@ public class NouvelleEnchere extends HttpServlet {
         article.setNoArticle(Integer.valueOf(request.getParameter("noArticle")));
         article.setPrixVente(Integer.valueOf(request.getParameter("prixVente")));
         if (article == null) {
-            //listeCodesErreur.add(CodesResultatServlets.ARTICLE_OBLIGATOIRE);
+            listeCodesErreur.add(CodesResultatServlets.ENCHERE_ARTICLE_OBLIGATOIRE);
         }
         return article;
     }
@@ -85,7 +85,7 @@ public class NouvelleEnchere extends HttpServlet {
     private LocalDate lireParametreDate(HttpServletRequest request, List<Integer> listeCodesErreur) {
         LocalDate date = LocalDate.now();
         if(date == null) {
-          //  listeCodesErreur.add(CodesResultatServlets.DATE_OBLIGATOIRE);
+            listeCodesErreur.add(CodesResultatServlets.ENCHERE_DATE_OBLIGATOIRE);
         }
         return date;
     }
@@ -94,7 +94,7 @@ public class NouvelleEnchere extends HttpServlet {
         Articles article = lireParametreArticle(request, listeCodesErreur);
         int montant = Integer.parseInt(request.getParameter("enchere"));
         if (montant <= article.getPrixVente()) {
-           // listeCodesErreur.add(CodesResultatServlets.MONTANT_OBLIGATOIRE);
+            listeCodesErreur.add(CodesResultatServlets.ENCHERE_MONTANT_OBLIGATOIRE);
         }
         return montant;
     }
