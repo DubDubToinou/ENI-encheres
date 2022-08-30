@@ -8,6 +8,7 @@ import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.EncheresDAO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,7 +53,7 @@ public class EnchereManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ENCHERE_ARTICLE_ERREUR);
         }
 
-        if (enchere.getDateEnchere() == null || !Objects.equals(enchere.getDateEnchere(), LocalDate.now())) {
+        if (enchere.getDateEnchere() == null || !Objects.equals(enchere.getDateEnchere(), LocalDateTime.now())) {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ENCHERE_DATE_ERREUR);
         }
 
