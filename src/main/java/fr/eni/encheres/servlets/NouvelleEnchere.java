@@ -1,7 +1,9 @@
 package fr.eni.encheres.servlets;
 
 import fr.eni.encheres.BusinessException;
+import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.EnchereManager;
+import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
@@ -30,6 +32,9 @@ public class NouvelleEnchere extends HttpServlet {
 
         try {
             creerEnchere(request, listeCodesErreur);
+            preleverCredit(request, listeCodesErreur);
+            rendreCredit(request, listeCodesErreur);
+            updatePrixVenteArticle(request, listeCodesErreur);
         } catch (BusinessException e) {
             throw new RuntimeException(e);
         }
@@ -61,6 +66,42 @@ public class NouvelleEnchere extends HttpServlet {
                 request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
             }
         }
+    }
+
+    private void preleverCredit (HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+        UtilisateurManager utilisateurManager = new UtilisateurManager();
+        Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
+        int montant = lireParametreMontant(request, listeCodesErreur);
+
+        utilisateur.setCredit(utilisateur.getCredit()-montant);
+        utilisateurManager.updateUserWithCheck(utilisateur);
+    }
+
+    private void rendreCredit (HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+        UtilisateurManager utilisateurManager = new UtilisateurManager();
+        ArticleManager articleManager = new ArticleManager();
+        Articles article = lireParametreArticle(request, listeCodesErreur);
+        Utilisateur utilisateur = null;
+
+        Articles fullArticle = articleManager.selectByNoArticle(article.getNoArticle());
+        List<Enchere> listeEnchere = fullArticle.getEncheres();
+
+        for (Enchere e : listeEnchere) {
+            if (e.getMontant_enchere().equals(fullArticle.getPrixVente())){
+                utilisateur = e.getUtilisateur();
+                utilisateur.setCredit(utilisateur.getCredit()+e.getMontant_enchere());
+                utilisateurManager.updateUserWithCheck(utilisateur);
+            }
+        }
+    }
+
+    private void updatePrixVenteArticle (HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+        ArticleManager articleManager = new ArticleManager();
+        Articles article = lireParametreArticle(request, listeCodesErreur);
+        Articles fullArticle = articleManager.selectByNoArticle(article.getNoArticle());
+        int montant = lireParametreMontant(request, listeCodesErreur);
+        fullArticle.setPrixVente(montant);
+        articleManager.updateUnArticle(fullArticle);
     }
 
     private Utilisateur lireParametreUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
