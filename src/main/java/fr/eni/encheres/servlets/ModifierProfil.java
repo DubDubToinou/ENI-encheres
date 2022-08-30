@@ -67,8 +67,13 @@ public class ModifierProfil extends HttpServlet {
             utilisateur.setNoUtilisateur(noUtilisateur);
 
             try {
-
-                        utilisateurManager.updateUser(utilisateur);
+                if(!utilisateur.getPseudo().equals(utilisateurSession.getPseudo())){
+                    utilisateurManager.updateUserWithNewPseudo(utilisateur);
+                }else if(!utilisateur.getEmail().equals(utilisateurSession.getEmail())){
+                    utilisateurManager.updateUserWithNewEmail(utilisateur);
+                }else{
+                    utilisateurManager.updateUserWithCheck(utilisateur);
+                }
 
             } catch (BusinessException ex) {
                 ex.printStackTrace();
