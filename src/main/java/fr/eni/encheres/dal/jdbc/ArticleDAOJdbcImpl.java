@@ -3,6 +3,7 @@ package fr.eni.encheres.dal.jdbc;
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.CodesResultatDAL;
@@ -20,6 +21,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             "date_fin_encheres = ?, prix_initial = ?, no_categorie = ? WHERE no_article = ?";
     private static final String UPDATE_RETRAIT = "UPDATE Retraits SET rue = ?, code_postal = ?, ville = ? WHERE no_article = ?";
     private static final String DELETE_ARTICLE = "DELETE FROM Articles WHERE no_article = ?";
+    private static final String SELECT_BY_NO_ARTICLE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
+            "a.prix_initial, a.prix_vente, u.pseudo, r.rue, r.code_postal, r.ville, c.libelle " +
+            "FROM Articles a " +
+            "INNER JOIN UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur " +
+            "INNER JOIN Retraits r ON a.no_article = r.no_article " +
+            "INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie " +
+            "WHERE a.no_article = ?";
     private static final String SELECT_VENTES_EN_COURS = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, " +
             "a.prix_initial, a.prix_vente, u.pseudo, c.libelle FROM Articles a " +
             "LEFT JOIN Utilisateurs u " +
@@ -194,6 +202,44 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
             throw businessException;
         }
     }
+
+    @Override
+    public Articles selectByNoArticle(int noArticle) throws BusinessException {
+        Articles article = new Articles();
+
+        try (Connection con = ConnectionProvider.getConnection()){
+            PreparedStatement pstmt = con.prepareStatement(SELECT_BY_NO_ARTICLE);
+            pstmt.setInt(1,noArticle);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                article.setNoArticle(rs.getInt(1));
+                article.setNomArticle(rs.getString(2));
+                article.setDescription(rs.getString(3));
+                article.setDateDebutEncheres(rs.getDate(4).toLocalDate());
+                article.setDateFinEncheres(rs.getDate(5).toLocalDate());
+                article.setMiseAPrix(rs.getInt(6));
+                article.setPrixVente(rs.getInt(7));
+
+                Utilisateur utilisateur = new Utilisateur(rs.getString(8));
+                article.setUtilisateurs(utilisateur);
+
+                Retrait retrait = new Retrait(rs.getString(9), rs.getString(10), rs.getString(11));
+                article.setLieuRetrait(retrait);
+
+                Categorie categorie = new Categorie(rs.getString(11));
+                article.setCategorieArticle(categorie);
+
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_ARTICLE_BY_NUM_ECHEC);
+        }
+        return article;
+    }
+
     @Override
     public List<Articles> selectVentesEnCours() throws BusinessException{
         List<Articles> listeArticles = new ArrayList<>();

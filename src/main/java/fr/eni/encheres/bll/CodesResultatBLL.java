@@ -44,6 +44,7 @@ public abstract class CodesResultatBLL {
     // #### CODE ERREUR validate Categorie ####
 
     public static final int REGLE_CATEGORIE_LIBELLE_ERREUR = 20300;
+    public static final int REGLE_UNICITE_CATEGORIE_ERREUR = 20301;
 
     // #### CODE ERREUR validate Enchere ####
 

@@ -8,4 +8,5 @@ import java.util.List;
 public interface CategorieDAO extends DAO<Categorie>{
     public Categorie selectByLibelle(String libelle) throws BusinessException;
     public List<Categorie> selectCategories() throws BusinessException;
+    public boolean CategorieIsInBase(String libelle) throws BusinessException;
 }

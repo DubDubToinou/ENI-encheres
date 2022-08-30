@@ -50,6 +50,9 @@ public class ArticleManager {
         this.articleDAO.delete(article);
     }
 
+    public Articles selectByNoArticle(int noArticle) throws BusinessException {
+        return this.articleDAO.selectByNoArticle(noArticle);
+    }
     //Affichage liste article en mode non connecté
     public List<Articles> listeArticleEnCours() throws BusinessException{
         return this.articleDAO.selectVentesEnCours();

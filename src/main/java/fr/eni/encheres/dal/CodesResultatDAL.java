@@ -17,6 +17,7 @@ public abstract class CodesResultatDAL {
     public static final int SELECT_VENTES_TERMINEES_PAR_UTILISATEUR_ECHEC=10010;
     public static final int ARTICLE_NULL_ECHEC = 10011;
     public static final int SELECT_VENTES_NON_DEBUTEES_PAR_UTILISATEUR_ECHEC = 10024;
+    public static final int SELECT_ARTICLE_BY_NUM_ECHEC = 10025;
 
 
     //Catégories

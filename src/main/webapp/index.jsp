@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="fr.eni.encheres.messages.LecteurMessage" %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -92,7 +93,8 @@
                         </div>
                         <div>
                             <h3>Date de fin</h3>
-                            <p><c:out value="${article.dateFinEncheres}" /></p>
+                            <fmt:parseDate  value="${article.dateFinEncheres}"  type="date" pattern="yyyy-MM-dd" var="finEncheres" />
+                            <p><fmt:formatDate value="${finEncheres}" pattern="dd/MM/yyyy"/></p>
                         </div>
                     </div>
                     <div class="seller">
@@ -106,13 +108,14 @@
                                 <h3>Votre enchère</h3>
                                 <p><c:out value="${encheres.montant_enchere}"/></p>
                                 <h3>Date de l'enchère</h3>
-                                <p><c:out value="${encheres.dateEnchere}"/></p>
+                                <fmt:parseDate  value="${encheres.dateEnchere}"  type="date" pattern="yyyy-MM-dd" var="dateDeLEnchere" />
+                                <p><fmt:formatDate value="${dateDeLEnchere}" pattern="dd/MM/yyyy"/></p>
                             </c:forEach>
 
                         </div>
                     </c:if>
                     <c:if test="${connecte}">
-                        <a href="">Voir le détail</a>
+                        <a href="${pageContext.request.contextPath}/detailarticle?no_article=${article.noArticle}">Voir le détail</a>
                     </c:if>
                 </div>
             </c:forEach>

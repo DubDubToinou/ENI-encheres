@@ -22,8 +22,16 @@ public class CategorieManager {
         BusinessException businessException = new BusinessException();
         this.validateCategorie(categorie, businessException);
 
+        boolean isInBase = this.categorieDAO.CategorieIsInBase(categorie.getLibelle());
+
+        if (isInBase) {
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_UNICITE_CATEGORIE_ERREUR);
+        }
+
         if (!businessException.hasErreurs()){
             this.categorieDAO.insert(categorie);
+        } else {
+            throw businessException;
         }
     }
 

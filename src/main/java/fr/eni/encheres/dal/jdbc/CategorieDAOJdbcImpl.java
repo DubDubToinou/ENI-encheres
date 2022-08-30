@@ -18,6 +18,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         private static final String DELETE_CATEGORIE = "DELETE FROM Categories WHERE no_categorie = ?";
         private static final String SELECT_BY_LIBELLE = "SELECT no_categorie FROM CATEGORIES WHERE libelle = ?";
         private static final String SELECT_ALL = "SELECT no_categorie, libelle FROM Categories";
+        private static final String SELECT_BY_LIBELLE_BOOLEAN = "SELECT 1 FROM Categories WHERE libelle = ?";
 
         public void insert(Categorie categorie) throws BusinessException {
 
@@ -149,6 +150,29 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         }
 
         return categories;
+    }
+
+    @Override
+    public boolean CategorieIsInBase(String libelle) throws BusinessException {
+        boolean IsInBase = false;
+
+        try (Connection cnx = ConnectionProvider.getConnection()) {
+            PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_LIBELLE_BOOLEAN);
+            pstmt.setString(1,libelle);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                IsInBase = true;
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return IsInBase;
     }
 
 
