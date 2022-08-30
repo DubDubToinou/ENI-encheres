@@ -29,8 +29,9 @@ public class ArticleManager {
 
 
         if(!businessException.hasErreurs()){
-            System.out.println("test");
             this.articleDAO.insert(article);
+        } else {
+            throw businessException;
         }
     }
 

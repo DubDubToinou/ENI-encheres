@@ -21,15 +21,32 @@ public class DetailArticle extends HttpServlet {
         Integer noArticle = Integer.valueOf(request.getParameter("no_article"));
 
         ArticleManager articleManager = new ArticleManager();
+        Articles article = new Articles();
 
         try {
-            Articles article = articleManager.selectByNoArticle(noArticle);
-            request.setAttribute("article", article);
+           article = articleManager.selectByNoArticle(noArticle);
         } catch (BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
             request.getRequestDispatcher("/accueil").forward(request, response);
         }
+
+
+        request.setAttribute("article", article);
+
+        //Vérification si enchere est en cours
+        LocalDateTime now = LocalDateTime.now();
+        boolean enCours;
+
+        if(article.getDateFinEncheres().isAfter(now)) {
+            enCours = true;
+        } else {
+            enCours=false;
+        }
+
+        request.setAttribute("enCours", enCours);
+
+        //Récupérer meilleur enchérisseur
 
         request.getRequestDispatcher("/WEB-INF/detailArticle.jsp").forward(request, response);
 

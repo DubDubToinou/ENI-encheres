@@ -40,11 +40,13 @@
         <p>Catégorie : <c:out value="${article.categorieArticle.libelle}"/></p>
         <p>Mise à prix : <c:out value="${article.miseAPrix}"/></p>
         <p>Prix de vente (meilleure offre) : <c:out value="${article.prixVente}"/></p>
-        <fmt:parseDate  value="${article.dateFinEncheres}"  type="date" pattern="yyyy-MM-dd" var="finEncheres" />
-        <p>Fin de l'enchère : <fmt:formatDate value="${finEncheres}" pattern="dd/MM/yyyy"/></p>
+
+        <fmt:parseDate value="${article.dateFinEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateFinEnchere" type="both" />
+
+        <p>Fin de l'enchère : <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateFinEnchere }" /></p>
         <p>Retrait : <c:out value="${article.lieuRetrait.rue}"/> <c:out value="${article.lieuRetrait.codePostal}"/> <c:out value="${article.lieuRetrait.ville}"/></p>
         <p>Vendeur : <c:out value="${article.utilisateurs.pseudo}"/></p>
-        <c:if test="${connecte && article.utilisateurs.pseudo != sessionScope.utilisateurs.pseudo}">
+        <c:if test="${connecte && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enCours}">
             <form method="post" action="${pageContext.request.contextPath}/NouvelleEnchere">
                 <label for="montant">Ma proposition : </label>
                 <input name="noArticle" type="hidden" value="${article.noArticle}"/>
@@ -53,17 +55,12 @@
                 <button type="submit">Enchérir</button>
             </form>
         </c:if>
-        <c:if test="${connecte && article.utilisateurs.pseudo == sessionScope.utilisateurs.pseudo}">
+        <c:if test="${connecte && article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && enCours}">
             <form method="post" action="${pageContext.request.contextPath}/modifierVente">
                 <button type="submit">Modifier cette vente</button>
             </form>
         </c:if>
 
-        <%--<fmt:parseDate value="${test}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-        <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ parsedDateTime }" />--%>
-
-        <%--<jsp:useBean id="now" class="java.util.Date" />
-        <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd" />--%>
 
 
 
