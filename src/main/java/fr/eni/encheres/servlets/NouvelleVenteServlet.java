@@ -42,10 +42,11 @@ public class NouvelleVenteServlet extends HttpServlet {
 
 
         if(listeCodesErreur.size() > 0) {
+            affichageCategories(request);
             request.setAttribute("listeCodesErreur", listeCodesErreur);
             request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp").forward(request,response);
         } else {
-            request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/accueil").forward(request, response);
         }
     }
 
@@ -152,12 +153,18 @@ public class NouvelleVenteServlet extends HttpServlet {
         String codePostal = request.getParameter("code_postal");
         String ville = request.getParameter("ville");
 
-        if (rue == null || rue.isBlank() || codePostal == null || codePostal.isBlank() || ville == null || ville.isBlank()) {
-            HttpSession session = request.getSession();
-            Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+        HttpSession session = request.getSession();
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 
+        if (rue == null || rue.isBlank()) {
             rue = utilisateur.getRue();
+        }
+
+        if(codePostal == null || codePostal.isBlank()) {
             codePostal = utilisateur.getCodePostal();
+        }
+
+        if(ville == null || ville.isBlank()) {
             ville = utilisateur.getVille();
         }
 
