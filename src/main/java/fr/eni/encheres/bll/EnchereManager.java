@@ -48,6 +48,14 @@ public class EnchereManager {
         return this.enchereDAO.selectEnchereGagnanteByArticle(noArticle);
     }
 
+    public boolean isMeilleurEncherisseur(int noArticle, int noUtilisateur) throws BusinessException {
+        return this.enchereDAO.isMeilleurEncherisseur(noArticle, noUtilisateur);
+    }
+
+    public Utilisateur selectMeilleurEncherisseur(Articles article) throws BusinessException {
+        return this.enchereDAO.selectMeilleurEncherisseur(article);
+    }
+
     // Validation des données :
 
     public void validateEnchere(Enchere enchere, BusinessException businessException) {

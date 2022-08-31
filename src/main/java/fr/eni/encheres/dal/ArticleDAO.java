@@ -8,6 +8,7 @@ import fr.eni.encheres.bo.Utilisateur;
 import java.util.List;
 
 public interface ArticleDAO extends DAO<Articles> {
+
     public Articles selectByNoArticle(int noArticle) throws BusinessException;
     public List<Articles> selectVentesEnCours() throws BusinessException;
     public List<Articles> selectByCategorie(String libelle) throws BusinessException;

@@ -50,8 +50,24 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
     "FROM ENCHERES e2 " +
     "WHERE e2.no_article = a.no_article)";
 
+    private static final String IS_MEILLEUR_ENCHERISSEUR = "SELECT e.no_utilisateur, e.montant_enchere, u.pseudo " +
+    "FROM Encheres e " +
+    "INNER JOIN Articles a on a.no_article = e.no_article " +
+    "INNER JOIN Utilisateurs u on e.no_utilisateur = u.no_utilisateur " +
+    "WHERE e.no_article = ? AND e.no_utilisateur = ? AND a.date_fin_encheres > GETDATE() AND e.montant_enchere = (SELECT MAX(montant_enchere) "+
+    "FROM ENCHERES e2 "+
+    "WHERE e2.no_article = a.no_article)";
+
+    private static final String SELECT_MEILLEUR_ENCHERISSEUR = "SELECT u.no_utilisateur, u.pseudo, u.nom, u.prenom, u.email, u.telephone, u.rue, u.code_postal, u.ville, u.mot_de_passe, u.credit " +
+            "FROM Encheres e " +
+            "INNER JOIN Articles a on a.no_article = e.no_article " +
+            "INNER JOIN Utilisateurs u on e.no_utilisateur = u.no_utilisateur " +
+            "WHERE e.no_article = ? AND a.date_fin_encheres > GETDATE() AND e.montant_enchere = (SELECT MAX(montant_enchere) "+
+            "FROM ENCHERES e2 "+
+            "WHERE e2.no_article = a.no_article)";
 
 
+    @Override
     public List<Enchere> selectByArticle(Articles article) throws BusinessException {
 
         if(article.getNoArticle()==null || article.getNoArticle()==0) {
@@ -90,6 +106,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         return listeEnchereByNumArticle;
     }
 
+    @Override
     public void insert(Enchere elementEnchere) throws BusinessException{
 
         if(elementEnchere==null)
@@ -142,6 +159,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         }
     }
 
+    @Override
     public List<Articles> selectEncheresEnCoursByUtilisateurs(Utilisateur utilisateur) throws BusinessException{
 
         if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
@@ -187,6 +205,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         return listeEncheresEnCours;
     }
 
+    @Override
     public List<Articles> selectEncheresGagneByUtilisateur(Utilisateur utilisateur) throws BusinessException {
 
         if(utilisateur.getNoUtilisateur()==null || utilisateur.getNoUtilisateur()==0) {
@@ -235,6 +254,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         return listeEncheresGagnes;
     }
 
+    @Override
     public Enchere selectEnchereGagnanteByArticle(int noArticle) throws BusinessException {
         Enchere enchere = null;
         try(Connection con = ConnectionProvider.getConnection()) {
@@ -258,6 +278,54 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         }
 
         return enchere;
+    }
+
+    @Override
+    public boolean isMeilleurEncherisseur(int noArticle, int noUtilisateur) throws BusinessException {
+        boolean isMeilleurEncherisseur = false;
+        try(Connection con = ConnectionProvider.getConnection()) {
+            PreparedStatement pstmt = con.prepareStatement(IS_MEILLEUR_ENCHERISSEUR);
+            pstmt.setInt(1, noArticle);
+            pstmt.setInt(2, noUtilisateur);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                isMeilleurEncherisseur = true;
+            }
+
+            pstmt.close();
+            rs.close();
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return isMeilleurEncherisseur;
+    }
+
+    @Override
+    public Utilisateur selectMeilleurEncherisseur(Articles article) throws BusinessException {
+        Utilisateur utilisateur = null;
+        try(Connection con = ConnectionProvider.getConnection()) {
+            PreparedStatement pstmt = con.prepareStatement(SELECT_MEILLEUR_ENCHERISSEUR);
+            pstmt.setInt(1, article.getNoArticle());
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                utilisateur = new Utilisateur(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10),
+                        rs.getInt(11));
+                utilisateur.setNoUtilisateur(rs.getInt(1));
+            }
+
+            rs.close();
+            pstmt.close();
+
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return utilisateur;
     }
 
 

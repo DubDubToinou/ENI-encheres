@@ -34,7 +34,7 @@ public class UtilisateurManager {
     //Methode mise à jour des utilisateurs
     public void updateUserWithCheck(Utilisateur utilisateur) throws BusinessException{
         BusinessException businessException = new BusinessException();
-       // this.validateUserForUpdate(utilisateur , businessException);
+        //this.validateUserForUpdate(utilisateur , businessException);
 
         if (!businessException.hasErreurs()) {
             this.utilisateurDAO.update(utilisateur);
@@ -42,6 +42,10 @@ public class UtilisateurManager {
         else {
             throw businessException;
         }
+    }
+
+    public void updateUserWithoutCheck(Utilisateur utilisateur) throws BusinessException{
+        this.utilisateurDAO.update(utilisateur);
     }
 
     public void updateUserWithNewPseudo(Utilisateur utilisateur) throws BusinessException{

@@ -35,170 +35,171 @@ public class NouvelleEnchere extends HttpServlet {
         List<Integer> listeCodesErreur=new ArrayList<>();
 
         try {
-            creerEnchere(request, listeCodesErreur);
+            encherir(request, response, listeCodesErreur);
         } catch (BusinessException ex) {
             listeCodesErreur = ex.getListeCodesErreur();
         }
 
         if(listeCodesErreur.size() > 0) {
-            this.doGet(request,response);
-        } else {
-            try {
-                preleverCredit(request, listeCodesErreur);
-
-            } catch (BusinessException ex) {
-                listeCodesErreur = ex.getListeCodesErreur();
-            }
-        }
-        if(listeCodesErreur.size() > 0) {
-            this.doGet(request,response);
-        } else {
-            try {
-                rendreCredit(request, listeCodesErreur);
-
-            } catch (BusinessException ex) {
-                listeCodesErreur = ex.getListeCodesErreur();
-            }
-        }
-        if(listeCodesErreur.size() > 0) {
-            this.doGet(request,response);
-        } else {
-            try {
-                updatePrixVenteArticle(request, listeCodesErreur);
-            } catch (BusinessException ex) {
-                listeCodesErreur = ex.getListeCodesErreur();
-            }
-
-        }
-        response.sendRedirect(request.getContextPath()+"/accueil");
-    }
-
-    private void creerEnchere(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
-        EnchereManager enchereManager = new EnchereManager();
-        Enchere enchere = null;
-
-        Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
-        Articles article = lireParametreArticle(request, listeCodesErreur);
-        LocalDateTime date = lireParametreDate(request, listeCodesErreur);
-        int montant = lireParametreMontant(request, listeCodesErreur);
-
-        if (listeCodesErreur.size() > 0) {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
+            this.doGet(request, response);
         } else {
-            enchere = new Enchere(utilisateur, article, date, montant);
-
             try {
-                enchereManager.ajouterEnchere(enchere);
+                preleverCredit(request, response, listeCodesErreur);
             } catch (BusinessException ex) {
-                ex.printStackTrace();
-                request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
+                listeCodesErreur = ex.getListeCodesErreur();
             }
+        }
+
+        if(listeCodesErreur.size() > 0) {
+            request.setAttribute("listeCodesErreur", listeCodesErreur);
+            this.doGet(request, response);
+        } else {
+            try {
+                updatePrixVenteArticle(request, response, listeCodesErreur);
+            } catch (BusinessException ex) {
+                listeCodesErreur = ex.getListeCodesErreur();
+            }
+        }
+
+        if(listeCodesErreur.size() > 0) {
+            request.setAttribute("listeCodesErreur", listeCodesErreur);
+            this.doGet(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath()+"/accueil");
         }
     }
 
-    private void preleverCredit (HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
-        UtilisateurManager utilisateurManager = new UtilisateurManager();
-        Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
-        int montant = lireParametreMontant(request, listeCodesErreur);
-        utilisateur.setCredit(utilisateur.getCredit()-montant);
-        utilisateurManager.updateUserWithCheck(utilisateur);
-    }
+    private void encherir(HttpServletRequest request, HttpServletResponse response, List<Integer> listeCodesErreur) throws ServletException, IOException, BusinessException {
+        Enchere enchere = creerEnchere(request, listeCodesErreur);
+        isMeilleurEncherisseur(request, listeCodesErreur);
 
-    private void rendreCredit (HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
-        UtilisateurManager utilisateurManager = new UtilisateurManager();
         EnchereManager enchereManager = new EnchereManager();
-        ArticleManager articleManager = new ArticleManager();
-        Articles article = lireParametreArticle(request, listeCodesErreur);
-        Utilisateur utilisateur = null;
 
-        Articles fullArticle = articleManager.selectByNoArticle(article.getNoArticle());
-        List<Enchere> listeEnchere = enchereManager.listeEnchereEnCoursParArticle(fullArticle);
-
-        for (Enchere e : listeEnchere) {
-            if (e.getMontant_enchere().equals(fullArticle.getPrixVente())){
-                utilisateur = utilisateurManager.recupererProfilParPseudo(e.getUtilisateur().getPseudo());
-                utilisateur.setCredit(utilisateur.getCredit()+e.getMontant_enchere());
-                utilisateurManager.updateUserWithCheck(utilisateur);
+        //si la création d'enchère et isMeilleurEnchrisseur ont renvoyé des erreurs, on renvoi vers details article avec les erreurs
+        if(listeCodesErreur.size() > 0) {
+            request.setAttribute("listeCodesErreur", listeCodesErreur);
+            this.doGet(request, response);
+        } else {
+            //selectMeilleurEncherisseur si null 0 enchères
+            Utilisateur encherisseurPrecedent = enchereManager.selectMeilleurEncherisseur(lireParametreArticle(request));
+            //si il n'y a eu aucune enchère sur l'article on insère l'enchère en base
+            if(encherisseurPrecedent == null) {
+                enchereManager.ajouterEnchere(enchere);
+            } else {
+                //s'il y a une autre enchère sur l'article on rend les crédit à l'enchérisseur précédent avant d'ajouter notre enchère
+                rendreCredit(encherisseurPrecedent, lireParametrePrixVente(request));
+                enchereManager.ajouterEnchere(enchere);
             }
         }
     }
 
-    private void updatePrixVenteArticle (HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+    private Enchere creerEnchere(HttpServletRequest request, List<Integer> listeCodesErreur) {
+        Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
+        Articles article = lireParametreArticle(request);
+        LocalDateTime dateEnchere = lireParametreDate(request);
+        Integer montant = lireParametreMontant(request, listeCodesErreur);
+
+        Enchere enchere = new Enchere(utilisateur, article, dateEnchere, montant);
+
+        return enchere;
+    }
+
+    private void isMeilleurEncherisseur(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+        Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
+        Articles article = lireParametreArticle(request);
+
+        EnchereManager enchereManager = new EnchereManager();
+
+        //On vérifie si l'utilisateur est déjà le meilleur encherisseur, si c'est le cas on ajoute une erreur
+        boolean isMeilleurEncherisseur = enchereManager.isMeilleurEncherisseur(article.getNoArticle(), utilisateur.getNoUtilisateur());
+        if(isMeilleurEncherisseur) {
+            listeCodesErreur.add(CodesResultatServlets.ENCHERE_UTILISATEUR_DOUBLE);
+        }
+    }
+
+    private void preleverCredit (HttpServletRequest request, HttpServletResponse response, List<Integer> listeCodesErreur) throws BusinessException, ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        //récupérer utilisateur en session et soustraire à son crédit le montant de l'enchère
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+        utilisateur.setCredit(utilisateur.getCredit() - lireParametreMontant(request, listeCodesErreur));
+
+        if(listeCodesErreur.size() > 0) {
+            request.setAttribute("listeCodesErreur", listeCodesErreur);
+            this.doGet(request, response);
+        } else {
+            //update l'utilisateur
+            UtilisateurManager utilisateurManager = new UtilisateurManager();
+            utilisateurManager.updateUserWithoutCheck(utilisateur);
+
+            //l'utilisateur est update en base, on le remet correctement dans la session
+            session.removeAttribute("utilisateur");
+            session.setAttribute("utilisateur", utilisateur);
+        }
+    }
+
+    private void rendreCredit (Utilisateur u, Integer prixVente) throws BusinessException {
+        UtilisateurManager utilisateurManager = new UtilisateurManager();
+
+        Utilisateur encherisseurPrecedent = u;
+        encherisseurPrecedent.setCredit(encherisseurPrecedent.getCredit() + prixVente);
+        utilisateurManager.updateUserWithoutCheck(encherisseurPrecedent);
+    }
+
+    private void updatePrixVenteArticle (HttpServletRequest request, HttpServletResponse response, List<Integer> listeCodesErreur) throws BusinessException, ServletException, IOException {
+        Articles article = lireParametreArticle(request);
+        //Récupérer l'article au complet
         ArticleManager articleManager = new ArticleManager();
-        Articles article = lireParametreArticle(request, listeCodesErreur);
         Articles fullArticle = articleManager.selectByNoArticle(article.getNoArticle());
-        int montant = lireParametreMontant(request, listeCodesErreur);
-        fullArticle.setPrixVente(montant);
 
-        try {
+        //Set nouveau prix de vente
+        fullArticle.setPrixVente(lireParametreMontant(request, listeCodesErreur));
 
+        if(listeCodesErreur.size() > 0) {
+            request.setAttribute("listeCodesErreur", listeCodesErreur);
+            this.doGet(request, response);
+        } else {
+            //Update article en base
             articleManager.updateUnArticle(fullArticle);
-        }catch ( BusinessException ex){
-            ex.printStackTrace();
         }
 
     }
 
-    private Utilisateur lireParametreUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+    private Utilisateur lireParametreUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
         HttpSession session = request.getSession();
         Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateur");
-        EnchereManager enchereManager = new EnchereManager();
-        ArticleManager articleManager = new ArticleManager();
-        UtilisateurManager utilisateurManager = new UtilisateurManager();
-        Articles article = lireParametreArticle(request, listeCodesErreur);
-        Utilisateur utilisateur = null;
-
-        Articles fullArticle = articleManager.selectByNoArticle(article.getNoArticle());
-        List<Enchere> listeEnchere = enchereManager.listeEnchereEnCoursParArticle(fullArticle);
-
-
-            for (Enchere e : listeEnchere) {
-                if (e.getMontant_enchere().equals(fullArticle.getPrixVente())) {
-                    utilisateur = utilisateurManager.recupererProfilParPseudo(e.getUtilisateur().getPseudo());
-                }
-            }
-
-
-            if (utilisateur.getPseudo().equals(utilisateurConnecte.getPseudo())) {
-                listeCodesErreur.add(CodesResultatServlets.ENCHERE_UTILISATEUR_DOUBLE);
-            }
-
-
-        if(utilisateurConnecte == null) {
-            listeCodesErreur.add(CodesResultatServlets.ENCHERE_UTILISATEUR_OBLIGATOIRE);
-        }
         return utilisateurConnecte;
     }
 
-    private Articles lireParametreArticle(HttpServletRequest request, List<Integer> listeCodesErreur) {
-        Articles article = new Articles();
-        article.setNoArticle(Integer.valueOf(request.getParameter("noArticle")));
-        article.setPrixVente(Integer.valueOf(request.getParameter("prixVente")));
-        if (article == null) {
-            listeCodesErreur.add(CodesResultatServlets.ENCHERE_ARTICLE_OBLIGATOIRE);
-        }
-        return article;
-    }
-
-    private LocalDateTime lireParametreDate(HttpServletRequest request, List<Integer> listeCodesErreur) {
+    private LocalDateTime lireParametreDate(HttpServletRequest request) {
         LocalDateTime date = LocalDateTime.now();
-        if(date == null) {
-            listeCodesErreur.add(CodesResultatServlets.ENCHERE_DATE_OBLIGATOIRE);
-        }
         return date;
     }
 
-    private int lireParametreMontant(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+    private Articles lireParametreArticle(HttpServletRequest request) {
+        Integer prixVente = Integer.valueOf(request.getParameter("prixVente"));
+        Integer noArticle = Integer.valueOf(request.getParameter("noArticle"));
+        Articles article = new Articles();
+        article.setNoArticle(noArticle);
+        article.setPrixVente(prixVente);
+
+        return article;
+    }
+
+    private Integer lireParametrePrixVente(HttpServletRequest request) {
+        Integer prixVente = Integer.valueOf(request.getParameter("prixVente"));
+        return prixVente;
+    }
+    private int lireParametreMontant(HttpServletRequest request, List<Integer> listeCodesErreur) {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
         HttpSession session = request.getSession();
 
         Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-        utilisateur = utilisateurManager.recupererProfilParPseudo(utilisateur.getPseudo());
 
-
-        Articles article = lireParametreArticle(request, listeCodesErreur);
+        Integer prixVente = lireParametrePrixVente(request);
         int montant = Integer.parseInt(request.getParameter("montant"));
-        if (montant <= article.getPrixVente()) {
+        if (montant <= prixVente) {
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_MONTANT_OBLIGATOIRE);
         } else if (montant > utilisateur.getCredit()) {
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_CREDIT_INSUFFISANT);

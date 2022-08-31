@@ -28,7 +28,7 @@ public class Connexion extends HttpServlet {
             HttpSession session = request.getSession();
             session.removeAttribute("connecte");
             session.removeAttribute("utilisateur");
-            request.getRequestDispatcher("/accueil").forward(request, response);
+            response.sendRedirect(request.getContextPath()+"/accueil");
 
         }
     }

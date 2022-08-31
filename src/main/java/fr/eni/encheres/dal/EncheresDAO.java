@@ -19,4 +19,8 @@ public interface EncheresDAO {
     List<Articles> selectEncheresGagneByUtilisateur(Utilisateur utilisateur) throws BusinessException;
     public Enchere selectEnchereGagnanteByArticle(int noArticle) throws BusinessException;
 
+    public boolean isMeilleurEncherisseur(int noArticle, int noUtilisateur) throws BusinessException;
+
+    public Utilisateur selectMeilleurEncherisseur(Articles article) throws BusinessException;
+
 }

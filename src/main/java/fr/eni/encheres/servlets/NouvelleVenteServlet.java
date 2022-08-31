@@ -117,7 +117,7 @@ public class NouvelleVenteServlet extends HttpServlet {
 
     private LocalDateTime lireParametreDateFin(HttpServletRequest request, List<Integer> listeCodesErreur) {
         LocalDateTime dateFin = LocalDateTime.parse(request.getParameter("date_fin_encheres"));
-        if (dateFin == null || dateFin.isBefore(lireParametreDateDebut(request, listeCodesErreur)) || dateFin.isEqual(lireParametreDateDebut(request, listeCodesErreur))) {
+        if (dateFin == null || dateFin.isBefore(LocalDateTime.parse(request.getParameter("date_debut_encheres"))) || dateFin.isEqual(LocalDateTime.parse(request.getParameter("date_debut_encheres")))) {
             listeCodesErreur.add(CodesResultatServlets.DATE_FIN_OBLIGATOIRE);
         }
         return dateFin;
