@@ -9,6 +9,7 @@ public interface UtilisateurDAO extends DAO<Utilisateur> {
     public Utilisateur selectByPseudo(String pseudo) throws BusinessException;
 
     public Utilisateur selectOwnProfile(Utilisateur Utilisateur) throws BusinessException;
+    public Utilisateur selectProfileByPseudo(String pseudo) throws BusinessException;
 
     public void insert(Utilisateur utilisateur) throws BusinessException;
 
