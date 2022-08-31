@@ -23,6 +23,21 @@
 <main>
     <div class="content">
         <h1>Détails</h1>
+
+        <c:if test="${connecte && !enCours}">
+            <c:if test="${article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo}">
+                <%--Cas où vous êtes le vendeur : XXX a remporté l'article--%>
+            </c:if>
+
+            <%--<c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && ...}">
+                Cas où vous n'êtes pas le vendeur ni le vainqueur
+            </c:if>--%>
+
+            <%--<c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && ...}">
+                Cas où vous n'êtes pas le vendeur mais le vainqueur
+            </c:if>--%>
+        </c:if>
+
         <h3><c:out value="${article.nomArticle}"/></h3>
         <p>Description : <c:out value="${article.description}"/></p>
         <p>Catégorie : <c:out value="${article.categorieArticle.libelle}"/></p>
@@ -34,6 +49,9 @@
         <p>Fin de l'enchère : <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateFinEnchere }" /></p>
         <p>Retrait : <c:out value="${article.lieuRetrait.rue}"/> <c:out value="${article.lieuRetrait.codePostal}"/> <c:out value="${article.lieuRetrait.ville}"/></p>
         <p>Vendeur : <c:out value="${article.utilisateurs.pseudo}"/></p>
+        <%--<c:if test="${connecte && !enCours && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && ...}">
+                Cas où vous n'êtes pas le vendeur mais le vainqueur afficher téléphone du vendeur
+            </c:if>--%>
         <c:if test="${connecte && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enCours}">
             <form method="post" action="${pageContext.request.contextPath}/NouvelleEnchere">
                 <label for="montant">Ma proposition : </label>
