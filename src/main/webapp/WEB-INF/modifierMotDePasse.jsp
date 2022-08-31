@@ -6,13 +6,29 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion</title>
-    <link rel="stylesheet" href="./styles/connexion.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/connexion.css" />
 </head>
 <body>
 <header>
     <div class="logo">
-        <a href="">Enchères</a>
+        <a href="${pageContext.request.contextPath}/accueil">COCOWIKI</a>
     </div>
+
+    <c:if test="${connecte}">
+        <div class="buttons">
+            <a class="logout" href="" hidden>Mes Enchères</a>
+            <a class="logout" href="${pageContext.request.contextPath}/NouvelleVente" hidden>Vendre un Article</a>
+            <a class="logout" href="${pageContext.request.contextPath}/MonProfil">Mon Profil</a>
+            <a class="account" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
+
+        </div>
+    </c:if>
+    <c:if test="${!connecte}">
+        <div class="buttons">
+            <a class="logout" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
+            <a class="account" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
+        </div>
+    </c:if>
 </header>
 <main>
     <h1>Modifier votre mot de passe</h1>

@@ -30,7 +30,7 @@ public class Accueil extends HttpServlet {
         //récupération et affichage articles
         affichageArticlesEnVente(request);
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 
     }
 
@@ -90,7 +90,7 @@ public class Accueil extends HttpServlet {
 
         }
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 
     }
 
