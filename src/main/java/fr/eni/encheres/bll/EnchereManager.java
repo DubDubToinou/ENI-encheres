@@ -21,7 +21,7 @@ public class EnchereManager {
 
     public void ajouterEnchere(Enchere enchere) throws BusinessException {
         BusinessException businessException = new BusinessException();
-        //this.validateEnchere(enchere, businessException);
+        this.validateEnchere(enchere, businessException);
 
         if (!businessException.hasErreurs()) {
 
@@ -59,7 +59,7 @@ public class EnchereManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ENCHERE_ARTICLE_ERREUR);
         }
 
-        if (enchere.getDateEnchere() == null || !Objects.equals(enchere.getDateEnchere(), LocalDateTime.now())) {
+        if (enchere.getDateEnchere() == null) {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ENCHERE_DATE_ERREUR);
         }
 

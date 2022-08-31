@@ -39,8 +39,8 @@ public class ArticleManager {
     public void updateUnArticle(Articles article) throws BusinessException {
         BusinessException businessException = new BusinessException();
 
-        //this.validateArticle(article, businessException);
-        //this.validateRetraitArticle(article, businessException);
+        this.validateArticle(article, businessException);
+        this.validateRetraitArticle(article, businessException);
 
         if(!businessException.hasErreurs()){
 
@@ -105,7 +105,7 @@ public class ArticleManager {
             businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DESCRIPTION_ERREUR);
         }
 
-       if (article.getDateDebutEncheres() == null || article.getDateDebutEncheres().isBefore(LocalDateTime.now())){
+       if (article.getDateDebutEncheres() == null){
            businessException.ajouterErreur(CodesResultatBLL.REGLE_ARTICLE_DATEDEBUTENCHERE_ERREUR);
        }
 
