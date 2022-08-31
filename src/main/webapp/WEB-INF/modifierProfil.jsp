@@ -9,27 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/modifierProfil.css"/>
 </head>
 <body>
-<header>
-    <div class="logo">
-        <a href="${pageContext.request.contextPath}/accueil">COCOWIKI</a>
-    </div>
-
-    <c:if test="${connecte}">
-        <div class="buttons">
-            <a class="logout" href="">Mes Enchères</a>
-            <a class="logout" href="${pageContext.request.contextPath}/NouvelleVente">Vendre un Article</a>
-            <a class="logout" href="${pageContext.request.contextPath}/MonProfil">Mon Profil</a>
-            <a class="account" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
-
-        </div>
-    </c:if>
-    <c:if test="${!connecte}">
-        <div class="buttons">
-            <a class="logout" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
-            <a class="account" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
-        </div>
-    </c:if>
-</header>
+<jsp:include page="header.jsp"/>
 <main>
     <div class="content">
         <h1>Modifier mon compte</h1>
@@ -132,42 +112,6 @@
                                         required
                         />
                     </div>
-                </fieldset>
-                <!--
-                <fieldset>
-                    <legend>Modifier mon mot de passe</legend>
-                    <div class="label">
-                        <label for="pwd">Mot de passe actuel</label>
-                        <input
-                                type="password"
-                                name="mot_de_passeold"
-                                id="pwd"
-                                minlength="8"
-                                maxlength="30"
-                                value=""
-                                required
-                        />
-                    </div>
-                    <div class="label">
-                        <label for="pwdn">Nouveau mot de passe</label>
-                        <input
-                                type="password"
-                                name="mot_de_passe"
-                                id="pwdn"
-                                minlength="8"
-                                maxlength="30"
-                        />
-                    </div>
-                    <div class="label">
-                        <label for="pwdv">Confirmation</label>
-                        <input
-                                type="password"
-                                name="confirmation"
-                                id="pwdv"
-                                minlength="8"
-                                maxlength="30"
-                        />
-                    </div> -->
                 </fieldset>
                 <div class="label">
                     <p class="label">Crédit</p>

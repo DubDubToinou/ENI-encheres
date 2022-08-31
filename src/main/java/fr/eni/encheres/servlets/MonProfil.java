@@ -20,16 +20,14 @@ public class MonProfil extends HttpServlet {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
 
         try{
-            System.out.println(pseudo);
-            Utilisateur utilisateur = utilisateurManager.afficherUnProfil(pseudo);
-            System.out.println(utilisateur);
+            Utilisateur utilisateurAAfficher = utilisateurManager.recupererProfilParPseudo(pseudo);
+            request.setAttribute("utilisateurAAfficher", utilisateurAAfficher);
+
         }catch (BusinessException ex){
             ex.printStackTrace();
         }
 
-
         request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request,response);
-
     }
 
     @Override
