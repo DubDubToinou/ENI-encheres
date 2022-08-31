@@ -88,9 +88,17 @@ public class UtilisateurManager {
         return utilisateurRetourne;
     }
 
+
     //Afficher un profil en cliquant sur le pseudo d'un utilisateur.
     public Utilisateur afficherUnProfil(String pseudo) throws BusinessException{
-        return this.utilisateurDAO.selectByPseudo(pseudo);
+        BusinessException businessException = new BusinessException();
+        Utilisateur utilisateurAAfficher;
+        if(!businessException.hasErreurs()) {
+            utilisateurAAfficher = utilisateurDAO.selectByPseudo(pseudo);
+        }else{
+            throw businessException;
+        }
+        return utilisateurAAfficher;
     }
 
     //Methode qui valide les données avec insert / update

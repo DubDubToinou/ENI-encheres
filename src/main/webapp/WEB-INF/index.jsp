@@ -111,7 +111,7 @@
                     </div>
                     <div class="seller">
                         <h3>Par</h3>
-                        <a href=""><c:out value="${article.utilisateurs.pseudo}" /></a>
+                        <a href="${pageContext.request.contextPath}/MonProfil?pseudo=${article.utilisateurs.pseudo}"><c:out value="${article.utilisateurs.pseudo}" /></a>
                     </div>
                     <c:if test="${!empty article.encheres}">
                         <div class="enchere">

@@ -30,12 +30,14 @@
     </div>
   </c:if>
 </header>
+
+
 <main>
   <div class="profil">
     <div>
-      <h1>${ sessionScope.utilisateur.pseudo }</h1> <!-- Affichage du pseudo -->
-      <p>Prenom  : ${sessionScope.utilisateur.prenom}</p>     <!--Affichage du Prenom -->
-      <p>Nom : ${sessionScope.utilisateur.nom}</p>        <!-- Affichage du Nom-->
+      <h1>${ pseudo }</h1> <!-- Affichage du pseudo -->
+      <p>Prenom  : ${prenom}</p>     <!--Affichage du Prenom -->
+      <p>Nom : ${nom}</p>        <!-- Affichage du Nom-->
     </div>
     <div>
       <h2>Contact</h2>
@@ -46,7 +48,6 @@
       <p>Code Postal :  ${ sessionScope.utilisateur.codePostal }</p> <!-- Affichage du code postal-->
       <p>Credit : ${ sessionScope.utilisateur.credit }</p> <!-- Affichage  des crédit -->
     </div>
-
 
     <button> <a class="logout" href="${pageContext.request.contextPath}/ModifierProfil">Modifier mon profil</a></button>
 
