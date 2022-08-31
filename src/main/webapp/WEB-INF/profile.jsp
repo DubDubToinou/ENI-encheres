@@ -40,7 +40,7 @@
       <p>Code Postal :  <c:out value="${utilisateurAAfficher.codePostal}" /></p> <!-- Affichage du code postal-->
 
       <c:if test="${sessionScope.utilisateur.pseudo == utilisateurAAfficher.pseudo}">
-        <p>Credit : <c:out value="${utilisateurAAfficher.nom}" /></p> <!-- Affichage des crédit -->
+        <p>Credit : <c:out value="${utilisateurAAfficher.credit}" /></p> <!-- Affichage des crédit -->
       </c:if>
 
     </div>
