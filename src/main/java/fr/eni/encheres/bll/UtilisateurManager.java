@@ -101,6 +101,10 @@ public class UtilisateurManager {
         return utilisateurAAfficher;
     }
 
+    public Utilisateur recupererProfilParPseudo(String pseudo) throws BusinessException {
+        return this.utilisateurDAO.selectProfileByPseudo(pseudo);
+    }
+
     //Methode qui valide les données avec insert / update
     public void validateUser(Utilisateur utilisateur, BusinessException businessException) throws BusinessException{
 

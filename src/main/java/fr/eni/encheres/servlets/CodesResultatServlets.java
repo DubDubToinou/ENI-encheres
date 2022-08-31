@@ -28,5 +28,6 @@ public abstract class CodesResultatServlets {
     public static final int ENCHERE_ARTICLE_OBLIGATOIRE=50002;
     public static final int ENCHERE_DATE_OBLIGATOIRE=50003;
     public static final int ENCHERE_MONTANT_OBLIGATOIRE=50004;
+    public static final int ENCHERE_CREDIT_INSUFFISANT=50005;
 
 }
