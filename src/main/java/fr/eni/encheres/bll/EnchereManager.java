@@ -21,10 +21,12 @@ public class EnchereManager {
 
     public void ajouterEnchere(Enchere enchere) throws BusinessException {
         BusinessException businessException = new BusinessException();
-        this.validateEnchere(enchere, businessException);
+        //this.validateEnchere(enchere, businessException);
 
         if (!businessException.hasErreurs()) {
+
             this.enchereDAO.insert(enchere);
+
         } else {
             throw businessException;
         }
