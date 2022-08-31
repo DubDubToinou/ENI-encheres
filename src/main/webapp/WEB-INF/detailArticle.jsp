@@ -18,18 +18,22 @@
     <div class="content">
         <h1>Détails</h1>
 
-        <c:if test="${connecte && !enCours}">
-            <c:if test="${article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo}">
-                <%--Cas où vous êtes le vendeur : XXX a remporté l'article--%>
+        <c:if test="${connecte && !enCours && !venteNonDebutee}">
+            <c:if test="${article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && enchereGagnante != null}">
+                <h3>${utilisateurGagnant} a remporté l'enchère</h3>
             </c:if>
 
-            <%--<c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && ...}">
-                Cas où vous n'êtes pas le vendeur ni le vainqueur
-            </c:if>--%>
+            <c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && utilisateurGagnant != sessionScope.utilisateur.pseudo}">
+                <h3>${utilisateurGagnant} a remporté l'enchère</h3>
+            </c:if>
 
-            <%--<c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && ...}">
-                Cas où vous n'êtes pas le vendeur mais le vainqueur
-            </c:if>--%>
+            <c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && sessionScope.utilisateur.pseudo == utilisateurGagnant}">
+                <h3> Vous avez remporté l'enchère</h3>
+            </c:if>
+
+            <c:if test="${ enchereGagnante == null}">
+                <h3>Personne n'a enchéri sur cet objet</h3>
+            </c:if>
         </c:if>
 
         <h3><c:out value="${article.nomArticle}"/></h3>
@@ -43,9 +47,9 @@
         <p>Fin de l'enchère : <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateFinEnchere }" /></p>
         <p>Retrait : <c:out value="${article.lieuRetrait.rue}"/> <c:out value="${article.lieuRetrait.codePostal}"/> <c:out value="${article.lieuRetrait.ville}"/></p>
         <p>Vendeur : <c:out value="${article.utilisateurs.pseudo}"/></p>
-        <%--<c:if test="${connecte && !enCours && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && ...}">
-                Cas où vous n'êtes pas le vendeur mais le vainqueur afficher téléphone du vendeur
-            </c:if>--%>
+        <c:if test="${connecte && !enCours && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && sessionScope.utilisateur.pseudo == utilisateurGagnant}">
+            <p>Téléphone : <c:out value="${article.utilisateurs.telephone}"/></p>
+        </c:if>
         <c:if test="${connecte && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enCours}">
             <form method="post" action="${pageContext.request.contextPath}/NouvelleEnchere">
                 <label for="montant">Ma proposition : </label>
@@ -55,10 +59,10 @@
                 <button type="submit">Enchérir</button>
             </form>
         </c:if>
-        <c:if test="${connecte && article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && enCours}">
-            <form method="post" action="${pageContext.request.contextPath}/modifierVente">
-                <button type="submit">Modifier cette vente</button>
-            </form>
+        <c:if test="${connecte && article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && venteNonDebutee}">
+            <a href="${pageContext.request.contextPath}/modifiervente?no_article=${article.noArticle}">
+                Modifier cette vente
+            </a>
         </c:if>
 
 

@@ -11,6 +11,7 @@ import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.CodesResultatDAL;
 import fr.eni.encheres.dal.EncheresDAO;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,14 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             "INNER JOIN Utilisateurs u ON a.no_utilisateur = u.no_utilisateur "+
             "WHERE e.no_utilisateur = ?";
 
+    private static final String SELECT_ENCHERE_GAGNANTE_PAR_ARTICLE = "SELECT e.no_utilisateur, e.montant_enchere, u.pseudo " +
+    "FROM Encheres e " +
+    "INNER JOIN Articles a on a.no_article = e.no_article " +
+    "INNER JOIN Utilisateurs u on e.no_utilisateur = u.no_utilisateur " +
+    "WHERE a.no_article = ? AND a.date_fin_encheres < GETDATE() AND e.montant_enchere = (SELECT MAX(montant_enchere) " +
+    "FROM ENCHERES e2 " +
+    "WHERE e2.no_article = a.no_article)";
+
     public List<Enchere> selectByArticle(Articles article) throws BusinessException {
 
         if(article.getNoArticle()==null || article.getNoArticle()==0) {
@@ -69,7 +78,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             rs.close();
             pstmt.close();
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             BusinessException businessException = new BusinessException();
             businessException.ajouterErreur(CodesResultatDAL.SELECT_ENCHERES_PAR_ARTICLE_ECHEC);
@@ -165,7 +174,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 
             }
 
-        }catch (SQLException ex){
+        }catch (Exception ex){
             ex.printStackTrace();
             BusinessException businessException = new BusinessException();
             businessException.ajouterErreur(CodesResultatDAL.SELECT_ENCHERES_ENCOURS_PAR_UTILISATEUR_ECHEC);
@@ -212,7 +221,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             pstmt.close();
             rs.close();
 
-        }catch (SQLException ex){
+        }catch (Exception ex){
             ex.printStackTrace();
             BusinessException businessException = new BusinessException();
             businessException.ajouterErreur(CodesResultatDAL.SELECT_ENCHERES_GAGNEES_PAR_UTILISATEUR_ECHEC);
@@ -220,6 +229,30 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
         }
 
         return listeEncheresGagnes;
+    }
+
+    public Enchere selectEnchereGagnanteByArticle(int noArticle) throws BusinessException {
+        Enchere enchere = null;
+        try(Connection con = ConnectionProvider.getConnection()) {
+            PreparedStatement pstmt = con.prepareStatement(SELECT_ENCHERE_GAGNANTE_PAR_ARTICLE);
+            pstmt.setInt(1,noArticle);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                Utilisateur utilisateur = new Utilisateur(rs.getInt(1), rs.getString(3));
+                enchere.setUtilisateur(utilisateur);
+                enchere.setMontant_enchere(rs.getInt(2));
+            }
+
+            rs.close();
+            pstmt.close();
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return enchere;
     }
 
 

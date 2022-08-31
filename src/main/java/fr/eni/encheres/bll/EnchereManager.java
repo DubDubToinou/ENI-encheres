@@ -42,6 +42,10 @@ public class EnchereManager {
         return this.enchereDAO.selectEncheresGagneByUtilisateur(utilisateur);
     }
 
+    public Enchere enchereGagnanteParArticle(int noArticle) throws BusinessException {
+        return this.enchereDAO.selectEnchereGagnanteByArticle(noArticle);
+    }
+
     // Validation des données :
 
     public void validateEnchere(Enchere enchere, BusinessException businessException) {
