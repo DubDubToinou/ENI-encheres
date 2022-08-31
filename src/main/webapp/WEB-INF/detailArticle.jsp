@@ -11,27 +11,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/modifierProfil.css"/>
 </head>
 <body>
-<header>
-    <div class="logo">
-        <a href="${pageContext.request.contextPath}/accueil">COCOWIKI</a>
-    </div>
 
-    <c:if test="${connecte}">
-        <div class="buttons">
-            <a class="logout" href="">Mes Enchères</a>
-            <a class="logout" href="${pageContext.request.contextPath}/NouvelleVente">Vendre un Article</a>
-            <a class="logout" href="${pageContext.request.contextPath}/MonProfil">Mon Profil</a>
-            <a class="account" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
+<jsp:include page="header.jsp"/>
 
-        </div>
-    </c:if>
-    <c:if test="${!connecte}">
-        <div class="buttons">
-            <a class="logout" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
-            <a class="account" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
-        </div>
-    </c:if>
-</header>
 <main>
     <div class="content">
         <h1>Détails</h1>
@@ -82,9 +64,6 @@
                 Modifier cette vente
             </a>
         </c:if>
-
-
-
 
 
     </div>
