@@ -95,7 +95,12 @@
                 <div class="card">
                     <div class="product">
                         <a href=""><c:out value="${article.nomArticle}" /></a>
+                        <c:if test="${article.etatVente}">
                         <p class="open">Ouverte</p>
+                        </c:if>
+                        <c:if test="${!article.etatVente}">
+                            <p class="closed">Fermée</p>
+                        </c:if>
                     </div>
                     <div class="info">
                         <div>

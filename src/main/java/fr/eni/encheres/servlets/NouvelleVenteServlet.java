@@ -46,7 +46,7 @@ public class NouvelleVenteServlet extends HttpServlet {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
             request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp").forward(request,response);
         } else {
-            request.getRequestDispatcher("/WEB-INF/accueil").forward(request, response);
+            request.getRequestDispatcher("/accueil").forward(request, response);
         }
     }
 

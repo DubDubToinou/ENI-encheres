@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +114,7 @@ public class Accueil extends HttpServlet {
         ArticleManager articleManager = new ArticleManager();
         try {
             articles = articleManager.listeArticleEnCours();
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
@@ -126,6 +128,7 @@ public class Accueil extends HttpServlet {
         ArticleManager articleManager = new ArticleManager();
         try {
             articles = articleManager.listeArticleParCategorie(libelle);
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
@@ -139,6 +142,7 @@ public class Accueil extends HttpServlet {
         ArticleManager articleManager = new ArticleManager();
         try {
             articles = articleManager.listeArticleByMotCle(motCle);
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
@@ -152,6 +156,7 @@ public class Accueil extends HttpServlet {
         ArticleManager articleManager = new ArticleManager();
         try {
             articles = articleManager.listeArticleByMotCleAndCategorie(motCle, categorie);
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
@@ -165,6 +170,7 @@ public class Accueil extends HttpServlet {
         EnchereManager enchereManager = new EnchereManager();
         try {
             articles = enchereManager.listeArticleEnchereEnCoursParUtilisateur(utilisateur);
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
@@ -178,6 +184,7 @@ public class Accueil extends HttpServlet {
         EnchereManager enchereManager = new EnchereManager();
         try {
             articles = enchereManager.listeArticleEnchereGagneParUtilisateur(utilisateur);
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
@@ -191,6 +198,7 @@ public class Accueil extends HttpServlet {
         ArticleManager articleManager = new ArticleManager();
         try {
             articles = articleManager.listeVenteEnCoursParUtilisateur(utilisateur);
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
@@ -204,6 +212,7 @@ public class Accueil extends HttpServlet {
         ArticleManager articleManager = new ArticleManager();
         try {
             articles = articleManager.listeVenteNonDebuteesParUtilisateur(utilisateur);
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
@@ -216,12 +225,24 @@ public class Accueil extends HttpServlet {
         ArticleManager articleManager = new ArticleManager();
         try {
             articles = articleManager.listeVenteTermineesParUtilisateur(utilisateur);
+            setEtatVente(articles);
         } catch(BusinessException ex) {
             ex.printStackTrace();
             request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
         }
 
         request.setAttribute("listeArticlesEnCours", articles);
+    }
+
+    private void setEtatVente(List<Articles> articles) {
+        LocalDateTime now = LocalDateTime.now();
+
+        for(Articles a : articles) {
+            if(a.getDateDebutEncheres().isBefore(now) && a.getDateFinEncheres().isAfter(now)) {
+                a.setEtatVente(true);
+            }
+        }
+
     }
     private String lireParametreCategorie(HttpServletRequest request) {
         String libelle = request.getParameter("categorie");

@@ -64,7 +64,7 @@ public class modifierVente extends HttpServlet {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
             request.getRequestDispatcher("/WEB-INF/modifierVente.jsp").forward(request,response);
         } else {
-            request.getRequestDispatcher("/WEB-INF/accueil").forward(request, response);
+            request.getRequestDispatcher("/accueil").forward(request, response);
         }
 
 
