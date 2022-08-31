@@ -14,6 +14,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     private static final String SELECT_BY_ID = "SELECT no_utilisateur, nom, prenom, email, telephone FROM UTILISATEURS WHERE pseudo = ?";
     private static final String SELECT_ARTICLE = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_categorie FROM ARTICLES WHERE no_utilisateur = ?";
     private static final String SELECT_PROFIL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE pseudo = ?";
+    private static final String SELECT_PROFIL_BY_PSEUDO = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit FROM UTILISATEURS WHERE pseudo = ?";
     private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, credit = ? WHERE no_utilisateur = ?";
     private static final String DELETE = "DELETE FROM UTILISATEURS WHERE pseudo = ?";
@@ -90,6 +91,37 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
                 u.setMotDePasse(result.getString("mot_de_passe"));
                 u.setCredit(result.getInt("credit"));
                 u.setAdministrateur(result.getInt("administrateur"));
+            }
+            result.close();
+            stmt.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.SELECT_OWN_PROFILE_ECHEC);
+            throw businessException;
+        }
+        return u;
+    }
+
+    @Override
+    public Utilisateur selectProfileByPseudo(String pseudo) throws BusinessException {
+        Utilisateur u = new Utilisateur();
+
+        try (Connection cnx = ConnectionProvider.getConnection()) {
+            PreparedStatement stmt = cnx.prepareStatement(SELECT_PROFIL_BY_PSEUDO);
+            stmt.setString(1, pseudo);
+            ResultSet result = stmt.executeQuery();
+
+            if(result.next()) {
+                u.setPseudo(result.getString("pseudo"));
+                u.setNom(result.getString("nom"));
+                u.setPrenom(result.getString("prenom"));
+                u.setEmail(result.getString("email"));
+                u.setTelephone(result.getString("telephone"));
+                u.setRue(result.getString("rue"));
+                u.setCodePostal(result.getString("code_postal"));
+                u.setVille(result.getString("ville"));
+                u.setCredit(result.getInt("credit"));
             }
             result.close();
             stmt.close();

@@ -93,8 +93,7 @@ public class NouvelleEnchere extends HttpServlet {
 
         for (Enchere e : listeEnchere) {
             if (e.getMontant_enchere().equals(fullArticle.getPrixVente())){
-                utilisateur = utilisateurManager.afficherUnProfil(e.getUtilisateur().getPseudo());
-                utilisateur = e.getUtilisateur();
+                utilisateur = utilisateurManager.recupererProfilParPseudo(e.getUtilisateur().getPseudo());
                 System.out.println(utilisateur);
                 utilisateur.setCredit(utilisateur.getCredit()+e.getMontant_enchere());
                 System.out.println(utilisateur);
