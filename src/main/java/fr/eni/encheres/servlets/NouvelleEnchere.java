@@ -137,7 +137,6 @@ public class NouvelleEnchere extends HttpServlet {
         }catch ( BusinessException ex){
             ex.printStackTrace();
         }
-
     }
 
     private Utilisateur lireParametreUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
