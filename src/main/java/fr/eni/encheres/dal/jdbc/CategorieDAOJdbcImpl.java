@@ -16,7 +16,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         private static final String INSERT_CATEGORIE = "INSERT INTO Categories (libelle) VALUES(?)";
         private static final String UPDATE_CATEGORIE = "UPDATE Categories SET libelle = ? WHERE no_categorie = ?";
         private static final String DELETE_CATEGORIE = "DELETE FROM Categories WHERE no_categorie = ?";
-        private static final String SELECT_BY_LIBELLE = "SELECT no_categorie FROM CATEGORIES WHERE libelle = ?";
+        private static final String SELECT_BY_LIBELLE = "SELECT no_categorie, libelle FROM CATEGORIES WHERE libelle = ?";
         private static final String SELECT_ALL = "SELECT no_categorie, libelle FROM Categories";
         private static final String SELECT_BY_LIBELLE_BOOLEAN = "SELECT 1 FROM Categories WHERE libelle = ?";
 
@@ -116,6 +116,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
                 if(result.next()) {
                     c.setNoCategorie(result.getInt("no_categorie"));
+                    c.setLibelle(result.getString("libelle"));
                 }
 
                 stmt.close();

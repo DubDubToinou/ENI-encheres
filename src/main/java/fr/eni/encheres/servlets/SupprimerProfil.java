@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,9 @@ public class SupprimerProfil extends HttpServlet {
         String motDePasse = request.getParameter("mot_de_passe");
         String confirm_mot_de_passe = request.getParameter("confirm_mot_de_passe");
 
+        if (!motDePasse.equals(confirm_mot_de_passe)) {
+            listeCodesErreur.add(CodesResultatServlets.CONCORDANCE_MDP);
+        }
 
         if (motDePasse.equals(confirm_mot_de_passe)) {
             if(confirm_mot_de_passe.equals(utilisateurSession.getMotDePasse())){

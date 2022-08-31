@@ -35,7 +35,7 @@ public class ModifierProfil extends HttpServlet {
             session.setAttribute("utilisateur", utilisateur);
             boolean connecte = true;
             session.setAttribute("connecte", connecte);
-            request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("/accueil").forward(request, response);
         }
 
 

@@ -13,6 +13,18 @@
 
 
 <main>
+
+  <c:if test="${!empty listeCodesErreur}">
+    <div>
+      <strong>Erreur!</strong>
+      <ul>
+        <c:forEach var="code" items="${listeCodesErreur}">
+          <li>${LecteurMessage.getMessageErreur(code)}</li>
+        </c:forEach>
+      </ul>
+    </div>
+  </c:if>
+
   <div class="profil">
     <div>
       <h1><c:out value="${utilisateurAAfficher.pseudo}" /> </h1> <!-- Affichage du pseudo -->
@@ -28,7 +40,7 @@
       <p>Code Postal :  <c:out value="${utilisateurAAfficher.codePostal}" /></p> <!-- Affichage du code postal-->
 
       <c:if test="${sessionScope.utilisateur.pseudo == utilisateurAAfficher.pseudo}">
-        <p>Credit : <c:out value="${utilisateurAAfficher.nom}" /></p> <!-- Affichage  des crédit -->
+        <p>Credit : <c:out value="${utilisateurAAfficher.nom}" /></p> <!-- Affichage des crédit -->
       </c:if>
 
     </div>
