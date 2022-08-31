@@ -30,4 +30,6 @@ public abstract class CodesResultatServlets {
     public static final int ENCHERE_MONTANT_OBLIGATOIRE=50004;
     public static final int ENCHERE_CREDIT_INSUFFISANT=50005;
 
+    public static final int ENCHERE_UTILISATEUR_DOUBLE=50006;
+
 }

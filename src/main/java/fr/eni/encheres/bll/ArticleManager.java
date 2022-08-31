@@ -39,8 +39,8 @@ public class ArticleManager {
     public void updateUnArticle(Articles article) throws BusinessException {
         BusinessException businessException = new BusinessException();
 
-        this.validateArticle(article, businessException);
-        this.validateRetraitArticle(article, businessException);
+        //this.validateArticle(article, businessException);
+        //this.validateRetraitArticle(article, businessException);
 
         if(!businessException.hasErreurs()){
 

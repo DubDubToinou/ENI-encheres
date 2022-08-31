@@ -7,6 +7,7 @@ import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Articles;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.UtilisateurDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,10 @@ import java.util.List;
 public class NouvelleEnchere extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/nouvelleEnchere.jsp").forward(request, response);
+
+        Integer noArticle = Integer.valueOf(request.getParameter("noArticle"));
+
+        request.getRequestDispatcher("/detailarticle?no_article="+noArticle).forward(request, response);
     }
 
     @Override
@@ -31,23 +35,42 @@ public class NouvelleEnchere extends HttpServlet {
         List<Integer> listeCodesErreur=new ArrayList<>();
 
         try {
-
             creerEnchere(request, listeCodesErreur);
-            preleverCredit(request, listeCodesErreur);
-            rendreCredit(request, listeCodesErreur);
-            updatePrixVenteArticle(request, listeCodesErreur);
-
-
         } catch (BusinessException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
         }
 
         if(listeCodesErreur.size() > 0) {
-            request.getRequestDispatcher("/WEB-INF/nouvelleEnchere.jsp").forward(request,response);
+            this.doGet(request,response);
         } else {
-            request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+            try {
+                preleverCredit(request, listeCodesErreur);
+
+            } catch (BusinessException ex) {
+                ex.printStackTrace();
+            }
         }
+        if(listeCodesErreur.size() > 0) {
+            this.doGet(request,response);
+        } else {
+            try {
+                rendreCredit(request, listeCodesErreur);
+
+            } catch (BusinessException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if(listeCodesErreur.size() > 0) {
+            this.doGet(request,response);
+        } else {
+            try {
+                updatePrixVenteArticle(request, listeCodesErreur);
+            } catch (BusinessException ex) {
+                ex.printStackTrace();
+            }
+
+        }
+        response.sendRedirect(request.getContextPath()+"/accueil");
     }
 
     private void creerEnchere(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
@@ -55,7 +78,6 @@ public class NouvelleEnchere extends HttpServlet {
         Enchere enchere = null;
 
         Utilisateur utilisateur = lireParametreUtilisateur(request, listeCodesErreur);
-        System.out.println(utilisateur);
         Articles article = lireParametreArticle(request, listeCodesErreur);
         LocalDateTime date = lireParametreDate(request, listeCodesErreur);
         int montant = lireParametreMontant(request, listeCodesErreur);
@@ -64,6 +86,7 @@ public class NouvelleEnchere extends HttpServlet {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
         } else {
             enchere = new Enchere(utilisateur, article, date, montant);
+            System.out.println(enchere);
             try {
                 enchereManager.ajouterEnchere(enchere);
             } catch (BusinessException ex) {
@@ -94,9 +117,7 @@ public class NouvelleEnchere extends HttpServlet {
         for (Enchere e : listeEnchere) {
             if (e.getMontant_enchere().equals(fullArticle.getPrixVente())){
                 utilisateur = utilisateurManager.recupererProfilParPseudo(e.getUtilisateur().getPseudo());
-                System.out.println(utilisateur);
                 utilisateur.setCredit(utilisateur.getCredit()+e.getMontant_enchere());
-                System.out.println(utilisateur);
                 utilisateurManager.updateUserWithCheck(utilisateur);
             }
         }
@@ -119,13 +140,32 @@ public class NouvelleEnchere extends HttpServlet {
 
     }
 
-    private Utilisateur lireParametreUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
+    private Utilisateur lireParametreUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
         HttpSession session = request.getSession();
-        Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-        if(utilisateur == null) {
+        Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateur");
+        EnchereManager enchereManager = new EnchereManager();
+        ArticleManager articleManager = new ArticleManager();
+        UtilisateurManager utilisateurManager = new UtilisateurManager();
+        Articles article = lireParametreArticle(request, listeCodesErreur);
+        Utilisateur utilisateur = null;
+
+        Articles fullArticle = articleManager.selectByNoArticle(article.getNoArticle());
+        List<Enchere> listeEnchere = enchereManager.listeEnchereEnCoursParArticle(fullArticle);
+        for (Enchere e : listeEnchere) {
+            if (e.getMontant_enchere().equals(fullArticle.getPrixVente())){
+                System.out.println(e);
+                utilisateur = utilisateurManager.recupererProfilParPseudo(e.getUtilisateur().getPseudo());
+            }
+        }
+
+        if(utilisateur.getPseudo().equals(utilisateurConnecte.getPseudo())){
+            listeCodesErreur.add(CodesResultatServlets.ENCHERE_UTILISATEUR_DOUBLE);
+        }
+
+        if(utilisateurConnecte == null) {
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_UTILISATEUR_OBLIGATOIRE);
         }
-        return utilisateur;
+        return utilisateurConnecte;
     }
 
     private Articles lireParametreArticle(HttpServletRequest request, List<Integer> listeCodesErreur) {
@@ -160,7 +200,7 @@ public class NouvelleEnchere extends HttpServlet {
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_MONTANT_OBLIGATOIRE);
         } else if (montant > utilisateur.getCredit()) {
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_CREDIT_INSUFFISANT);
-        }
+       }
         return montant;
     }
 }

@@ -50,6 +50,8 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
     "FROM ENCHERES e2 " +
     "WHERE e2.no_article = a.no_article)";
 
+
+
     public List<Enchere> selectByArticle(Articles article) throws BusinessException {
 
         if(article.getNoArticle()==null || article.getNoArticle()==0) {

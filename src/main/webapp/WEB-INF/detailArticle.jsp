@@ -18,6 +18,17 @@
     <div class="content">
         <h1>Détails</h1>
 
+        <c:if test="${!empty listeCodesErreur}">
+            <div>
+                <strong>Erreur!</strong>
+                <ul>
+                    <c:forEach var="code" items="${listeCodesErreur}">
+                        <li>${LecteurMessage.getMessageErreur(code)}</li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </c:if>
+
         <c:if test="${connecte && !enCours && !venteNonDebutee}">
             <c:if test="${article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && enchereGagnante != null}">
                 <h3>${utilisateurGagnant} a remporté l'enchère</h3>
