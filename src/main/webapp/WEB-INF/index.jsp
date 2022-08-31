@@ -48,8 +48,8 @@
                     <input type="radio" id="mes_encheres_remportees" name="check" value="mes_encheres_remportees" />
                     <label for="mes_encheres_remportees">Mes enchères remportées</label>
                 </div>
-
-
+            </fieldset>
+            <fieldset>
 
                 <legend>Mes ventes</legend>
                 <div>
@@ -68,7 +68,7 @@
                 </div>
             </fieldset>
 
-          <%-- <button class="validate" type="submit">Rechercher</button>--%>
+            <%-- <button class="validate" type="submit">Rechercher</button>--%>
         </form>
 
         <div class="items">
@@ -78,7 +78,7 @@
                     <div class="product">
                         <a href=""><c:out value="${article.nomArticle}" /></a>
                         <c:if test="${article.etatVente}">
-                        <p class="open">Ouverte</p>
+                            <p class="open">Ouverte</p>
                         </c:if>
                         <c:if test="${!article.etatVente}">
                             <p class="closed">Fermée</p>
@@ -91,7 +91,7 @@
                         </div>
                         <div>
                             <h3>Date de fin</h3>
-                                <fmt:parseDate value="${article.dateFinEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateTimeFinEncheres" type="both" />
+                            <fmt:parseDate value="${article.dateFinEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateTimeFinEncheres" type="both" />
                             <p> <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateTimeFinEncheres }" /></p>
                         </div>
                     </div>

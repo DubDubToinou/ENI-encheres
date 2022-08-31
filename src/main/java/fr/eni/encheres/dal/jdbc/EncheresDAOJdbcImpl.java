@@ -40,7 +40,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             "FROM Articles a "+
             "INNER JOIN Encheres e ON a.no_article = e.no_article "+
             "INNER JOIN Utilisateurs u ON a.no_utilisateur = u.no_utilisateur "+
-            "WHERE e.no_utilisateur = ?";
+            "WHERE e.no_utilisateur = ? AND a.date_fin_encheres > GETDATE()";
 
     private static final String SELECT_ENCHERE_GAGNANTE_PAR_ARTICLE = "SELECT e.no_utilisateur, e.montant_enchere, u.pseudo " +
     "FROM Encheres e " +
@@ -167,6 +167,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
                 Articles article = new Articles();
                 article.setNoArticle(rs.getInt("no_article"));
                 article.setNomArticle(rs.getString("nom_article"));
+                article.setDateDebutEncheres(((Timestamp) rs.getObject("date_debut_encheres")).toLocalDateTime());
                 article.setDateFinEncheres(((Timestamp) rs.getObject("date_fin_encheres")).toLocalDateTime());
                 article.setPrixVente(rs.getInt("prix_vente"));
                 article.setUtilisateurs(utilisateurVendeur);
@@ -211,6 +212,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
                 Articles article = new Articles();
                 article.setNoArticle(rs.getInt("no_article"));
                 article.setNomArticle(rs.getString("nom_article"));
+                article.setDateDebutEncheres(((Timestamp) rs.getObject("date_debut_encheres")).toLocalDateTime());
                 article.setDateFinEncheres(((Timestamp) rs.getObject("date_fin_encheres")).toLocalDateTime());
                 article.setPrixVente(rs.getInt("prix_vente"));
                 article.setUtilisateurs(utilisateurVendeur);
@@ -242,6 +244,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if(rs.next()) {
+                enchere= new Enchere();
                 Utilisateur utilisateur = new Utilisateur(rs.getInt(1), rs.getString(3));
                 enchere.setUtilisateur(utilisateur);
                 enchere.setMontant_enchere(rs.getInt(2));

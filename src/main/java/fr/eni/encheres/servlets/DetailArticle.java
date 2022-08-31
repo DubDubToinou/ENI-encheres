@@ -44,7 +44,6 @@ public class DetailArticle extends HttpServlet {
 
         //La vente a t'elle débuté ?
         boolean venteNonDebutee = false; //oui
-
         if(article.getDateDebutEncheres().isAfter(now)) {
             venteNonDebutee = true; //non
         }

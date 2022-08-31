@@ -237,6 +237,7 @@ public class Accueil extends HttpServlet {
     private void setEtatVente(List<Articles> articles) {
         LocalDateTime now = LocalDateTime.now();
 
+
         for(Articles a : articles) {
             if(a.getDateDebutEncheres().isBefore(now) && a.getDateFinEncheres().isAfter(now)) {
                 a.setEtatVente(true);
