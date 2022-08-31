@@ -146,11 +146,20 @@ public class NouvelleEnchere extends HttpServlet {
         return date;
     }
 
-    private int lireParametreMontant(HttpServletRequest request, List<Integer> listeCodesErreur) {
+    private int lireParametreMontant(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+        UtilisateurManager utilisateurManager = new UtilisateurManager();
+        HttpSession session = request.getSession();
+
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+        utilisateur = utilisateurManager.recupererProfilParPseudo(utilisateur.getPseudo());
+
+
         Articles article = lireParametreArticle(request, listeCodesErreur);
         int montant = Integer.parseInt(request.getParameter("montant"));
         if (montant <= article.getPrixVente()) {
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_MONTANT_OBLIGATOIRE);
+        } else if (montant > utilisateur.getCredit()) {
+            listeCodesErreur.add(CodesResultatServlets.ENCHERE_CREDIT_INSUFFISANT);
         }
         return montant;
     }
