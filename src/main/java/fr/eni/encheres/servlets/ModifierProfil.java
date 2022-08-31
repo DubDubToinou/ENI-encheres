@@ -65,6 +65,7 @@ public class ModifierProfil extends HttpServlet {
         {
             utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville);
             utilisateur.setNoUtilisateur(noUtilisateur);
+            utilisateur.setCredit(utilisateurSession.getCredit());
 
             try {
                 if(!utilisateur.getPseudo().equals(utilisateurSession.getPseudo())){
