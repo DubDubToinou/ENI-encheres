@@ -163,7 +163,6 @@ public class NouvelleEnchere extends HttpServlet {
             //Update article en base
             articleManager.updateUnArticle(fullArticle);
         }
-
     }
 
     private Utilisateur lireParametreUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {

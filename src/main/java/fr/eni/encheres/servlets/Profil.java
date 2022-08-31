@@ -10,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "MonProfil", value = "/MonProfil")
-public class MonProfil extends HttpServlet {
+public class Profil extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

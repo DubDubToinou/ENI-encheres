@@ -12,13 +12,18 @@
     <a href="${pageContext.request.contextPath}/accueil">COCOWIKI</a>
   </div>
 
+  <c:if test="${sessionScope.utilisateur.administrateur == 1}" >
+    <div  class="buttons">
+      <a class="account" href="${pageContext.request.contextPath}/Administration">Admin</a>
+    </div>
+  </c:if>
+
   <c:if test="${connecte}">
     <div class="buttons">
       <a class="logout" href="">Mes Enchères</a>
       <a class="logout" href="${pageContext.request.contextPath}/NouvelleVente">Vendre un Article</a>
       <a class="logout" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.pseudo}">Mon Profil</a>
       <a class="account" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
-
     </div>
   </c:if>
   <c:if test="${!connecte}">
@@ -27,6 +32,7 @@
       <a class="account" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
     </div>
   </c:if>
+
 </header>
 </body>
 </html>
