@@ -66,7 +66,7 @@
                 <label for="montant">Ma proposition : </label>
                 <input name="noArticle" type="hidden" value="${article.noArticle}"/>
                 <input name="prixVente" type="hidden" value="${article.prixVente}"/>
-                <input type="number" id="montant" name="montant" min="${article.prixVente}" placeholder="${article.prixVente}"/>
+                <input type="number" id="montant" name="montant" min="${article.prixVente +1}" placeholder="${article.prixVente +1}"/>
                 <button type="submit">Enchérir</button>
             </form>
         </c:if>

@@ -66,7 +66,8 @@ public class NouvelleEnchere extends HttpServlet {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
             this.doGet(request, response);
         } else {
-            response.sendRedirect(request.getContextPath()+"/accueil");
+            request.setAttribute("succes","Enchère ajoutée avec succès");
+            request.getRequestDispatcher("/accueil").forward(request, response);
         }
     }
 
@@ -134,7 +135,6 @@ public class NouvelleEnchere extends HttpServlet {
             utilisateurManager.updateUserWithoutCheck(utilisateur);
 
             //l'utilisateur est update en base, on le remet correctement dans la session
-            session.removeAttribute("utilisateur");
             session.setAttribute("utilisateur", utilisateur);
         }
     }
@@ -198,11 +198,11 @@ public class NouvelleEnchere extends HttpServlet {
 
         Integer prixVente = lireParametrePrixVente(request);
         int montant = Integer.parseInt(request.getParameter("montant"));
-        if (montant <= prixVente) {
-            listeCodesErreur.add(CodesResultatServlets.ENCHERE_MONTANT_OBLIGATOIRE);
-        } else if (montant > utilisateur.getCredit()) {
+        if (montant <= prixVente)
+            listeCodesErreur.add(CodesResultatServlets.ENCHERE_MONTANT_ERREUR);
+        if (montant > utilisateur.getCredit())
             listeCodesErreur.add(CodesResultatServlets.ENCHERE_CREDIT_INSUFFISANT);
-       }
+
         return montant;
     }
 }

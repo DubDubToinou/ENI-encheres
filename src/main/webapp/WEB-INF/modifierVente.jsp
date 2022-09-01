@@ -59,6 +59,7 @@
                   name="nom_article"
                   id="titre"
                   maxlength="30"
+                  value="${article.nomArticle}"
                   placeholder="${article.nomArticle}"
                   required
           />
@@ -79,6 +80,7 @@
                   name="prix_initial"
                   id="prixInitial"
                   placeholder="${article.miseAPrix}"
+                  value="${article.miseAPrix}"
                   required
           />
         </div>
@@ -92,6 +94,7 @@
                   cols="30"
                   rows="5"
                   maxlength="300"
+                  value="${article.description}"
                   placeholder="${article.description}"
                   required
           ></textarea>
@@ -104,13 +107,14 @@
                   type="datetime-local"
                   name="date_debut_encheres"
                   id="dateDebut"
+                  value="${article.dateDebutEncheres}"
                   placeholder="${article.dateDebutEncheres}"
                   required
           />
         </div>
         <div class="label">
           <label for="dateFin">Fin de l'enchère</label>
-          <input type="datetime-local" name="date_fin_encheres" id="dateFin" placeholder="${article.dateFinEncheres}" required/>
+          <input type="datetime-local" name="date_fin_encheres" id="dateFin" value="${article.dateFinEncheres}" placeholder="${article.dateFinEncheres}" required/>
         </div>
       </fieldset>
       <fieldset>
@@ -122,6 +126,7 @@
                   name="rue"
                   id="rue"
                   maxlength="30"
+                  value="${article.lieuRetrait.rue}"
                   placeholder="${article.lieuRetrait.rue}"
           />
         </div>
@@ -132,6 +137,7 @@
                   name="code_postal"
                   id="codePostal"
                   pattern="[A-Za-z0-9]{1,10}"
+                  value="${article.lieuRetrait.codePostal}"
                   placeholder="${article.lieuRetrait.codePostal}"
           />
         </div>
@@ -142,6 +148,7 @@
                   name="ville"
                   id="ville"
                   maxlength="30"
+                  value="${article.lieuRetrait.ville}"
                   placeholder="${article.lieuRetrait.ville}"
           />
         </div>
