@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mot de passe</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg" />
 </head>
 <body>
 
@@ -31,8 +32,6 @@
             <div class="inputField">
                 <label for="NouveauMotDePasse">Nouveau mot de passe</label>
                 <input type="hidden" name="pseudo" value="${ sessionScope.utilisateur.pseudo }">
-            </div>
-            <div class="inputField">
                 <input type="hidden" name="noUtilisateur" value="${sessionScope.utilisateur.noUtilisateur}">
                 <input type="password" name="mot_de_passe" id="NouveauMotDePasse"
                        placeholder="Entrez votre mot de passe"

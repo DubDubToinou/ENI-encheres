@@ -9,7 +9,7 @@
 <body>
 <header>
     <div class="logo">
-        <a href="${pageContext.request.contextPath}/accueil">COCOWIKI</a>
+        <a href="${pageContext.request.contextPath}/accueil">Troc Enchère</a>
     </div>
 
     <c:if test="${connecte}">
@@ -23,14 +23,20 @@
             <img src="${pageContext.request.contextPath}/img/coin.svg"/>
             <p><c:out value="${sessionScope.utilisateur.credit}"/> CRT</p>
         </div>
-        <a href="${pageContext.request.contextPath}/Boutique"><img src="${pageContext.request.contextPath}/img/shopping-cart.svg"></a>
+        <div class="cart">
+            <a href="${pageContext.request.contextPath}/Boutique"><img
+                    src="${pageContext.request.contextPath}/img/shopping-cart.svg"></a>
+        </div>
         <a class="white" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
-        <a class="blue" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.pseudo}">Mon Profil</a>
+        <a class="blue" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.pseudo}">Mon
+            Profil</a>
     </c:if>
 
     <c:if test="${!connecte}">
-        <a class="white" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
-        <a class="blue" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
+        <div>
+            <a class="white" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
+            <a class="blue" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
+        </div>
     </c:if>
 </header>
 </body>

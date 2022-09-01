@@ -131,6 +131,10 @@ header {
     font-family: 'Abril Fatface', cursive;
 }
 
+.cart {
+    padding: 8px;
+}
+
 /* NAV BAR */
 
 nav {
@@ -409,7 +413,6 @@ p > a {
     .items {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         gap: 24px;
     }
 }
