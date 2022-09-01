@@ -35,7 +35,8 @@ public class ModifierProfil extends HttpServlet {
             session.setAttribute("utilisateur", utilisateur);
             boolean connecte = true;
             session.setAttribute("connecte", connecte);
-            request.getRequestDispatcher("/accueil").forward(request, response);
+            session.setAttribute("succes","Profil modifié avec succès");
+            response.sendRedirect(request.getContextPath()+"/accueil");
         }
 
 

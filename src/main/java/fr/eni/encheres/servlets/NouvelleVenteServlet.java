@@ -46,6 +46,8 @@ public class NouvelleVenteServlet extends HttpServlet {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
             request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp").forward(request,response);
         } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("succes","Vente ajoutée avec succès");
             response.sendRedirect(request.getContextPath()+"/accueil");
         }
     }

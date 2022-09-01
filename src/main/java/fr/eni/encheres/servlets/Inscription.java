@@ -33,6 +33,7 @@ public class Inscription extends HttpServlet {
             session.setAttribute("utilisateur", utilisateur);
             boolean connecte = true;
             session.setAttribute("connecte", connecte);
+            session.setAttribute("succes","Inscription réussie ! Bienvenue " + utilisateur.getPseudo());
             response.sendRedirect(request.getContextPath()+"/accueil");
         }
     }

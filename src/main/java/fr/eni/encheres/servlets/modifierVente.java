@@ -64,7 +64,9 @@ public class modifierVente extends HttpServlet {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
             request.getRequestDispatcher("/WEB-INF/modifierVente.jsp").forward(request,response);
         } else {
-            request.getRequestDispatcher("/accueil").forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("succes","Vente modifiée avec succès");
+            response.sendRedirect(request.getContextPath()+"/accueil");
         }
 
 
