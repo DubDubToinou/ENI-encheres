@@ -38,15 +38,15 @@
         </div>
         <h3>Contact</h3>
         <div class="field">
-            <img src="../img/mail.svg"/>
+            <img src="${pageContext.request.contextPath}/img/mail.svg"/>
             <p><c:out value="${utilisateurAAfficher.email}"/></p> <!--affichage de l'email -->
         </div>
         <div class="field">
-            <img src="../img/smartphone.svg"/>
+            <img src="${pageContext.request.contextPath}/img/smartphone.svg"/>
             <p>Téléphone : <c:out value="${utilisateurAAfficher.telephone}"/></p> <!--Affichage du telephone -->
         </div>
         <div class="field">
-            <img src="../img/home.svg"/>
+            <img src="${pageContext.request.contextPath}/img/home.svg"/>
             <p><c:out value="${utilisateurAAfficher.rue}"/></p> <!-- Affichage de la rue-->
             <p><c:out value="${utilisateurAAfficher.codePostal}"/></p> <!-- Affichage du code postal-->
             <p><c:out value="${utilisateurAAfficher.ville}"/></p> <!-- Affichage de la ville-->
