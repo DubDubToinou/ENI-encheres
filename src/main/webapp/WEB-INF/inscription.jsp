@@ -19,14 +19,13 @@
         <h1>Créer un compte</h1>
 
         <c:if test="${!empty listeCodesErreur}">
-            <div>
-                <strong>Erreur!</strong>
-                <ul>
-                    <c:forEach var="code" items="${listeCodesErreur}">
-                        <li>${LecteurMessage.getMessageErreur(code)}</li>
-                    </c:forEach>
-                </ul>
-            </div>
+            <c:forEach var="code" items="${listeCodesErreur}">
+                <div class="error">
+                    <p class="errorLabel">Erreur</p>
+                    <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
+                </div>
+                <br>
+            </c:forEach>
         </c:if>
 
         <%--<c:if test="${ !empty sessionScope.utilisateur}">
