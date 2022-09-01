@@ -31,8 +31,6 @@
             <div class="inputField">
                 <label for="NouveauMotDePasse">Nouveau mot de passe</label>
                 <input type="hidden" name="pseudo" value="${ sessionScope.utilisateur.pseudo }">
-            </div>
-            <div class="inputField">
                 <input type="hidden" name="noUtilisateur" value="${sessionScope.utilisateur.noUtilisateur}">
                 <input type="password" name="mot_de_passe" id="NouveauMotDePasse"
                        placeholder="Entrez votre mot de passe"
