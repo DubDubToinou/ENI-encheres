@@ -31,11 +31,11 @@
 
         <c:if test="${connecte && !enCours && !venteNonDebutee}">
             <c:if test="${article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && enchereGagnante != null}">
-                <h3>${utilisateurGagnant} a remporté l'enchère</h3>
+                <h3><a href="${pageContext.request.contextPath}/MonProfil?pseudo=${utilisateurGagnant}">${utilisateurGagnant}</a> a remporté l'enchère</h3>
             </c:if>
 
             <c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && utilisateurGagnant != sessionScope.utilisateur.pseudo}">
-                <h3>${utilisateurGagnant} a remporté l'enchère</h3>
+                <h3><a href="${pageContext.request.contextPath}/MonProfil?pseudo=${utilisateurGagnant}" >${utilisateurGagnant}</a> a remporté l'enchère</h3>
             </c:if>
 
             <c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && sessionScope.utilisateur.pseudo == utilisateurGagnant}">
@@ -57,7 +57,7 @@
 
         <p>Fin de l'enchère : <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateFinEnchere }" /></p>
         <p>Retrait : <c:out value="${article.lieuRetrait.rue}"/> <c:out value="${article.lieuRetrait.codePostal}"/> <c:out value="${article.lieuRetrait.ville}"/></p>
-        <p>Vendeur : <c:out value="${article.utilisateurs.pseudo}"/></p>
+        <p>Vendeur : <a href="${pageContext.request.contextPath}/MonProfil?pseudo=${article.utilisateurs.pseudo}" ><c:out value="${article.utilisateurs.pseudo}"/></a></p>
         <c:if test="${connecte && !enCours && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && sessionScope.utilisateur.pseudo == utilisateurGagnant}">
             <p>Téléphone : <c:out value="${article.utilisateurs.telephone}"/></p>
         </c:if>

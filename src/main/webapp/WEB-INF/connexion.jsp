@@ -6,18 +6,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion</title>
-    <link rel="stylesheet" href="../styles/connexion.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/connexion.css" />
 </head>
 <body>
-<header>
-    <div class="logo">
-        <a href="">Enchères</a>
-    </div>
-    <div class="buttons">
-        <a class="login" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
-        <a class="signup" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
-    </div>
-</header>
+<jsp:include page="header.jsp"/>
 <main>
     <h1>Connectez-vous</h1>
     <h2>C'est un plaisir de vous revoir !</h2>

@@ -7,18 +7,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Inscription</title>
-    <link rel="stylesheet" href="../styles/modifierProfil.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/modifierProfil.css"/>
 </head>
 <body>
-<header>
-    <div class="logo">
-        <a href="">Enchères</a>
-    </div>
-    <div class="buttons">
-        <a class="logout" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
-        <a class="account" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
-    </div>
-</header>
+<jsp:include page="header.jsp" />
 <main>
     <div class="content">
         <h1>Créer un compte</h1>
@@ -84,18 +76,18 @@
                                required/>
                     </div>
                     <div class="label">
-                        <label for="ville">Ville</label>
-                        <input type="text" name="ville" id="ville" maxlength="30"
-                               value="${!empty listeCodesErreur?param.ville:""}" required/>
-                    </div>
-                    <div class="label">
                         <label for="code_postal">Code postal</label>
                         <input type="text" name="code_postal" id="code_postal" pattern="[A-Za-z0-9]{1,10}"
                                value="${!empty listeCodesErreur?param.code_postal:""}" required/>
                     </div>
+                    <div class="label">
+                        <label for="ville">Ville</label>
+                        <input type="text" name="ville" id="ville" maxlength="30"
+                               value="${!empty listeCodesErreur?param.ville:""}" required/>
+                    </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Créer un mot de passe</legend>
+                    <legend>Votre mot de passe</legend>
                     <div class="label">
                         <label for="mot_de_passe">Mot de passe</label>
                         <input type="password" name="mot_de_passe" id="mot_de_passe" minlength="8" maxlength="30"
