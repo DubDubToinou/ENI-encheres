@@ -124,7 +124,7 @@
 
         <c:if test="${connecte && article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && venteNonDebutee}">
             <div class="submit">
-                <a class="white"
+                <a class="blue"
                    href="${pageContext.request.contextPath}/modifiervente?no_article=${article.noArticle}">
                     Modifier cette vente
                 </a>

@@ -10,8 +10,8 @@
     <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg" />
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <main>
-    <jsp:include page="header.jsp"/>
     <div class="adminContent">
         <h1>Administration</h1>
 

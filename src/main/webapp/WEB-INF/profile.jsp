@@ -56,7 +56,7 @@
         <c:if test="${sessionScope.utilisateur.pseudo == utilisateurAAfficher.pseudo}">
             <div class="pFlex">
                 <div class="lightBlue">
-                    <img src="../img/coin.svg">
+                    <img src="${pageContext.request.contextPath}/img/coin.svg">
                     <p><c:out value="${utilisateurAAfficher.credit}"/> CRT</p> <!-- Affichage des crédit -->
                 </div>
                 <a class="blue leftButton" href="${pageContext.request.contextPath}/ModifierProfil">Modifier mon

@@ -323,7 +323,7 @@ p > a {
 .field {
     display: flex;
     border-bottom: 1px solid #eaecf0;
-    gap: 8px;
+    gap: 24px;
     padding: 16px 0;
 }
 
@@ -365,6 +365,10 @@ p > a {
     align-items: center;
     margin: 5% auto;
     gap: 16px;
+}
+
+.leftDiv {
+    margin-left: auto;
 }
 
 /* MEDIA QUERIES */
