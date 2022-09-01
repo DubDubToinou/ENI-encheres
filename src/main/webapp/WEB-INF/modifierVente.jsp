@@ -94,10 +94,9 @@
                   cols="30"
                   rows="5"
                   maxlength="300"
-                  value="${article.description}"
                   placeholder="${article.description}"
                   required
-          ></textarea>
+          >${article.description}</textarea>
         </div>
       </fieldset>
       <fieldset>

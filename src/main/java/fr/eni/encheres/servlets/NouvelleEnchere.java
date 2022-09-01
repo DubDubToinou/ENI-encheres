@@ -67,7 +67,7 @@ public class NouvelleEnchere extends HttpServlet {
             this.doGet(request, response);
         } else {
             request.setAttribute("succes","Enchère ajoutée avec succès");
-            request.getRequestDispatcher("/accueil").forward(request, response);
+            response.sendRedirect(request.getContextPath()+"/accueil");
         }
     }
 

@@ -37,7 +37,7 @@ public class ModifierMotDePasse extends HttpServlet {
                 session.setAttribute("utilisateur", utilisateurUpdate);
                 boolean connecte = true;
                 session.setAttribute("connecte", connecte);
-                request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath()+"/accueil");
             }
 
         } catch (BusinessException e) {
@@ -61,7 +61,6 @@ public class ModifierMotDePasse extends HttpServlet {
 
             utilisateur = new Utilisateur(pseudo, motDePasseVerif);
             utilisateur.setNoUtilisateur(noUtilisateur);
-            System.out.println(utilisateur);
             try {
 
                 utilisateurManager.updateMotDePasseUser(utilisateur);
