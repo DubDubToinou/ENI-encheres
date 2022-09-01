@@ -20,10 +20,10 @@
             </c:if>
         </nav>
         <div class="lightBlue">
-            <img src="../img/coin.svg"/>
+            <img src="${pageContext.request.contextPath}/img/coin.svg"/>
             <p><c:out value="${sessionScope.utilisateur.credit}"/> CRT</p>
         </div>
-        <a href="${pageContext.request.contextPath}/Boutique"><img src="../img/shopping-cart.svg"></a>
+        <a href="${pageContext.request.contextPath}/Boutique"><img src="${pageContext.request.contextPath}/img/shopping-cart.svg"></a>
         <a class="white" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
         <a class="blue" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.pseudo}">Mon Profil</a>
     </c:if>
