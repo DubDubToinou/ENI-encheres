@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Suppression du compte</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg" />
 </head>
 <body>
 
