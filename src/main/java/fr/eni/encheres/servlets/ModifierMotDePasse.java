@@ -37,7 +37,9 @@ public class ModifierMotDePasse extends HttpServlet {
                 session.setAttribute("utilisateur", utilisateurUpdate);
                 boolean connecte = true;
                 session.setAttribute("connecte", connecte);
-                response.sendRedirect(request.getContextPath()+"/accueil");
+                session.setAttribute("succes", "Mot de Passe modifié avec succes");
+                response.sendRedirect(request.getContextPath()+"/MonProfil?pseudo="+utilisateurUpdate.getPseudo());
+
             }
 
         } catch (BusinessException e) {
