@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Accueil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><c:out value="${article.nomArticle}"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
 </head>
 <body>
@@ -16,7 +16,7 @@
 
 <main>
     <div class="content">
-        <h1>Détails</h1>
+        <h1><c:out value="${article.nomArticle}"/></h1>
 
         <c:if test="${!empty listeCodesErreur}">
             <div>
@@ -31,57 +31,105 @@
 
         <c:if test="${connecte && !enCours && !venteNonDebutee}">
             <c:if test="${article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && enchereGagnante != null}">
-                <h3><a href="${pageContext.request.contextPath}/MonProfil?pseudo=${utilisateurGagnant}">${utilisateurGagnant}</a> a remporté l'enchère</h3>
+                <p class="midText"><a
+                        href="${pageContext.request.contextPath}/MonProfil?pseudo=${utilisateurGagnant}">${utilisateurGagnant}</a>
+                    a remporté l'enchère</p>
             </c:if>
 
             <c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && utilisateurGagnant != sessionScope.utilisateur.pseudo}">
-                <h3><a href="${pageContext.request.contextPath}/MonProfil?pseudo=${utilisateurGagnant}" >${utilisateurGagnant}</a> a remporté l'enchère</h3>
+                <p class="midText"><a
+                        href="${pageContext.request.contextPath}/MonProfil?pseudo=${utilisateurGagnant}">${utilisateurGagnant}</a>
+                    a remporté l'enchère</p>
             </c:if>
 
             <c:if test="${article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && sessionScope.utilisateur.pseudo == utilisateurGagnant}">
-                <h3> Vous avez remporté l'enchère</h3>
+                <p class="midText"> Vous avez remporté l'enchère</p>
             </c:if>
 
             <c:if test="${ enchereGagnante == null}">
-                <h3>Personne n'a enchéri sur cet objet</h3>
+                <p class="midText">Personne n'a enchéri sur cet objet</p>
             </c:if>
         </c:if>
 
-        <h3><c:out value="${article.nomArticle}"/></h3>
-        <p>Description : <c:out value="${article.description}"/></p>
-        <p>Catégorie : <c:out value="${article.categorieArticle.libelle}"/></p>
-        <p>Mise à prix : <c:out value="${article.miseAPrix}"/></p>
-        <p>Prix de vente (meilleure offre) : <c:out value="${article.prixVente}"/></p>
-        <fmt:parseDate value="${article.dateDebutEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateDebutEnchere" type="both" />
+        <div class="field">
+            <div class="inputField">
+                <h3>Description</h3>
+                <p><c:out value="${article.description}"/></p>
+            </div>
+        </div>
+        <div class="field">
+            <div class="inputField">
+                <h3>Catégorie</h3>
+                <p><c:out value="${article.categorieArticle.libelle}"/></p>
+            </div>
+            <div class="inputField">
+                <h3>Mise à prix</h3>
+                <p><c:out value="${article.miseAPrix}"/> CRT</p>
+            </div>
+            <div class="inputField">
+                <h3>Prix de vente (meilleure offre)</h3>
+                <p><c:out value="${article.prixVente}"/></p>
+            </div>
+        </div>
+        <fmt:parseDate value="${article.dateFinEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateFinEnchere"
+                       type="both"/>
+        <fmt:parseDate value="${article.dateDebutEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateDebutEnchere"
+                       type="both"/>
+        <div class="field">
+            <div class="inputField">
+                <h3>Début de l'enchère</h3>
+                <p><fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateDebutEnchere }"/></p>
+            </div>
+            <div class="inputField">
+                <h3>Fin de l'enchère</h3>
+                <p><fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateFinEnchere }"/></p>
+            </div>
+        </div>
+        <div class="field">
+            <div class="inputField">
+                <h3>Retrait</h3>
+                <p><c:out value="${article.lieuRetrait.rue}"/> <c:out value="${article.lieuRetrait.codePostal}"/> <c:out
+                        value="${article.lieuRetrait.ville}"/></p>
+            </div>
+            <div class="inputField">
+                <h3>Vendeur</h3>
+                <p><a href="${pageContext.request.contextPath}/MonProfil?pseudo=${article.utilisateurs.pseudo}"><c:out
+                        value="${article.utilisateurs.pseudo}"/></a></p>
+            </div>
+            <c:if test="${connecte && !enCours && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && sessionScope.utilisateur.pseudo == utilisateurGagnant}">
+                <div class="inputField">
+                    <h3>Téléphone</h3>
+                    <p><c:out value="${article.utilisateurs.telephone}"/></p>
+                </div>
+            </c:if>
+        </div>
 
-        <p>Début de l'enchère : <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateDebutEnchere }" /></p>
-
-        <fmt:parseDate value="${article.dateFinEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateFinEnchere" type="both" />
-
-        <p>Fin de l'enchère : <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateFinEnchere }" /></p>
-        <p>Retrait : <c:out value="${article.lieuRetrait.rue}"/> <c:out value="${article.lieuRetrait.codePostal}"/> <c:out value="${article.lieuRetrait.ville}"/></p>
-        <p>Vendeur : <a href="${pageContext.request.contextPath}/MonProfil?pseudo=${article.utilisateurs.pseudo}" ><c:out value="${article.utilisateurs.pseudo}"/></a></p>
-        <c:if test="${connecte && !enCours && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enchereGagnante != null && sessionScope.utilisateur.pseudo == utilisateurGagnant}">
-            <p>Téléphone : <c:out value="${article.utilisateurs.telephone}"/></p>
-        </c:if>
         <c:if test="${connecte && article.utilisateurs.pseudo != sessionScope.utilisateur.pseudo && enCours}">
             <form method="post" action="${pageContext.request.contextPath}/NouvelleEnchere">
-                <label for="montant">Ma proposition : </label>
-                <input name="noArticle" type="hidden" value="${article.noArticle}"/>
-                <input name="prixVente" type="hidden" value="${article.prixVente}"/>
-                <input type="number" id="montant" name="montant" min="${article.prixVente +1}" placeholder="${article.prixVente +1}"/>
-                <button type="submit">Enchérir</button>
+                <fieldset class="field">
+                    <div class="inputField">
+                        <label for="montant">Ma proposition </label>
+                        <input name="noArticle" type="hidden" value="${article.noArticle}"/>
+                        <input name="prixVente" type="hidden" value="${article.prixVente}"/>
+                        <input type="number" id="montant" name="montant" min="${article.prixVente +1}"
+                               placeholder="${article.prixVente +1}"/>
+                    </div>
+                    <div class="submit">
+                        <button class="blue" type="submit">Enchérir</button>
+                    </div>
+                </fieldset>
             </form>
         </c:if>
+
         <c:if test="${connecte && article.utilisateurs.pseudo == sessionScope.utilisateur.pseudo && venteNonDebutee}">
-            <a href="${pageContext.request.contextPath}/modifiervente?no_article=${article.noArticle}">
-                Modifier cette vente
-            </a>
+            <div class="submit">
+                <a class="white"
+                   href="${pageContext.request.contextPath}/modifiervente?no_article=${article.noArticle}">
+                    Modifier cette vente
+                </a>
+            </div>
         </c:if>
-
-
     </div>
 </main>
-
 </body>
 </html>

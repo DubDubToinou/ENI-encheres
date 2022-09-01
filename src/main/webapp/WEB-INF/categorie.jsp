@@ -3,34 +3,26 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Admin | Categorie</title>
+    <title>Admin | Catégorie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
-
 </head>
 <body>
 <main>
-
     <jsp:include page="header.jsp"/>
-
-
-
-        <c:forEach var="listeCategorie" items="${listeCategorie}" >
-    <div class="card">
-          <div class="buttons">
-             <p> <c:out value="${listeCategorie.libelle}"/></p>
-              <a class="logout" href="" >Supprimer</a>
-              <a class="account" href="${pageContext.request.contextPath}/ModifierCategorie?libelle=${listeCategorie.libelle}">Modifier</a>
-          </div>
+    <c:forEach var="listeCategorie" items="${listeCategorie}">
+        <div class="field">
+            <div class="pFlex">
+                <p><c:out value="${listeCategorie.libelle}"/></p>
+                <a class="white" href="">Supprimer</a>
+                <a class="blue"
+                   href="${pageContext.request.contextPath}/ModifierCategorie?libelle=${listeCategorie.libelle}">Modifier</a>
+            </div>
+        </div>
+    </c:forEach>
+    <div class="submit">
+        <a class="blue" href="">Ajouter une Catégorie</a>
     </div>
-        </c:forEach>
-    <div class="buttons">
-        <a class="account" href="">Ajouter une Categorie</a>
-    </div>
-
-
-
-
 </main>
 </body>
 </html>

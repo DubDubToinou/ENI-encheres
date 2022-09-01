@@ -8,32 +8,30 @@
 </head>
 <body>
 <header>
-  <div class="logo">
-    <a href="${pageContext.request.contextPath}/accueil">COCOWIKI</a>
-  </div>
-
-  <c:if test="${sessionScope.utilisateur.administrateur == 1}" >
-    <div  class="buttons">
-      <a class="account" href="${pageContext.request.contextPath}/Administration">Admin</a>
+    <div class="logo">
+        <a href="${pageContext.request.contextPath}/accueil">COCOWIKI</a>
     </div>
-  </c:if>
 
-  <c:if test="${connecte}">
-    <div class="buttons">
-      <p>Mes Credits : <c:out value="${sessionScope.utilisateur.credit}"/> </p>
-      <a class="logout" href="${pageContext.request.contextPath}/NouvelleVente">Vendre un Article</a>
-      <a class="logout" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.pseudo}">Mon Profil</a>
-      <a class="logout" href="${pageContext.request.contextPath}/Boutique">Boutique</a>
-      <a class="account" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
-    </div>
-  </c:if>
-  <c:if test="${!connecte}">
-    <div class="buttons">
-      <a class="logout" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
-      <a class="account" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
-    </div>
-  </c:if>
+    <c:if test="${connecte}">
+        <nav>
+            <a class="logout" href="${pageContext.request.contextPath}/NouvelleVente">Vendre un Article</a>
+            <c:if test="${sessionScope.utilisateur.administrateur == 1}">
+                <a href="${pageContext.request.contextPath}/Administration">Admin</a>
+            </c:if>
+        </nav>
+        <div class="lightBlue">
+            <img src="../img/coin.svg"/>
+            <p><c:out value="${sessionScope.utilisateur.credit}"/> CRT</p>
+        </div>
+        <a href="${pageContext.request.contextPath}/Boutique"><img src="../img/shopping-cart.svg"></a>
+        <a class="white" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
+        <a class="blue" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.pseudo}">Mon Profil</a>
+    </c:if>
 
+    <c:if test="${!connecte}">
+        <a class="white" href="${pageContext.request.contextPath}/connexion">Se connecter</a>
+        <a class="blue" href="${pageContext.request.contextPath}/inscription">S'inscrire</a>
+    </c:if>
 </header>
 </body>
 </html>
