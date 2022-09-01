@@ -12,6 +12,9 @@ The goal of this project was to develop a fully functioning auction web app, the
 ### Extra credit
 
 - The app is responsive and was developed with a mobile-first approach.
+- A seller can modify an item.
+- Administrators can edit, add or delete an item category.
+- Users can "buy" credits.
 
 ## Built with
 
@@ -19,8 +22,9 @@ The goal of this project was to develop a fully functioning auction web app, the
     - DAO Pattern
 - CSS (Vanilla)
     - Mobile first design
+    - Inspired by the [Untitled UI Kit](https://www.untitledui.com/) on [Figma](https://www.figma.com/)
 - SQL Server
 
 ## Resources
 
-All icons and illustrations are from [Icons8](https://icones8.fr/).
+All icons are from the [Untitled UI Kit](https://www.untitledui.com/).
