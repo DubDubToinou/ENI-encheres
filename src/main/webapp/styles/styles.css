@@ -17,6 +17,34 @@ img {
     height: 16px;
 }
 
+/* SUCCESS AND ERROR MESSAGES */
+
+.success {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px 4px 4px;
+    gap: 12px;
+    background: #ECFDF3;
+    border-radius: 16px;
+}
+
+.successLabel {
+    padding: 2px 10px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #027A48;
+}
+
+.successMessage {
+    font-weight: 500;
+    font-size: 14px;
+    color: #027A48;
+}
+
+
+
 /* BUTTONS & LINKS */
 
 .white, .lightBlue, .blue, .red {
