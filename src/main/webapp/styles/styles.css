@@ -9,73 +9,73 @@
     font-size: 16px;
     border: none;
     text-decoration: none;
-}
-
-/***********/
-/* HEADER */
-/**********/
-
-header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #eaecf0;
-    padding: 18px 10%;
-    max-height: 160px;
-    gap: 16px;
-    position: sticky;
-    top: 0;
-    background-color: #FFFFFF;
-}
-
-.logo > a {
-    font-size: 20px;
-    font-weight: 600;
     color: #101828;
-    font-family: 'Abril Fatface', cursive;
-}
-
-/*******/
-/* NAV */
-/******/
-
-nav {
-    margin: auto;
-    padding: 12px;
-}
-
-nav > a {
-    margin-left: 10px;
-    color: #344054;
-}
-
-/*******************/
-/* HEADER BUTTONS */
-/******************/
-
-.buttons > a, .card > a {
-    padding: 10px 10px;
-    margin-left: 8px;
-    border-radius: 8px;
-}
-
-.logout {
-    border: 1px solid #d0d5dd;
-    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-    color: #344054;
-}
-
-.account {
-    color: #175cd3;
-    background-color: #eff8ff;
-    border: none;
-    font-weight: 500;
 }
 
 img {
-    max-width: 500px;
+    width: 16px;
+    height: 16px;
 }
+
+/* BUTTONS & LINKS */
+
+.white, .lightBlue, .blue, .red {
+    padding: 10px 16px;
+    margin-left: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.white {
+    border: 1px solid #d0d5dd;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    color: #344054;
+    font-size: 14px;
+}
+
+.lightBlue {
+    background-color: #eff8ff;
+    border: none;
+    gap: 8px;
+    border-radius: 40px;
+    padding: 8px 10px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.lightBlue > p {
+    color: #175cd3;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.blue {
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+    background-color: #1570EF;
+}
+
+.red {
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+    background-color: #D92D20;
+}
+
+.leftButton {
+    margin-top: 16px;
+    margin-left: auto;
+}
+
+.blueLink {
+    font-size: 14px;
+    color: #1570ef;
+}
+
+/* TITLES & LABELS */
 
 h1 {
     font-weight: 500;
@@ -89,20 +89,6 @@ h2 {
     font-weight: 400;
 }
 
-.content {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-fieldset {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid #eaecf0;
-    margin-bottom: 20px;
-}
-
 legend {
     font-size: 18px;
     color: #101828;
@@ -110,16 +96,72 @@ legend {
     margin: 20px 0;
 }
 
-.label {
-    display: flex;
-    flex-direction: column;
-}
-
-label, .label, h3 {
+label, h3 {
     font-size: 14px;
     color: #344054;
     font-weight: 500;
     margin-bottom: 8px;
+}
+
+.midText {
+    color: #344054;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+/* HEADER */
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #eaecf0;
+    padding: 8px 8px;
+    max-height: 160px;
+    position: sticky;
+    top: 0;
+    background-color: #FFFFFF;
+}
+
+.logo > a {
+    font-size: 20px;
+    font-weight: 600;
+    color: #101828;
+    font-family: 'Abril Fatface', cursive;
+}
+
+/* NAV BAR */
+
+nav {
+    margin: auto;
+    padding: 12px;
+}
+
+nav > a {
+    margin-left: 10px;
+    color: #344054;
+}
+
+/* FORMS */
+
+.content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.inputField {
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #eaecf0;
+    margin-bottom: 20px;
 }
 
 input, select, textarea {
@@ -144,17 +186,7 @@ input:focus, select:focus, textarea:focus {
     gap: 12px;
 }
 
-.submit > a {
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 1px solid #D0D5DD;
-    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-    color: #344054;
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.submit > button, .validate, .card > a {
+.validate, .card > a {
     padding: 10px 16px;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 8px;
@@ -162,10 +194,6 @@ input:focus, select:focus, textarea:focus {
     font-size: 14px;
     color: #FFFFFF;
     background-color: #1570EF;
-}
-
-p {
-    color: #101828;
 }
 
 p > a {
@@ -204,6 +232,15 @@ p > a {
     font-size: 16px;
 }
 
+.filtreForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.filtreForm > fieldset {
+    border: none;
+}
+
 /*CARDS*/
 
 .card {
@@ -214,6 +251,8 @@ p > a {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin-bottom: 24px;
+    width: 360px;
 }
 
 .seller {
@@ -248,10 +287,15 @@ p > a {
     margin-left: 8px;
 }
 
-.description {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #667085;
+.closed {
+    display: inline;
+    color: #B42318;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 16px;
+    background-color: #FEF3F2;
+    margin-left: 8px;
 }
 
 .info {
@@ -265,7 +309,68 @@ p > a {
     width: 100%;
 }
 
+/* PROFILE */
+
+.pFlex {
+    display: flex;
+    gap: 8px;
+}
+
+.field {
+    display: flex;
+    border-bottom: 1px solid #eaecf0;
+    gap: 8px;
+    padding: 16px 0;
+}
+
+.profileContent {
+    margin: 24px auto;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* CONNECTION */
+
+.connection {
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5% auto;
+}
+
+.connectionButton {
+    width: 100%;
+}
+
+.connectionForm {
+    display: flex;
+    flex-direction: column;
+    margin: 32px 0;
+    gap: 8px;
+}
+
+/* ADMIN */
+
+.adminContent {
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5% auto;
+    gap: 16px;
+}
+
+/* MEDIA QUERIES */
+
 @media screen and (min-width: 1024px) {
+    .filtreForm {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
     .content {
         padding: 0;
     }
@@ -281,6 +386,7 @@ p > a {
     header {
         height: 80px;
         justify-content: space-between;
+        padding: 18px 80px;
     }
 
     fieldset {
@@ -298,6 +404,13 @@ p > a {
 
     .search {
         width: auto;
+    }
+
+    .items {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 24px;
     }
 }
 

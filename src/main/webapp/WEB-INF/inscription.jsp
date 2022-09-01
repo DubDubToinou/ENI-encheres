@@ -7,7 +7,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Inscription</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/modifierProfil.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
 </head>
 <body>
 <jsp:include page="header.jsp" />
