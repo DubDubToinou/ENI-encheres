@@ -17,11 +17,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     private static final String SELECT_PROFIL_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit FROM UTILISATEURS WHERE pseudo = ?";
     private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, credit = ? WHERE no_utilisateur = ?";
+    private static final String UPDATE_MOT_DE_PASSE = "UPDATE UTILISATEURS SET mot_de_passe = ? WHERE pseudo = ?";
+    private static final String UPDATE_CREDIT = "UPDATE UTILISATEURS SET credit = ? WHERE pseudo = ?";
+
     private static final String DELETE = "DELETE FROM UTILISATEURS WHERE pseudo = ?";
     private static final String SELECT_PSEUDO_EXISTANT = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
     private static final String SELECT_EMAIL_EXISTANT = "SELECT email FROM UTILISATEURS WHERE email = ?";
     private static final String SELECT_MOT_DE_PASSE = "SELECT mot_de_passe FROM UTILISATEURS WHERE (pseudo = ? or email= ?)";
-    private static final String UPDATE_MOT_DE_PASSE = "UPDATE UTILISATEURS SET mot_de_passe = ? WHERE pseudo = ?";
+
 //TODO
     @Override
     public Utilisateur selectByPseudo(String pseudo) throws BusinessException {
@@ -217,6 +220,30 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             System.out.println(utilisateur);
             PreparedStatement stmt = cnx.prepareStatement(UPDATE_MOT_DE_PASSE);
             stmt.setString(1, utilisateur.getMotDePasse());
+            stmt.setString(2, utilisateur.getPseudo());
+            stmt.execute();
+
+            stmt.close();
+
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UPDATE_UTILISATEUR_ECHEC);
+            throw businessException;
+        }
+    }
+
+    public void updateCredit(Utilisateur utilisateur) throws BusinessException{
+
+        if(utilisateur.getNoUtilisateur() == null || utilisateur.getNoUtilisateur() == 0){
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.UTILISATEUR_INEXISTANT);
+            throw businessException;
+        }
+
+        try(Connection cnx = ConnectionProvider.getConnection()){
+            PreparedStatement stmt = cnx.prepareStatement(UPDATE_CREDIT);
+            stmt.setInt(1, utilisateur.getCredit());
             stmt.setString(2, utilisateur.getPseudo());
             stmt.execute();
 

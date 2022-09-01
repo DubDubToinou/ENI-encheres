@@ -16,6 +16,9 @@
 <main>
     <div class="content">
         <h1>Liste des enchères</h1>
+        <c:if test="${!empty succes}">
+            <p>${succes}</p>
+        </c:if>
         <form class="searchBar" action="${pageContext.request.contextPath}/accueil" method="post">
             <input type="hidden" name="form" value="form1"/>
             <div class="search">
