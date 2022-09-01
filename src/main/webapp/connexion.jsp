@@ -33,12 +33,12 @@
         </div>
     </c:if>
 
-    <c:if test="${connecte}">
-        <p>Vous êtes ${ utilisateur.prenom } ${ utilisateur.nom } et vous êtes connecte !</p>
-    </c:if>
-    <c:if test="${!connecte}">
-        <p>Vous êtes ${ utilisateur.prenom } ${ utilisateur.nom } et vous êtes deconnecte !</p>
-    </c:if>
+   <%--    <c:if test="${connecte}">
+           <p>Vous êtes ${ utilisateur.prenom } ${ utilisateur.nom } et vous êtes connecte !</p>
+       </c:if>
+       <c:if test="${!connecte}">
+           <p>Vous êtes ${ utilisateur.prenom } ${ utilisateur.nom } et vous êtes deconnecte !</p>
+       </c:if> --%>
 
     <form action="${pageContext.request.contextPath}/connexion" method="post">
         <label for="login">Identifiant</label>
