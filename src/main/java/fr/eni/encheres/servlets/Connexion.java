@@ -23,7 +23,7 @@ public class Connexion extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if (request.getServletPath().equals("/connexion")) {
-            request.getRequestDispatcher("/connexion.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
         } else if (request.getServletPath().equals("/deconnexion")) {
             HttpSession session = request.getSession();
             session.removeAttribute("connecte");
@@ -42,7 +42,7 @@ public class Connexion extends HttpServlet {
             utilisateur = connecterUtilisateur(request, listeCodesErreur);
 
         if(listeCodesErreur.size()>0) {
-            request.getRequestDispatcher("/connexion.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request,response);
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("utilisateur", utilisateur);

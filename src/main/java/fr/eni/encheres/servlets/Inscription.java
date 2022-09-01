@@ -16,7 +16,7 @@ public class Inscription extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-            request.getRequestDispatcher("/inscription.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
 
     }
 
@@ -27,7 +27,7 @@ public class Inscription extends HttpServlet {
 
         Utilisateur utilisateur = creerUtilisateur(request, listeCodesErreur);
         if(listeCodesErreur.size() > 0) {
-            request.getRequestDispatcher("/inscription.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request,response);
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("utilisateur", utilisateur);
