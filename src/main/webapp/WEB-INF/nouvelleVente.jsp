@@ -22,6 +22,7 @@
         </ul>
     </div>
 </c:if>
+
 <main>
     <div class="content">
         <h1>Mettre un article en vente</h1>
@@ -30,7 +31,7 @@
                 method="post"
         >
             <fieldset>
-                <div class="label">
+                <div class="inputField">
                     <label for="titre">Titre</label>
                     <input
                             type="text"
@@ -40,15 +41,15 @@
                             required
                     />
                 </div>
-                <div class="label">
+                <div class="inputField">
                     <label for="categorie">Catégorie</label>
                     <select name="categorie" id="categorie">
                         <c:forEach var="c" items="${categories}">
-                            <option value="${c.libelle}"><c:out value="${c.libelle}" /></option>
+                            <option value="${c.libelle}"><c:out value="${c.libelle}"/></option>
                         </c:forEach>
                     </select>
                 </div>
-                <div class="label">
+                <div class="inputField">
                     <label for="prixInitial">Mise à prix</label>
                     <input
                             type="number"
@@ -59,7 +60,7 @@
                 </div>
             </fieldset>
             <fieldset>
-                <div class="label">
+                <div class="inputField">
                     <label for="description">Description</label>
                     <textarea
                             name="description"
@@ -72,7 +73,7 @@
                 </div>
             </fieldset>
             <fieldset>
-                <div class="label">
+                <div class="inputField">
                     <label for="dateDebut">Début de l'enchère</label>
                     <input
                             type="datetime-local"
@@ -81,14 +82,14 @@
                             required
                     />
                 </div>
-                <div class="label">
+                <div class="inputField">
                     <label for="dateFin">Fin de l'enchère</label>
                     <input type="datetime-local" name="date_fin_encheres" id="dateFin" required/>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Retrait</legend>
-                <div class="label">
+                <div class="inputField">
                     <label for="rue">Rue</label>
                     <input
                             type="text"
@@ -98,7 +99,7 @@
                             placeholder="${ sessionScope.utilisateur.rue }"
                     />
                 </div>
-                <div class="label">
+                <div class="inputField">
                     <label for="codePostal">Code Postal</label>
                     <input
                             type="text"
@@ -108,7 +109,7 @@
                             placeholder="${sessionScope.utilisateur.codePostal}"
                     />
                 </div>
-                <div class="label">
+                <div class="inputField">
                     <label for="ville">Ville</label>
                     <input
                             type="text"
@@ -118,11 +119,10 @@
                             placeholder="${ sessionScope.utilisateur.ville }"
                     />
                 </div>
-                <p>* Si tous les champs ne sont pas remplis, votre adresse sera défini comme adresse de retrait.</p>
             </fieldset>
             <div class="submit">
-                <a href="">Annuler</a>
-                <button type="submit">Enregistrer</button>
+                <a class="white" href="">Annuler</a>
+                <button class="blue" type="submit">Enregistrer</button>
             </div>
         </form>
     </div>

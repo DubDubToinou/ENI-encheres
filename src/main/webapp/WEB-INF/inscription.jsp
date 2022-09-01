@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
 </head>
 <body>
-<jsp:include page="header.jsp" />
+
+<jsp:include page="header.jsp"/>
+
 <main>
     <div class="content">
         <h1>Créer un compte</h1>
@@ -38,17 +40,17 @@
             <div class="fieldsets">
                 <fieldset>
                     <legend>Vos informations</legend>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="pseudo">Pseudo</label>
                         <input type="text" name="pseudo" id="pseudo" pattern="[A-Za-z0-9]{1,30}"
                                value="${!empty listeCodesErreur?param.pseudo:""}" required/>
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="prenom">Prénom</label>
                         <input type="text" name="prenom" id="prenom" maxlength="30"
                                value="${!empty listeCodesErreur?param.prenom:""}" required/>
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="nom">Nom</label>
                         <input type="text" name="nom" id="nom" maxlength="30"
                                value="${!empty listeCodesErreur?param.nom:""}"
@@ -56,12 +58,12 @@
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="telephone">Téléphone</label>
                         <input type="tel" name="telephone" id="telephone"
                                value="${!empty listeCodesErreur?param.telephone:""}"/>
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" value="${!empty listeCodesErreur?param.email:""}"
                                required/>
@@ -69,18 +71,18 @@
                 </fieldset>
                 <fieldset>
                     <legend>Votre adresse</legend>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="rue">Rue</label>
                         <input type="text" name="rue" id="rue" maxlength="30"
                                value="${!empty listeCodesErreur?param.rue:""}"
                                required/>
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="code_postal">Code postal</label>
                         <input type="text" name="code_postal" id="code_postal" pattern="[A-Za-z0-9]{1,10}"
                                value="${!empty listeCodesErreur?param.code_postal:""}" required/>
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="ville">Ville</label>
                         <input type="text" name="ville" id="ville" maxlength="30"
                                value="${!empty listeCodesErreur?param.ville:""}" required/>
@@ -88,12 +90,12 @@
                 </fieldset>
                 <fieldset>
                     <legend>Votre mot de passe</legend>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="mot_de_passe">Mot de passe</label>
                         <input type="password" name="mot_de_passe" id="mot_de_passe" minlength="8" maxlength="30"
                                value="${!empty listeCodesErreur?param.mot_de_passe:""}" required/>
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="confirmation">Confirmation</label>
                         <input type="password" name="confirmation" id="confirmation" minlength="8" maxlength="30"
                                value="${!empty listeCodesErreur?param.confirmation:""}" required/>
@@ -101,8 +103,8 @@
                 </fieldset>
             </div>
             <div class="submit">
-                <a href="${pageContext.request.contextPath}/accueil">Annuler</a>
-                <button type="submit">S'inscrire</button>
+                <a class="white" href="${pageContext.request.contextPath}/accueil">Annuler</a>
+                <button class="blue" type="submit">S'inscrire</button>
             </div>
         </form>
         <p>Vous avez déjà un compte ? <a href="${pageContext.request.contextPath}/connexion">Connectez-vous</a></p>

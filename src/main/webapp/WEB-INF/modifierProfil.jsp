@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
 </head>
 <body>
+
 <jsp:include page="header.jsp"/>
+
 <main>
     <div class="content">
         <h1>Modifier mon compte</h1>
@@ -30,13 +32,14 @@
             <div class="fieldsets">
                 <fieldset>
                     <legend>Vos informations</legend>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="pseudo">Pseudo</label>
                         <input type="hidden" name="noUtilisateur" value="${sessionScope.utilisateur.noUtilisateur}">
-                        <input type="text" name="pseudo" id="pseudo" pattern="[A-Za-z0-9]{1,30}" value="${sessionScope.utilisateur.pseudo}"
+                        <input type="text" name="pseudo" id="pseudo" pattern="[A-Za-z0-9]{1,30}"
+                               value="${sessionScope.utilisateur.pseudo}"
                                placeholder=${sessionScope.utilisateur.pseudo} required/>
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="firstname">Prénom</label>
                         <input
                                 type="text"
@@ -48,7 +51,7 @@
                                         required
                         />
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="name">Nom</label>
                         <input
                                 type="text"
@@ -63,12 +66,12 @@
                 </fieldset>
                 <fieldset>
                     <legend>Vous contacter</legend>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="phone">Téléphone</label>
                         <input type="tel" name="telephone" id="phone" value="${sessionScope.utilisateur.telephone}"
                                placeholder=${sessionScope.utilisateur.telephone}/>
                     </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" value="${sessionScope.utilisateur.email}"
                                placeholder=${sessionScope.utilisateur.email} required>
@@ -76,7 +79,7 @@
                 </fieldset>
                 <fieldset>
                     <legend>Votre adresse</legend>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="street">Rue</label>
                         <input
                                 type="text"
@@ -88,19 +91,7 @@
                                         required
                         />
                     </div>
-                    <div class="label">
-                        <label for="city">Ville</label>
-                        <input
-                                type="text"
-                                name="ville"
-                                id="city"
-                                maxlength="30"
-                                value="${sessionScope.utilisateur.ville}"
-                                placeholder=${sessionScope.utilisateur.ville}
-                                        required
-                        />
-                    </div>
-                    <div class="label">
+                    <div class="inputField">
                         <label for="zip">Code postal</label>
                         <input
                                 type="text"
@@ -112,16 +103,29 @@
                                         required
                         />
                     </div>
+                    <div class="inputField">
+                        <label for="city">Ville</label>
+                        <input
+                                type="text"
+                                name="ville"
+                                id="city"
+                                maxlength="30"
+                                value="${sessionScope.utilisateur.ville}"
+                                placeholder=${sessionScope.utilisateur.ville}
+                                        required
+                        />
+                    </div>
                 </fieldset>
-                <div class="label">
-                    <p class="label">Crédit</p>
-                    <p>${sessionScope.utilisateur.credit} Crédits</p>
+                <div class="inputField">
+                    <h3>Crédit</h3>
+                    <p>${sessionScope.utilisateur.credit} CRT</p>
                 </div>
             </div>
             <div class="submit">
-                <a href="${pageContext.request.contextPath}/ModifierMotDePasse">Modifier mon mot de passe</a>
-                <a href="${pageContext.request.contextPath}/SupprimerProfil">Supprimer mon compte</a>
-                <button type="submit">Enregistrer</button>
+                <a class="white" href="${pageContext.request.contextPath}/ModifierMotDePasse">Modifier mon mot de
+                    passe</a>
+                <a class="red" href="${pageContext.request.contextPath}/SupprimerProfil">Supprimer mon compte</a>
+                <button class="blue" type="submit">Enregistrer</button>
             </div>
         </form>
     </div>
