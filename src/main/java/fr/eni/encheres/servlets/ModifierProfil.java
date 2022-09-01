@@ -26,23 +26,21 @@ public class ModifierProfil extends HttpServlet {
 
         List<Integer> listeCodesErreur=new ArrayList<>();
 
-        Utilisateur utilisateur = ModifierUtilisateur(request, listeCodesErreur);
+        Utilisateur utilisateur = null;
+        utilisateur = ModifierUtilisateur(request, response, listeCodesErreur);
 
-        if(listeCodesErreur.size() > 0) {
-            request.getRequestDispatcher("/WEB-INF/modifierProfil.jsp").forward(request,response);
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("utilisateur", utilisateur);
-            boolean connecte = true;
-            session.setAttribute("connecte", connecte);
-            session.setAttribute("succes","Profil modifié avec succès");
-            response.sendRedirect(request.getContextPath()+"/accueil");
-        }
+        HttpSession session = request.getSession();
+        session.setAttribute("utilisateur", utilisateur);
+        boolean connecte = true;
+        session.setAttribute("connecte", connecte);
+        session.setAttribute("succes","Profil modifié avec succès");
+        response.sendRedirect(request.getContextPath()+"/accueil");
+
 
 
     }
 
-    private Utilisateur ModifierUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
+    private Utilisateur ModifierUtilisateur(HttpServletRequest request, HttpServletResponse response, List<Integer> listeCodesErreur) throws ServletException, IOException {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
         HttpSession session = request.getSession();
         Utilisateur utilisateurSession = (Utilisateur) session.getAttribute("utilisateur");
@@ -78,8 +76,9 @@ public class ModifierProfil extends HttpServlet {
                 }
 
             } catch (BusinessException ex) {
-                ex.printStackTrace();
-                request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
+                listeCodesErreur = ex.getListeCodesErreur();
+                request.setAttribute("listeCodesErreur", listeCodesErreur);
+                request.getRequestDispatcher("/WEB-INF/modifierProfil.jsp").forward(request,response);
             }
         }
         return utilisateur;

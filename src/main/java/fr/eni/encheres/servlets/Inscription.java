@@ -25,8 +25,15 @@ public class Inscription extends HttpServlet {
 
         List<Integer> listeCodesErreur=new ArrayList<>();
 
-        Utilisateur utilisateur = creerUtilisateur(request, listeCodesErreur);
+        Utilisateur utilisateur = null;
+        try {
+            utilisateur = creerUtilisateur(request, listeCodesErreur);
+        } catch (BusinessException ex) {
+            listeCodesErreur = ex.getListeCodesErreur();
+        }
+
         if(listeCodesErreur.size() > 0) {
+            request.setAttribute("listeCodesErreur", listeCodesErreur);
             request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request,response);
         } else {
             HttpSession session = request.getSession();
@@ -38,7 +45,7 @@ public class Inscription extends HttpServlet {
         }
     }
 
-    private Utilisateur creerUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {
+    private Utilisateur creerUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
         Utilisateur utilisateur = null;
 
@@ -61,12 +68,9 @@ public class Inscription extends HttpServlet {
             utilisateur.setCredit(0);
 
             try {
-
                 utilisateurManager.ajouterUser(utilisateur);
-
             } catch (BusinessException ex) {
-                ex.printStackTrace();
-                request.setAttribute("listeCodesErreur", ex.getListeCodesErreur());
+                throw ex;
             }
 
         }
