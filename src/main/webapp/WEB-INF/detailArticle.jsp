@@ -52,6 +52,9 @@
         <p>Catégorie : <c:out value="${article.categorieArticle.libelle}"/></p>
         <p>Mise à prix : <c:out value="${article.miseAPrix}"/></p>
         <p>Prix de vente (meilleure offre) : <c:out value="${article.prixVente}"/></p>
+        <fmt:parseDate value="${article.dateDebutEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateDebutEnchere" type="both" />
+
+        <p>Début de l'enchère : <fmt:formatDate pattern="dd/MM/yyyy à HH:mm" value="${ dateDebutEnchere }" /></p>
 
         <fmt:parseDate value="${article.dateFinEncheres}" pattern="yyyy-MM-dd'T'HH:mm" var="dateFinEnchere" type="both" />
 
