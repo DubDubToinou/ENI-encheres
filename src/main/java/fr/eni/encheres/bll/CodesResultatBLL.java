@@ -13,6 +13,7 @@ public abstract class CodesResultatBLL {
     public  static final int REGLE_USER_CODEPOSTAL_ERREUR = 20060;
     public  static final int REGLE_USER_VILLE_ERREUR = 20070;
     public  static final int REGLE_USER_MOTDEPASSE_ERREUR = 20080;
+    public static final int REGLE_USER_CREDIT_ERREUR = 20090;
 
     // #### Code Erreur validateConnexion ####
     public static final int REGLE_USER_TEST_MOTDEPASSE_CONNEXION_USER_LOGIN_ERREUR = 20100;

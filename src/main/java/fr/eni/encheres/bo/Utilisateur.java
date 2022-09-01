@@ -60,6 +60,11 @@ public class Utilisateur {
         this.credit = credit;
     }
 
+    public Utilisateur(String pseudo, int credit) {
+        this.pseudo = pseudo;
+        this.credit = credit;
+    }
+
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse) {
         this.pseudo = pseudo;
         this.nom = nom;

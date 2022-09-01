@@ -23,6 +23,7 @@
       <p>Mes Credits : <c:out value="${sessionScope.utilisateur.credit}"/> </p>
       <a class="logout" href="${pageContext.request.contextPath}/NouvelleVente">Vendre un Article</a>
       <a class="logout" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.pseudo}">Mon Profil</a>
+      <a class="logout" href="${pageContext.request.contextPath}/Boutique">Boutique</a>
       <a class="account" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
     </div>
   </c:if>

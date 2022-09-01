@@ -34,7 +34,6 @@ public class UtilisateurManager {
     //Methode mise à jour des utilisateurs
     public void updateUserWithCheck(Utilisateur utilisateur) throws BusinessException{
         BusinessException businessException = new BusinessException();
-        //this.validateUserForUpdate(utilisateur , businessException);
 
         if (!businessException.hasErreurs()) {
             this.utilisateurDAO.update(utilisateur);
@@ -69,6 +68,14 @@ public class UtilisateurManager {
         this.validateMotDePasseForUpdateMotDePasse(utilisateur, businessException);
         if (!businessException.hasErreurs()){
             this.utilisateurDAO.updateMotDePasse(utilisateur);
+        }
+    }
+
+    public void updateCreditUser(Utilisateur utilisateur) throws BusinessException{
+        BusinessException businessException = new BusinessException();
+        this.validateCreditForUser(utilisateur, businessException);
+        if(!businessException.hasErreurs()){
+            this.utilisateurDAO.updateCredit(utilisateur);
         }
     }
 
@@ -107,6 +114,12 @@ public class UtilisateurManager {
 
     public Utilisateur recupererProfilParPseudo(String pseudo) throws BusinessException {
         return this.utilisateurDAO.selectProfileByPseudo(pseudo);
+    }
+
+    public void validateCreditForUser(Utilisateur utilisateur, BusinessException businessException) throws BusinessException{
+        if (utilisateur.getCredit() > 15000 || utilisateur.getCredit() < 0){
+            businessException.ajouterErreur(CodesResultatBLL.REGLE_USER_CREDIT_ERREUR);
+        }
     }
 
     //Methode qui valide les données avec insert / update
