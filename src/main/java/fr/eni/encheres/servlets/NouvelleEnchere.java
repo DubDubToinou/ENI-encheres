@@ -66,7 +66,8 @@ public class NouvelleEnchere extends HttpServlet {
             request.setAttribute("listeCodesErreur", listeCodesErreur);
             this.doGet(request, response);
         } else {
-            request.setAttribute("succes","Enchère ajoutée avec succès");
+            HttpSession session = request.getSession();
+            session.setAttribute("succes","Enchère ajoutée avec succès");
             response.sendRedirect(request.getContextPath()+"/accueil");
         }
     }

@@ -26,6 +26,12 @@
   </c:if>
 
   <div class="profil">
+
+    <c:if test="${!empty succes}">
+      <p>${succes}</p>
+      <c:remove var="succes" scope="session" />
+    </c:if>
+
     <div>
       <h1><c:out value="${utilisateurAAfficher.pseudo}" /> </h1> <!-- Affichage du pseudo -->
       <p>Prenom  : <c:out value="${utilisateurAAfficher.prenom}" /> </p>     <!--Affichage du Prenom -->
