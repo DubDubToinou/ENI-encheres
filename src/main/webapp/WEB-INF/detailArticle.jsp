@@ -131,5 +131,6 @@
         </c:if>
     </div>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

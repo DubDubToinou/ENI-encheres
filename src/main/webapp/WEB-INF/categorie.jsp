@@ -27,5 +27,6 @@
         <a class="blue" href="">Ajouter une Catégorie</a>
     </div>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

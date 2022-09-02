@@ -46,5 +46,6 @@
     <p>Je ne souhaite pas supprimer mon compte ! <a href="${pageContext.request.contextPath}/accueil">Retour à
         l'accueil</a></p>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

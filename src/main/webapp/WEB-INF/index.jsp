@@ -138,5 +138,6 @@
 </main>
 <script src="${pageContext.request.contextPath}/script/script.js"/>
 "></script>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

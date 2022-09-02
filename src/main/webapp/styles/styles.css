@@ -202,6 +202,25 @@ nav > a {
     color: #344054;
 }
 
+/* FOOTER */
+
+footer {
+    background: #F9FAFB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    position: static;
+    bottom: 0;
+    width: 100%;
+}
+
+footer>p {
+    font-size: 14px;
+    color: #98A2B3;
+}
+
 /* FORMS */
 
 .content {

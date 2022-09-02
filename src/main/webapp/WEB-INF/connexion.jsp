@@ -47,5 +47,6 @@
         <p>Vous n'avez pas de compte ? <a href="${pageContext.request.contextPath}/inscription">Inscrivez-vous</a></p>
     </div>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

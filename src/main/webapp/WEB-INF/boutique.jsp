@@ -46,5 +46,6 @@
         <p>Retourner à l'accueil : <a href="${pageContext.request.contextPath}/MonProfil">retour à l'accueil</a></p>
     </div>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

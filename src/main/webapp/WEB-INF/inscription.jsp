@@ -110,5 +110,6 @@
         <p>Vous avez déjà un compte ? <a href="${pageContext.request.contextPath}/connexion">Connectez-vous</a></p>
     </div>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>
