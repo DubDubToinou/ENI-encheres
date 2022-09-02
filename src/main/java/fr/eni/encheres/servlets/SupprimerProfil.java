@@ -32,7 +32,7 @@ public class SupprimerProfil extends HttpServlet {
 
             removeUser(request, listeCodesErreur);
 
-            request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request,response);
+            //request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request,response);
 
         } catch (BusinessException e) {
             throw new RuntimeException(e);
@@ -46,7 +46,8 @@ public class SupprimerProfil extends HttpServlet {
             HttpSession session = request.getSession();
             session.removeAttribute("connecte");
             session.removeAttribute("utilisateur");
-            request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+            session.setAttribute("succes" ,"Utilisateur supprimer avec succes");
+            response.sendRedirect(request.getContextPath()+"/accueil");
         }
 
     }

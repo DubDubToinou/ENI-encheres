@@ -43,7 +43,7 @@
             </div>
         </fieldset>
         <div class="submit">
-            <a class="white" href="${pageContext.request.contextPath}/MonProfil">Annuler</a>
+            <a class="white" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.noUtilisateur}">Annuler</a>
             <button class="blue" type="submit">Enregistrer</button>
         </div>
     </form>
