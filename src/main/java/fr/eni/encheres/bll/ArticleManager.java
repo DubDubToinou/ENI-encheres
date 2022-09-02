@@ -2,12 +2,10 @@ package fr.eni.encheres.bll;
 
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bo.Articles;
-import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.DAOFactory;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

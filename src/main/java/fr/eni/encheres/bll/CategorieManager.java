@@ -4,7 +4,6 @@ import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.dal.CategorieDAO;
 import fr.eni.encheres.dal.DAOFactory;
-import fr.eni.encheres.dal.UtilisateurDAO;
 
 import java.util.List;
 

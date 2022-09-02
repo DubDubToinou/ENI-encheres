@@ -25,8 +25,8 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
                     "INNER JOIN ENCHERES e on a.no_article = e.no_article " +
                     "INNER JOIN Utilisateurs u on a.no_utilisateur = u.no_utilisateur " +
                     "WHERE e.no_utilisateur = ? AND a.date_fin_encheres < GETDATE() AND e.montant_enchere = (SELECT MAX(montant_enchere) " +
-                    "FROM ENCHERES e2 " +
-                    "WHERE e2.no_article = a.no_article)";
+                            "FROM ENCHERES e2 " +
+                            "WHERE e2.no_article = a.no_article)";
     private static final String SELECT_ENCHERES_BY_ARTICLE = "SELECT u.pseudo, e.date_enchere, e.montant_enchere " +
             "FROM Encheres e " +
             "LEFT JOIN Utilisateurs u " +
@@ -63,8 +63,8 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
             "INNER JOIN Articles a on a.no_article = e.no_article " +
             "INNER JOIN Utilisateurs u on e.no_utilisateur = u.no_utilisateur " +
             "WHERE e.no_article = ? AND a.date_fin_encheres > GETDATE() AND e.montant_enchere = (SELECT MAX(montant_enchere) "+
-            "FROM ENCHERES e2 "+
-            "WHERE e2.no_article = a.no_article)";
+                                                                                                "FROM ENCHERES e2 "+
+                                                                                                "WHERE e2.no_article = a.no_article)";
 
 
     @Override
