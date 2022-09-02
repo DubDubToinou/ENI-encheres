@@ -14,14 +14,13 @@
 <jsp:include page="header.jsp"/>
 
 <c:if test="${!empty listeCodesErreur}">
-    <div>
-        <strong>Erreur!</strong>
-        <ul>
-            <c:forEach var="code" items="${listeCodesErreur}">
-                <li>${LecteurMessage.getMessageErreur(code)}</li>
-            </c:forEach>
-        </ul>
-    </div>
+    <c:forEach var="code" items="${listeCodesErreur}">
+        <div class="error">
+            <p class="errorLabel">Erreur</p>
+            <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
+        </div>
+        <br>
+    </c:forEach>
 </c:if>
 
 <main>
@@ -56,7 +55,7 @@
         <c:if test="${sessionScope.utilisateur.pseudo == utilisateurAAfficher.pseudo}">
             <div class="pFlex">
                 <div class="lightBlue">
-                    <img src="../img/coin.svg">
+                    <img src="${pageContext.request.contextPath}/img/coin.svg">
                     <p><c:out value="${utilisateurAAfficher.credit}"/> CRT</p> <!-- Affichage des crédit -->
                 </div>
                 <a class="blue leftButton" href="${pageContext.request.contextPath}/ModifierProfil">Modifier mon
@@ -66,5 +65,6 @@
 
     </div>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

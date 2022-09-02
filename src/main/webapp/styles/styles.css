@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
 
 * {
     margin: 0;
@@ -12,10 +12,68 @@
     color: #101828;
 }
 
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
 img {
     width: 16px;
     height: 16px;
 }
+
+/* SUCCESS AND ERROR MESSAGES */
+
+.success {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px 4px 4px;
+    gap: 12px;
+    background: #ECFDF3;
+    border-radius: 16px;
+    margin: 4px auto 4px 0;
+}
+
+.successLabel {
+    padding: 2px 10px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #027A48;
+}
+
+.successMessage {
+    font-weight: 500;
+    font-size: 14px;
+    color: #027A48;
+}
+
+.error {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px 4px 4px;
+    gap: 12px;
+    background: #FEF3F2;
+    border-radius: 16px;
+    margin: 4px auto 4px 0;
+}
+
+.errorLabel {
+    padding: 2px 10px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #B42318;
+}
+
+.errorMessage {
+    font-weight: 500;
+    font-size: 14px;
+    color: #B42318;
+}
+
 
 /* BUTTONS & LINKS */
 
@@ -61,8 +119,10 @@ img {
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     font-size: 14px;
     font-weight: 500;
-    color: #FFFFFF;
-    background-color: #D92D20;
+    color: #B42318;
+    background-color: #FEE4E2;
+    padding: 12px 20px;
+    border-radius: 8px;
 }
 
 .leftButton {
@@ -128,7 +188,7 @@ header {
     font-size: 20px;
     font-weight: 600;
     color: #101828;
-    font-family: 'Abril Fatface', cursive;
+    font-family: 'Hammersmith One', sans-serif;
 }
 
 .cart {
@@ -145,6 +205,26 @@ nav {
 nav > a {
     margin-left: 10px;
     color: #344054;
+}
+
+/* FOOTER */
+
+footer {
+    background: #F9FAFB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-top: 24px;
+}
+
+footer>p {
+    font-size: 14px;
+    color: #98A2B3;
 }
 
 /* FORMS */
@@ -323,7 +403,7 @@ p > a {
 .field {
     display: flex;
     border-bottom: 1px solid #eaecf0;
-    gap: 8px;
+    gap: 24px;
     padding: 16px 0;
 }
 
@@ -365,6 +445,10 @@ p > a {
     align-items: center;
     margin: 5% auto;
     gap: 16px;
+}
+
+.leftDiv {
+    margin-left: auto;
 }
 
 /* MEDIA QUERIES */

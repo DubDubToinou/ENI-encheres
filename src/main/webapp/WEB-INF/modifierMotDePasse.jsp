@@ -17,14 +17,13 @@
     <h1>Modifier votre mot de passe</h1>
 
     <c:if test="${!empty listeCodesErreur}">
-        <div>
-            <strong>Erreur!</strong>
-            <ul>
-                <c:forEach var="code" items="${listeCodesErreur}">
-                    <li>${LecteurMessage.getMessageErreur(code)}</li>
-                </c:forEach>
-            </ul>
-        </div>
+        <c:forEach var="code" items="${listeCodesErreur}">
+            <div class="error">
+                <p class="errorLabel">Erreur</p>
+                <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
+            </div>
+            <br>
+        </c:forEach>
     </c:if>
 
     <form action="${pageContext.request.contextPath}/ModifierMotDePasse" method="post">
@@ -44,11 +43,12 @@
             </div>
         </fieldset>
         <div class="submit">
-            <a class="white" href="${pageContext.request.contextPath}/MonProfil">Annuler</a>
+            <a class="white" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.noUtilisateur}">Annuler</a>
             <button class="blue" type="submit">Enregistrer</button>
         </div>
     </form>
 
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

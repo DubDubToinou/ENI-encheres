@@ -51,7 +51,6 @@ public class Connexion extends HttpServlet {
             session.setAttribute("succes","Bienvenue " + utilisateur.getPseudo());
             response.sendRedirect(request.getContextPath()+"/accueil");
         }
-
     }
 
     private Utilisateur connecterUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) {

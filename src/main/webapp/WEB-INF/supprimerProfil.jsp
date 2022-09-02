@@ -18,14 +18,13 @@
     <h2>Merci de confirmer votre mot de passe pour supprimer votre compte.</h2>
 
     <c:if test="${!empty listeCodesErreur}">
-        <div>
-            <strong>Erreur!</strong>
-            <ul>
-                <c:forEach var="code" items="${listeCodesErreur}">
-                    <li>${LecteurMessage.getMessageErreur(code)}</li>
-                </c:forEach>
-            </ul>
-        </div>
+        <c:forEach var="code" items="${listeCodesErreur}">
+            <div class="error">
+                <p class="errorLabel">Erreur</p>
+                <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
+            </div>
+            <br>
+        </c:forEach>
     </c:if>
 
     <form action="${pageContext.request.contextPath}/SupprimerProfil" method="post">
@@ -47,5 +46,6 @@
     <p>Je ne souhaite pas supprimer mon compte ! <a href="${pageContext.request.contextPath}/accueil">Retour à
         l'accueil</a></p>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>
