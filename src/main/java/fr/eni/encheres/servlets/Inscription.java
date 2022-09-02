@@ -26,26 +26,20 @@ public class Inscription extends HttpServlet {
         List<Integer> listeCodesErreur=new ArrayList<>();
 
         Utilisateur utilisateur = null;
-        try {
-            utilisateur = creerUtilisateur(request, listeCodesErreur);
-        } catch (BusinessException ex) {
-            listeCodesErreur = ex.getListeCodesErreur();
-        }
 
-        if(listeCodesErreur.size() > 0) {
-            request.setAttribute("listeCodesErreur", listeCodesErreur);
-            request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request,response);
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("utilisateur", utilisateur);
-            boolean connecte = true;
-            session.setAttribute("connecte", connecte);
-            session.setAttribute("succes","Inscription réussie ! Bienvenue " + utilisateur.getPseudo());
-            response.sendRedirect(request.getContextPath()+"/accueil");
-        }
+        utilisateur = creerUtilisateur(request, response, listeCodesErreur);
+
+
+        HttpSession session = request.getSession();
+        session.setAttribute("utilisateur", utilisateur);
+        boolean connecte = true;
+        session.setAttribute("connecte", connecte);
+        session.setAttribute("succes","Inscription réussie ! Bienvenue " + utilisateur.getPseudo());
+        response.sendRedirect(request.getContextPath()+"/accueil");
+
     }
 
-    private Utilisateur creerUtilisateur(HttpServletRequest request, List<Integer> listeCodesErreur) throws BusinessException {
+    private Utilisateur creerUtilisateur(HttpServletRequest request, HttpServletResponse response, List<Integer> listeCodesErreur) throws ServletException, IOException {
         UtilisateurManager utilisateurManager = new UtilisateurManager();
         Utilisateur utilisateur = null;
 
@@ -70,7 +64,9 @@ public class Inscription extends HttpServlet {
             try {
                 utilisateurManager.ajouterUser(utilisateur);
             } catch (BusinessException ex) {
-                throw ex;
+                listeCodesErreur = ex.getListeCodesErreur();
+                request.setAttribute("listeCodesErreur", listeCodesErreur);
+                request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request,response);
             }
 
         }
