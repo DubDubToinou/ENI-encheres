@@ -7,23 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
     <title>Administration</title>
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg"/>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <main>
-    <jsp:include page="header.jsp"/>
     <div class="adminContent">
         <h1>Administration</h1>
 
         <c:if test="${!empty listeCodesErreur}">
-            <div>
-                <strong>Erreur!</strong>
-                <ul>
-                    <c:forEach var="code" items="${listeCodesErreur}">
-                        <li>${LecteurMessage.getMessageErreur(code)}</li>
-                    </c:forEach>
-                </ul>
-            </div>
+            <c:forEach var="code" items="${listeCodesErreur}">
+                <div class="error">
+                    <p class="errorLabel">Erreur</p>
+                    <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
+                </div>
+                <br>
+            </c:forEach>
         </c:if>
 
         <div class="buttons">
@@ -34,6 +33,6 @@
         </div>
     </div>
 </main>
-
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

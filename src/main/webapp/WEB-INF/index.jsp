@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Accueil</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg"/>
 </head>
 <body>
 
@@ -19,7 +19,10 @@
         <h1>Liste des enchères</h1>
 
         <c:if test="${!empty succes}">
-            <p>${succes}</p>
+            <div class="success">
+                <p class="successLabel">Bravo</p>
+                <p class="successMessage">${succes}</p>
+            </div>
             <c:remove var="succes" scope="session"/>
         </c:if>
 
@@ -135,5 +138,6 @@
 </main>
 <script src="${pageContext.request.contextPath}/script/script.js"/>
 "></script>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

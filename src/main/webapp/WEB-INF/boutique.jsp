@@ -18,14 +18,13 @@
         <h1>Bienvenue sur la boutique</h1>
 
         <c:if test="${!empty listeCodesErreur}">
-            <div>
-                <strong>Erreur!</strong>
-                <ul>
-                    <c:forEach var="code" items="${listeCodesErreur}">
-                        <li>${LecteurMessage.getMessageErreur(code)}</li>
-                    </c:forEach>
-                </ul>
-            </div>
+            <c:forEach var="code" items="${listeCodesErreur}">
+                <div class="error">
+                    <p class="errorLabel">Erreur</p>
+                    <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
+                </div>
+                <br>
+            </c:forEach>
         </c:if>
 
         <h2>Vous pouvez acheter des crédits</h2>
@@ -47,5 +46,6 @@
         <p>Retourner à l'accueil : <a href="${pageContext.request.contextPath}/MonProfil">retour à l'accueil</a></p>
     </div>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

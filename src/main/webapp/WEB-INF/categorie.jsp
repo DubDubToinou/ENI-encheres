@@ -6,18 +6,20 @@
     <title>Admin | Catégorie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg"/>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <main>
-    <jsp:include page="header.jsp"/>
     <c:forEach var="listeCategorie" items="${listeCategorie}">
         <div class="field">
             <div class="pFlex">
                 <p><c:out value="${listeCategorie.libelle}"/></p>
-                <a class="white" href="">Supprimer</a>
-                <a class="blue"
-                   href="${pageContext.request.contextPath}/ModifierCategorie?libelle=${listeCategorie.libelle}">Modifier</a>
+                <div class="leftDiv">
+                    <a class="white" href="">Supprimer</a>
+                    <a class="blue"
+                       href="${pageContext.request.contextPath}/ModifierCategorie?libelle=${listeCategorie.libelle}">Modifier</a>
+                </div>
             </div>
         </div>
     </c:forEach>
@@ -25,5 +27,6 @@
         <a class="blue" href="">Ajouter une Catégorie</a>
     </div>
 </main>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

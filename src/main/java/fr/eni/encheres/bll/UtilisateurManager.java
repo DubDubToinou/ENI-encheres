@@ -21,13 +21,9 @@ public class UtilisateurManager {
 
 
         if(!businessException.hasErreurs()){
-            try {
                 this.utilisateurDAO.insert(utilisateur);
-
-            } catch(BusinessException ex) {
-                throw businessException;
-            }
-
+        } else {
+            throw businessException;
         }
     }
 
@@ -52,6 +48,8 @@ public class UtilisateurManager {
         this.validateUserForUpdateNewPseudo(utilisateur, businessException);
         if (!businessException.hasErreurs()){
             this.utilisateurDAO.update(utilisateur);
+        } else {
+            throw businessException;
         }
     }
 
@@ -60,6 +58,8 @@ public class UtilisateurManager {
         this.validateUserForUpdateNewEmail(utilisateur,businessException);
         if (!businessException.hasErreurs()){
             this.utilisateurDAO.update(utilisateur);
+        } else {
+            throw businessException;
         }
     }
 
@@ -68,6 +68,8 @@ public class UtilisateurManager {
         this.validateMotDePasseForUpdateMotDePasse(utilisateur, businessException);
         if (!businessException.hasErreurs()){
             this.utilisateurDAO.updateMotDePasse(utilisateur);
+        } else {
+            throw businessException;
         }
     }
 
@@ -76,6 +78,8 @@ public class UtilisateurManager {
         this.validateCreditForUser(utilisateur, businessException);
         if(!businessException.hasErreurs()){
             this.utilisateurDAO.updateCredit(utilisateur);
+        } else {
+            throw businessException;
         }
     }
 

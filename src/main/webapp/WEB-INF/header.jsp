@@ -19,13 +19,13 @@
                 <a href="${pageContext.request.contextPath}/Administration">Admin</a>
             </c:if>
         </nav>
-        <div class="lightBlue">
-            <img src="${pageContext.request.contextPath}/img/coin.svg"/>
-            <p><c:out value="${sessionScope.utilisateur.credit}"/> CRT</p>
-        </div>
         <div class="cart">
             <a href="${pageContext.request.contextPath}/Boutique"><img
                     src="${pageContext.request.contextPath}/img/shopping-cart.svg"></a>
+        </div>
+        <div class="lightBlue">
+            <img src="${pageContext.request.contextPath}/img/coin.svg"/>
+            <p><c:out value="${sessionScope.utilisateur.credit}"/> CRT</p>
         </div>
         <a class="white" href="${pageContext.request.contextPath}/deconnexion">Se Déconnecter</a>
         <a class="blue" href="${pageContext.request.contextPath}/MonProfil?pseudo=${sessionScope.utilisateur.pseudo}">Mon
