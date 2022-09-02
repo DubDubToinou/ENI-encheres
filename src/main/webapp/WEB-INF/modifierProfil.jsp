@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Modifier mon profil</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/styles.css"/>
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.svg"/>
 </head>
 <body>
 
@@ -19,11 +19,12 @@
 
         <c:if test="${!empty listeCodesErreur}">
             <c:forEach var="code" items="${listeCodesErreur}">
-                <div class="error">
-                    <p class="errorLabel">Erreur</p>
-                    <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
+                <div class="pFlex">
+                    <div class="error">
+                        <p class="errorLabel">Erreur</p>
+                        <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
+                    </div>
                 </div>
-                <br>
             </c:forEach>
         </c:if>
 
