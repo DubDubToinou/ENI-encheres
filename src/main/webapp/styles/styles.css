@@ -12,6 +12,11 @@
     color: #101828;
 }
 
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
 img {
     width: 16px;
     height: 16px;
@@ -211,9 +216,10 @@ footer {
     align-items: center;
     gap: 16px;
     padding: 20px;
-    position: static;
+    position: absolute;
     bottom: 0;
     width: 100%;
+    margin-top: 24px;
 }
 
 footer>p {
