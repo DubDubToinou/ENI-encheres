@@ -9,7 +9,7 @@
 <body>
 <header>
     <div class="logo">
-        <a href="${pageContext.request.contextPath}/accueil">Troc Enchère</a>
+        <a href="${pageContext.request.contextPath}/accueil">Troc Market</a>
     </div>
 
     <c:if test="${connecte}">
