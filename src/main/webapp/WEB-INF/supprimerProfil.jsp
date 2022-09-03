@@ -23,7 +23,6 @@
                 <p class="errorLabel">Erreur</p>
                 <p class="errorMessage">${LecteurMessage.getMessageErreur(code)}</p>
             </div>
-            <br>
         </c:forEach>
     </c:if>
 
