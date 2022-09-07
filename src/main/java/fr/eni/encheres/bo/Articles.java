@@ -22,10 +22,13 @@ public class Articles {
     private Retrait lieuRetrait;
     private List<Enchere> encheres = new ArrayList<>();
     private Utilisateur utilisateur;
+    private String test;
 
     //Constructeur vide
     public Articles() {
     }
+
+
 
     public Articles(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres, Integer miseAPrix, Integer prixVente, boolean etatVente, Categorie categorieArticle) {
         this.noArticle = noArticle;
