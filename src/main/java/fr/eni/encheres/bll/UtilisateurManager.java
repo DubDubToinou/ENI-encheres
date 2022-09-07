@@ -83,7 +83,6 @@ public class UtilisateurManager {
         }
     }
 
-
     //Pouvoir se supprimer
     public void removeUser(Utilisateur utilisateur) throws BusinessException {
         utilisateurDAO.delete(utilisateur);
@@ -102,7 +101,6 @@ public class UtilisateurManager {
         }
         return utilisateurRetourne;
     }
-
 
     //Afficher un profil en cliquant sur le pseudo d'un utilisateur.
     public Utilisateur afficherUnProfil(String pseudo) throws BusinessException{

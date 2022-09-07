@@ -22,7 +22,6 @@ public class Articles {
     private Retrait lieuRetrait;
     private List<Enchere> encheres = new ArrayList<>();
     private Utilisateur utilisateur;
-    private String test;
 
     //Constructeur vide
     public Articles() {
